@@ -18,7 +18,9 @@
 # misc
 .DS_Store
 *.pem
-
+*.png
+*.jpg
+*.svg
 # debug
 npm-debug.log*
 yarn-debug.log*
