@@ -70,9 +70,9 @@ const Dropdown = ({ menuItem, stickyMenu }) => {
         {groupedCategories.map((parent) => (
           <li key={parent.slug}>
             <Link
-              href={`/${parent.slug}`}
+              href={`category/${parent.slug}`}
               className={`flex text-custom-sm hover:text-blue hover:bg-gray-1 py-[7px] px-4.5 ${
-                pathUrl === `/${parent.slug}` && "text-blue bg-gray-1"
+                pathUrl === `category/${parent.slug}` && "text-blue bg-gray-1"
               }`}
             >
               {parent.Name}
@@ -84,9 +84,9 @@ const Dropdown = ({ menuItem, stickyMenu }) => {
                 {parent.children.map((child) => (
                   <li key={child.slug}>
                     <Link
-                      href={`/${child.slug}`}
+                      href={`category/${child.slug}`}
                       className={`flex text-custom-sm hover:text-blue hover:bg-gray-1 py-[7px] px-4.5 ${
-                        pathUrl === `/${child.slug}` && "text-blue bg-gray-1"
+                        pathUrl === `category/${child.slug}` && "text-blue bg-gray-1"
                       }`}
                     >
                       {child.Name}
