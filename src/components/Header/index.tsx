@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
+import client from "@/graphql/client";
+import { Provider } from "urql";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -304,11 +306,13 @@ const Header = () => {
                 <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
                   {menuData.map((menuItem, i) =>
                     menuItem.submenu ? (
+                     <Provider value={client}>
                       <Dropdown
                         key={i}
                         menuItem={menuItem}
                         stickyMenu={stickyMenu}
                       />
+                      </Provider>
                     ) : (
                       <li
                         key={i}

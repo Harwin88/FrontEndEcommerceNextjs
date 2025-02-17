@@ -1,0 +1,10 @@
+query GetCategories {
+  categories {
+    Name
+    slug
+    parent {
+      Name
+      slug
+    }
+  }
+}

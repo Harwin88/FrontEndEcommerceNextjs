@@ -1,0 +1,6 @@
+schema: "http://127.0.0.1:1337/graphql"
+documents: "src/graphql/**/*.graphql"
+generates:
+  src/graphql/generated/:
+    preset: "client"
+    plugins: []
