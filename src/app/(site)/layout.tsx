@@ -15,6 +15,8 @@ import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import PreLoader from "@/components/Common/PreLoader";
+import { Provider } from "urql";
+import client from "@/graphql/client";
 
 export default function RootLayout({
   children,
@@ -38,7 +40,9 @@ export default function RootLayout({
               <CartModalProvider>
                 <ModalProvider>
                   <PreviewSliderProvider>
+                    <Provider value={client}>
                     <Header />
+                    </Provider>
                     {children}
 
                     <QuickViewModal />

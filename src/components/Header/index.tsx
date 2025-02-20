@@ -2,15 +2,16 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import CustomSelect from "./CustomSelect";
-import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
 import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
-import client from "@/graphql/client";
-import { Provider } from "urql";
+import { useCategories } from "@/hooks/useCategories";
+
+
+import { menuData as staticMenuData } from "./menuData"; // Importamos el menú base
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,6 +21,55 @@ const Header = () => {
 
   const product = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
+
+
+  const [menuItems, setMenuItems] = useState<Menu[]>(staticMenuData);
+  const { categories, loading, error } = useCategories(); // Obtenemos categorías
+
+  // Función para construir la jerarquía de categorías
+  const buildCategoryTree = (categories) => {
+    const categoryMap = new Map();
+
+    // Inicializar todas las categorías en el mapa
+    categories.forEach((category) => {
+      categoryMap.set(category.slug, {
+        id: category.slug,
+        title: category.Name,
+        path: `/category/${category.slug}`,
+        submenu: [], // Inicialmente vacío
+      });
+    });
+
+    const rootCategories = [];
+
+    // Asociar cada categoría a su padre correctamente
+    categories.forEach((category) => {
+      if (category.parent) {
+        const parentCategory = categoryMap.get(category.parent.slug);
+        if (parentCategory) {
+          parentCategory.submenu.push(categoryMap.get(category.slug));
+        }
+      } else {
+        rootCategories.push(categoryMap.get(category.slug)); // Categorías raíz
+      }
+    });
+
+    return rootCategories;
+  };
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      const categoryTree = buildCategoryTree(categories);
+
+      setMenuItems((prev) =>
+        prev.map((item) =>
+          item.title === "Categorías"
+            ? { ...item, submenu: categoryTree } // Se insertan todas las categorías anidadas
+            : item
+        )
+      );
+    }
+  }, [categories]);
 
   const handleOpenCartModal = () => {
     openCartModal();
@@ -303,34 +353,21 @@ const Header = () => {
             >
               {/* <!-- Main Nav Start --> */}
               <nav>
-                <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
-                  {menuData.map((menuItem, i) =>
-                    menuItem.submenu ? (
-                     <Provider value={client}>
-                      <Dropdown
-                        key={i}
-                        menuItem={menuItem}
-                        stickyMenu={stickyMenu}
-                      />
-                      </Provider>
-                    ) : (
-                      <li
-                        key={i}
-                        className="group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full "
-                      >
-                        <Link
-                          href={menuItem.path}
-                          className={`hover:text-blue text-custom-sm font-medium text-dark flex ${
-                            stickyMenu ? "xl:py-4" : "xl:py-6"
-                          }`}
-                        >
-                          {menuItem.title}
-                        </Link>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </nav>
+        <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
+          {menuItems.map((menuItem, i) =>
+            menuItem.submenu && menuItem.submenu.length > 0 ? (
+              <Dropdown key={i} menuItem={menuItem} />
+            ) : (
+              <li key={i} className="group relative">
+                <Link href={menuItem.path} className="text-custom-sm font-medium text-dark">
+                  {menuItem.title}
+                </Link>
+              </li>
+            )
+          )}
+        </ul>
+      </nav>
+
               {/* //   <!-- Main Nav End --> */}
             </div>
             {/* // <!--=== Main Nav End ===--> */}

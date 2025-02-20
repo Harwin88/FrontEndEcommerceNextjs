@@ -1,5 +1,6 @@
 import { Menu } from "@/types/Menu";
 
+
 export const menuData: Menu[] = [
   {
     id: 1,
@@ -124,5 +125,12 @@ export const menuData: Menu[] = [
         path: "/blogs/blog-details",
       },
     ],
+  },
+  {
+    id: 4,
+    title: "Categorías",
+    newTab: false,
+    path: "#",
+    submenu: [], // Se llenará dinámicamente en `Header.tsx`
   },
 ];
