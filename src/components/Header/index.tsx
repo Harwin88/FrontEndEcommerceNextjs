@@ -25,17 +25,17 @@ const Header = () => {
 
   const [menuItems, setMenuItems] = useState<Menu[]>(staticMenuData);
   const { categories, loading, error } = useCategories(); // Obtenemos categorías
-
+   console.log("categories", categories);
   // Función para construir la jerarquía de categorías
-  const buildCategoryTree = (categories) => {
-    const categoryMap = new Map();
+  const buildcategoriaTree = (categories) => {
+    const categoriaMap = new Map();
 
     // Inicializar todas las categorías en el mapa
-    categories.forEach((category) => {
-      categoryMap.set(category.slug, {
-        id: category.slug,
-        title: category.Name,
-        path: `/category/${category.slug}`,
+    categories.forEach((categorias) => {
+      categoriaMap.set(categories.slug, {
+        id: categories.slug,
+        title: categories.Nombre,
+        path: `/categoria/${categories.slug}`,
         submenu: [], // Inicialmente vacío
       });
     });
@@ -43,14 +43,14 @@ const Header = () => {
     const rootCategories = [];
 
     // Asociar cada categoría a su padre correctamente
-    categories.forEach((category) => {
-      if (category.parent) {
-        const parentCategory = categoryMap.get(category.parent.slug);
-        if (parentCategory) {
-          parentCategory.submenu.push(categoryMap.get(category.slug));
+    categories.forEach((categorias) => {
+      if (categories.padre) {
+        const parentcategoria = categoriaMap.get(categories.padre.slug);
+        if (parentcategoria) {
+          parentcategories.submenu.push(categoriaMap.get(categories.slug));
         }
       } else {
-        rootCategories.push(categoryMap.get(category.slug)); // Categorías raíz
+        rootCategories.push(categoriaMap.get(categories.slug)); // Categorías raíz
       }
     });
 
@@ -59,12 +59,12 @@ const Header = () => {
 
   useEffect(() => {
     if (categories.length > 0) {
-      const categoryTree = buildCategoryTree(categories);
+      const categoriaTree = buildcategoriaTree(categories);
 
       setMenuItems((prev) =>
         prev.map((item) =>
           item.title === "Categorías"
-            ? { ...item, submenu: categoryTree } // Se insertan todas las categorías anidadas
+            ? { ...item, submenu: categoriaTree } // Se insertan todas las categorías anidadas
             : item
         )
       );
@@ -89,7 +89,7 @@ const Header = () => {
   });
 
   const options = [
-    { label: "All Categories", value: "0" },
+    { label: "Categorias", value: "0" },
     { label: "Desktop", value: "1" },
     { label: "Laptop", value: "2" },
     { label: "Monitor", value: "3" },
@@ -115,12 +115,16 @@ const Header = () => {
           {/* <!-- header top left --> */}
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link className="flex-shrink-0" href="/">
-              <Image
+            {/*este es el lugar donde va el logo*/} 
+             {/*<Image
                 src="/images/logo/logo.svg"
                 alt="Logo"
                 width={219}
                 height={36}
-              />
+              />*/}
+              <p className="font-bold text-heading-4 bg-gradient-to-r from-blue to-blue-light text-transparent bg-clip-text uppercase tracking-wide">
+                100x100 ∞
+              </p>
             </Link>
 
             <div className="max-w-[475px] w-full">
@@ -197,10 +201,10 @@ const Header = () => {
 
               <div>
                 <span className="block text-2xs text-dark-4 uppercase">
-                  24/7 SUPPORT
+                  Soporte 24/7 
                 </span>
                 <p className="font-medium text-custom-sm text-dark">
-                  (+965) 7492-3477
+                  (+57) 3126701425
                 </p>
               </div>
             </div>
@@ -234,10 +238,10 @@ const Header = () => {
 
                   <div>
                     <span className="block text-2xs text-dark-4 uppercase">
-                      account
+                      Cuenta
                     </span>
                     <p className="font-medium text-custom-sm text-dark">
-                      Sign In
+                      Login
                     </p>
                   </div>
                 </Link>

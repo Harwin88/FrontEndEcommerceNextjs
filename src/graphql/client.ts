@@ -4,11 +4,10 @@ import { createClient, cacheExchange, fetchExchange } from '@urql/core';  // Imp
 
  // Cargar las variables de entorno
 
- const API_URL: string = process.env.API_URL;  // Concatenación con comillas dobles
-console.log("URL de la API de GraphQL:", API_URL);
+ const API_URL: string = process.env.NEXT_PUBLIC_API_URL;  // Concatenación con comillas dobles
 
 const client = createClient({
-  url: API_URL || "https://app-cms-graphql-1bfb73601929.herokuapp.com/graphql",  // URL de la API de GraphQL
+  url: API_URL ,  // URL de la API de GraphQL
   exchanges: [cacheExchange, fetchExchange], // Configura los intercambios
   fetchOptions: {
     

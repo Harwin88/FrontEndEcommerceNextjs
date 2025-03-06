@@ -14,10 +14,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "query GetCategories {\n  categories {\n    Name\n    slug\n    parent {\n      Name\n      slug\n    }\n  }\n}": typeof types.GetCategoriesDocument,
+    "query GetCategoriesAll {\n  categorias(pagination: {page: 1, pageSize: 100}) {\n    Nombre\n    slug\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": typeof types.GetCategoriesAllDocument,
+    "query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": typeof types.GetAllParentCategoriesDocument,
 };
 const documents: Documents = {
-    "query GetCategories {\n  categories {\n    Name\n    slug\n    parent {\n      Name\n      slug\n    }\n  }\n}": types.GetCategoriesDocument,
+    "query GetCategoriesAll {\n  categorias(pagination: {page: 1, pageSize: 100}) {\n    Nombre\n    slug\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": types.GetCategoriesAllDocument,
+    "query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": types.GetAllParentCategoriesDocument,
 };
 
 /**
@@ -37,7 +39,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query GetCategories {\n  categories {\n    Name\n    slug\n    parent {\n      Name\n      slug\n    }\n  }\n}"): (typeof documents)["query GetCategories {\n  categories {\n    Name\n    slug\n    parent {\n      Name\n      slug\n    }\n  }\n}"];
+export function graphql(source: "query GetCategoriesAll {\n  categorias(pagination: {page: 1, pageSize: 100}) {\n    Nombre\n    slug\n    padre {\n      Nombre\n      slug\n    }\n  }\n}"): (typeof documents)["query GetCategoriesAll {\n  categorias(pagination: {page: 1, pageSize: 100}) {\n    Nombre\n    slug\n    padre {\n      Nombre\n      slug\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}"): (typeof documents)["query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

@@ -239,36 +239,21 @@ export type CalificacionRelationResponseCollection = {
 
 export type Categoria = {
   __typename?: 'Categoria';
-  Imagen: Array<Maybe<UploadFile>>;
-  Imagen_connection?: Maybe<UploadFileRelationResponseCollection>;
   Nombre?: Maybe<Scalars['String']['output']>;
-  Stado?: Maybe<Scalars['Boolean']['output']>;
   categoria: Array<Maybe<Categoria>>;
   categoria_connection?: Maybe<CategoriaRelationResponseCollection>;
-  categorias: Array<Maybe<Categoria>>;
-  categorias_connection?: Maybe<CategoriaRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
-  empresa?: Maybe<Comerce>;
   locale?: Maybe<Scalars['String']['output']>;
   localizations: Array<Maybe<Categoria>>;
   localizations_connection?: Maybe<CategoriaRelationResponseCollection>;
+  padre?: Maybe<Categoria>;
+  productos: Array<Maybe<Producto>>;
+  productos_connection?: Maybe<ProductoRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type CategoriaImagenArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CategoriaImagen_ConnectionArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  url_imagen?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -280,20 +265,6 @@ export type CategoriaCategoriaArgs = {
 
 
 export type CategoriaCategoria_ConnectionArgs = {
-  filters?: InputMaybe<CategoriaFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CategoriaCategoriasArgs = {
-  filters?: InputMaybe<CategoriaFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CategoriaCategorias_ConnectionArgs = {
   filters?: InputMaybe<CategoriaFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -313,6 +284,20 @@ export type CategoriaLocalizations_ConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type CategoriaProductosArgs = {
+  filters?: InputMaybe<ProductoFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CategoriaProductos_ConnectionArgs = {
+  filters?: InputMaybe<ProductoFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type CategoriaEntityResponseCollection = {
   __typename?: 'CategoriaEntityResponseCollection';
   nodes: Array<Categoria>;
@@ -321,115 +306,36 @@ export type CategoriaEntityResponseCollection = {
 
 export type CategoriaFiltersInput = {
   Nombre?: InputMaybe<StringFilterInput>;
-  Stado?: InputMaybe<BooleanFilterInput>;
   and?: InputMaybe<Array<InputMaybe<CategoriaFiltersInput>>>;
   categoria?: InputMaybe<CategoriaFiltersInput>;
-  categorias?: InputMaybe<CategoriaFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   documentId?: InputMaybe<IdFilterInput>;
-  empresa?: InputMaybe<ComerceFiltersInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<CategoriaFiltersInput>;
   not?: InputMaybe<CategoriaFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CategoriaFiltersInput>>>;
+  padre?: InputMaybe<CategoriaFiltersInput>;
+  productos?: InputMaybe<ProductoFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
+  url_imagen?: InputMaybe<StringFilterInput>;
 };
 
 export type CategoriaInput = {
-  Imagen?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   Nombre?: InputMaybe<Scalars['String']['input']>;
-  Stado?: InputMaybe<Scalars['Boolean']['input']>;
   categoria?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  categorias?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  empresa?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
+  padre?: InputMaybe<Scalars['ID']['input']>;
+  productos?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  url_imagen?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CategoriaRelationResponseCollection = {
   __typename?: 'CategoriaRelationResponseCollection';
   nodes: Array<Categoria>;
-};
-
-export type Category = {
-  __typename?: 'Category';
-  Name?: Maybe<Scalars['String']['output']>;
-  category: Array<Maybe<Category>>;
-  category_connection?: Maybe<CategoryRelationResponseCollection>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  documentId: Scalars['ID']['output'];
-  locale?: Maybe<Scalars['String']['output']>;
-  localizations: Array<Maybe<Category>>;
-  localizations_connection?: Maybe<CategoryRelationResponseCollection>;
-  parent?: Maybe<Category>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  slug: Scalars['String']['output'];
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type CategoryCategoryArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CategoryCategory_ConnectionArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CategoryLocalizationsArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CategoryLocalizations_ConnectionArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type CategoryEntityResponseCollection = {
-  __typename?: 'CategoryEntityResponseCollection';
-  nodes: Array<Category>;
-  pageInfo: Pagination;
-};
-
-export type CategoryFiltersInput = {
-  Name?: InputMaybe<StringFilterInput>;
-  and?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
-  category?: InputMaybe<CategoryFiltersInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  documentId?: InputMaybe<IdFilterInput>;
-  locale?: InputMaybe<StringFilterInput>;
-  localizations?: InputMaybe<CategoryFiltersInput>;
-  not?: InputMaybe<CategoryFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
-  parent?: InputMaybe<CategoryFiltersInput>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type CategoryInput = {
-  Name?: InputMaybe<Scalars['String']['input']>;
-  category?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type CategoryRelationResponseCollection = {
-  __typename?: 'CategoryRelationResponseCollection';
-  nodes: Array<Category>;
 };
 
 export type Cliente = {
@@ -556,8 +462,6 @@ export type Comerce = {
   Estado?: Maybe<Scalars['Boolean']['output']>;
   Logo?: Maybe<UploadFile>;
   Nombre?: Maybe<Scalars['String']['output']>;
-  categorias: Array<Maybe<Categoria>>;
-  categorias_connection?: Maybe<CategoriaRelationResponseCollection>;
   clientes: Array<Maybe<Cliente>>;
   clientes_connection?: Maybe<ClienteRelationResponseCollection>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -570,20 +474,6 @@ export type Comerce = {
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   telefono: Scalars['Long']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type ComerceCategoriasArgs = {
-  filters?: InputMaybe<CategoriaFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type ComerceCategorias_ConnectionArgs = {
-  filters?: InputMaybe<CategoriaFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -641,7 +531,6 @@ export type ComerceFiltersInput = {
   Estado?: InputMaybe<BooleanFilterInput>;
   Nombre?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ComerceFiltersInput>>>;
-  categorias?: InputMaybe<CategoriaFiltersInput>;
   clientes?: InputMaybe<ClienteFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   documentId?: InputMaybe<IdFilterInput>;
@@ -662,7 +551,6 @@ export type ComerceInput = {
   Estado?: InputMaybe<Scalars['Boolean']['input']>;
   Logo?: InputMaybe<Scalars['ID']['input']>;
   Nombre?: InputMaybe<Scalars['String']['input']>;
-  categorias?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   clientes?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   locale?: InputMaybe<Scalars['String']['input']>;
   productos?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
@@ -1085,7 +973,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Banner | BannerPromocional | Calificacion | Categoria | Category | Cliente | Comerce | ComponentOrderDicreccion | ComponentProducAttributos | ComponentProducBodegas | ComponentProducGoogleMap | ComponentProducSubcategorias | ComponentProducTipoDeProductos | Descuemto | DireccionEnvio | GrupoAttributo | HomePagen | I18NLocale | Lugar | Order | Page404 | Producto | Reserva | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Servicio | TipoDeProducto | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Variante;
+export type GenericMorph = Banner | BannerPromocional | Calificacion | Categoria | Cliente | Comerce | ComponentOrderDicreccion | ComponentProducAttributos | ComponentProducBodegas | ComponentProducGoogleMap | ComponentProducSubcategorias | ComponentProducTipoDeProductos | Descuemto | DireccionEnvio | GrupoAttributo | HomePagen | I18NLocale | Lugar | Order | Page404 | Producto | Reserva | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Servicio | TipoDeProducto | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Variante;
 
 export type GrupoAttributo = {
   __typename?: 'GrupoAttributo';
@@ -1447,7 +1335,6 @@ export type Mutation = {
   createBanner?: Maybe<Banner>;
   createCalificacion?: Maybe<Calificacion>;
   createCategoria?: Maybe<Categoria>;
-  createCategory?: Maybe<Category>;
   createCliente?: Maybe<Cliente>;
   createComerce?: Maybe<Comerce>;
   createDescuemto?: Maybe<Descuemto>;
@@ -1470,7 +1357,6 @@ export type Mutation = {
   deleteBannerPromocional?: Maybe<DeleteMutationResponse>;
   deleteCalificacion?: Maybe<DeleteMutationResponse>;
   deleteCategoria?: Maybe<DeleteMutationResponse>;
-  deleteCategory?: Maybe<DeleteMutationResponse>;
   deleteCliente?: Maybe<DeleteMutationResponse>;
   deleteComerce?: Maybe<DeleteMutationResponse>;
   deleteDescuemto?: Maybe<DeleteMutationResponse>;
@@ -1505,7 +1391,6 @@ export type Mutation = {
   updateBannerPromocional?: Maybe<BannerPromocional>;
   updateCalificacion?: Maybe<Calificacion>;
   updateCategoria?: Maybe<Categoria>;
-  updateCategory?: Maybe<Category>;
   updateCliente?: Maybe<Cliente>;
   updateComerce?: Maybe<Comerce>;
   updateDescuemto?: Maybe<Descuemto>;
@@ -1551,12 +1436,6 @@ export type MutationCreateCalificacionArgs = {
 
 export type MutationCreateCategoriaArgs = {
   data: CategoriaInput;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type MutationCreateCategoryArgs = {
-  data: CategoryInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -1666,11 +1545,6 @@ export type MutationDeleteCalificacionArgs = {
 
 
 export type MutationDeleteCategoriaArgs = {
-  documentId: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteCategoryArgs = {
   documentId: Scalars['ID']['input'];
 };
 
@@ -1809,13 +1683,6 @@ export type MutationUpdateCalificacionArgs = {
 
 export type MutationUpdateCategoriaArgs = {
   data: CategoriaInput;
-  documentId: Scalars['ID']['input'];
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type MutationUpdateCategoryArgs = {
-  data: CategoryInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
@@ -2089,6 +1956,7 @@ export type Producto = {
   Id_product?: Maybe<Scalars['String']['output']>;
   Marca?: Maybe<Scalars['String']['output']>;
   Titulo?: Maybe<Scalars['String']['output']>;
+  categoria?: Maybe<Categoria>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   empresa?: Maybe<Comerce>;
@@ -2169,6 +2037,7 @@ export type ProductoFiltersInput = {
   Marca?: InputMaybe<StringFilterInput>;
   Titulo?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<ProductoFiltersInput>>>;
+  categoria?: InputMaybe<CategoriaFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   documentId?: InputMaybe<IdFilterInput>;
   empresa?: InputMaybe<ComerceFiltersInput>;
@@ -2192,6 +2061,7 @@ export type ProductoInput = {
   Id_product?: InputMaybe<Scalars['String']['input']>;
   Marca?: InputMaybe<Scalars['String']['input']>;
   Titulo?: InputMaybe<Scalars['String']['input']>;
+  categoria?: InputMaybe<Scalars['ID']['input']>;
   empresa?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   modelo?: InputMaybe<Scalars['String']['input']>;
@@ -2224,9 +2094,6 @@ export type Query = {
   categoria?: Maybe<Categoria>;
   categorias: Array<Maybe<Categoria>>;
   categorias_connection?: Maybe<CategoriaEntityResponseCollection>;
-  categories: Array<Maybe<Category>>;
-  categories_connection?: Maybe<CategoryEntityResponseCollection>;
-  category?: Maybe<Category>;
   cliente?: Maybe<Cliente>;
   clientes: Array<Maybe<Cliente>>;
   clientes_connection?: Maybe<ClienteEntityResponseCollection>;
@@ -2354,28 +2221,6 @@ export type QueryCategorias_ConnectionArgs = {
   filters?: InputMaybe<CategoriaFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryCategoriesArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryCategories_ConnectionArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  status?: InputMaybe<PublicationStatus>;
-};
-
-
-export type QueryCategoryArgs = {
-  documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -3696,10 +3541,16 @@ export type VarianteRelationResponseCollection = {
   nodes: Array<Variante>;
 };
 
-export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCategoriesAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', Name?: string | null, slug: string, parent?: { __typename?: 'Category', Name?: string | null, slug: string } | null } | null> };
+export type GetCategoriesAllQuery = { __typename?: 'Query', categorias: Array<{ __typename?: 'Categoria', Nombre?: string | null, slug?: string | null, padre?: { __typename?: 'Categoria', Nombre?: string | null, slug?: string | null } | null } | null> };
+
+export type GetAllParentCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export const GetCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"parent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoriesQuery, GetCategoriesQueryVariables>;
+export type GetAllParentCategoriesQuery = { __typename?: 'Query', categorias: Array<{ __typename?: 'Categoria', Nombre?: string | null, slug?: string | null, createdAt?: any | null, url_imagen?: string | null, padre?: { __typename?: 'Categoria', Nombre?: string | null, slug?: string | null } | null } | null> };
+
+
+export const GetCategoriesAllDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCategoriesAll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categorias"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"100"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"padre"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoriesAllQuery, GetCategoriesAllQueryVariables>;
+export const GetAllParentCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllParentCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categorias"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"200"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"padre"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"url_imagen"}},{"kind":"Field","name":{"kind":"Name","value":"padre"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>;

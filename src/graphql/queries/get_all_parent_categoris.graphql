@@ -1,0 +1,15 @@
+query GetAllParentCategories {
+    categorias(pagination: { page: 1, pageSize: 200 }, filters: {
+      padre: { slug: { null: true } }
+    }) {
+    Nombre
+    slug
+    createdAt
+    url_imagen
+    padre {
+      Nombre
+      slug
+    }
+  }
+ 
+}

@@ -1,8 +1,8 @@
 import { useQuery } from "urql";
-import { GetCategoriesDocument } from "@/graphql/generated/graphql";
+import { GetCategoriesAllDocument } from "@/graphql/generated/graphql";
 
 export const useCategories = () => {
-  const [{ data, fetching, error }] = useQuery({ query: GetCategoriesDocument });
-
-  return { categories: data?.categories ?? [], fetching, error };
+  const [{ data, fetching, error }] = useQuery({ query: GetCategoriesAllDocument });
+   console.log("data categorias", data);
+  return { categories: data?.categorias ?? [], fetching, error };
 };

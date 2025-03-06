@@ -37,12 +37,13 @@ export default function RootLayout({
         ) : (
           <>
             <ReduxProvider>
+            <Provider value={client}>
               <CartModalProvider>
                 <ModalProvider>
                   <PreviewSliderProvider>
-                    <Provider value={client}>
+                   
                     <Header />
-                    </Provider>
+                    
                     {children}
 
                     <QuickViewModal />
@@ -51,6 +52,7 @@ export default function RootLayout({
                   </PreviewSliderProvider>
                 </ModalProvider>
               </CartModalProvider>
+              </Provider>
             </ReduxProvider>
             <ScrollToTop />
             <Footer />

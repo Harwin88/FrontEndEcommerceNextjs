@@ -1,8 +1,11 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useCallback, useRef, useEffect } from "react";
-import data from "./categoryData";
+//import data from "./categoryData";
 import Image from "next/image";
+import { useQuery } from "urql";
+import { GetAllParentCategoriesDocument } from "@/graphql/generated/graphql";
+import client from "@/graphql/client"; 
 
 // Import Swiper styles
 import "swiper/css/navigation";
@@ -11,7 +14,15 @@ import SingleItem from "./SingleItem";
 
 const Categories = () => {
   const sliderRef = useRef(null);
-
+  // Realizar la consulta de categorías
+  const [result] = useQuery({ query: GetAllParentCategoriesDocument, client });
+  const data = result.data?.categorias.map((categoria, index) => ({
+    title: categoria.Nombre,
+    id: index + 1, // Asigna un ID basado en el índice
+    img: categoria.url_imagen || "/images/categories/default.png", // Usa una imagen por defecto si es null
+  }));
+  
+ 
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     sliderRef.current.swiper.slidePrev();
@@ -73,7 +84,7 @@ const Categories = () => {
                 Categories
               </span>
               <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
-                Browse by Category
+              Explorar por categoría
               </h2>
             </div>
 
@@ -134,7 +145,7 @@ const Categories = () => {
               },
             }}
           >
-            {data.map((item, key) => (
+            {data?.map((item, key) => (
               <SwiperSlide key={key}>
                 <SingleItem item={item} />
               </SwiperSlide>

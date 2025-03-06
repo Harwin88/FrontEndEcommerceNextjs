@@ -82,16 +82,24 @@ const ProductItem = ({ item }: { item: Product }) => {
               />
             </svg>
           </button>
-
+   {/* onClick={() => handleAddToCart()}*/}
           <button
-            onClick={() => handleAddToCart()}
+        
+           onClick={() => {
+            openModal();
+            handleQuickViewUpdate();
+          }}
             className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
           >
             Add to cart
           </button>
-
+{/* onClick={() => handleItemToWishList()}*/}
           <button
-            onClick={() => handleItemToWishList()}
+           
+           onClick={() => {
+            openModal();
+            handleQuickViewUpdate();
+          }}
             aria-label="button for favorite select"
             id="favOne"
             className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
