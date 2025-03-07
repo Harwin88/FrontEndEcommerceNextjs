@@ -973,7 +973,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Banner | BannerPromocional | Calificacion | Categoria | Cliente | Comerce | ComponentOrderDicreccion | ComponentProducAttributos | ComponentProducBodegas | ComponentProducGoogleMap | ComponentProducSubcategorias | ComponentProducTipoDeProductos | Descuemto | DireccionEnvio | GrupoAttributo | HomePagen | I18NLocale | Lugar | Order | Page404 | Producto | Reserva | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Servicio | TipoDeProducto | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Variante;
+export type GenericMorph = Banner | BannerPromocional | Calificacion | Categoria | Cliente | Comerce | ComponentOrderDicreccion | ComponentProducAttributos | ComponentProducBodegas | ComponentProducGoogleMap | ComponentProducSubcategorias | ComponentProducTipoDeProductos | Descuemto | DireccionEnvio | GrupoAttributo | Hero | HeroHome | HomePagen | I18NLocale | Lugar | Order | Page404 | Producto | Reserva | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Servicio | TipoDeProducto | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Variante;
 
 export type GrupoAttributo = {
   __typename?: 'GrupoAttributo';
@@ -1060,6 +1060,123 @@ export type GrupoAttributoInput = {
 export type GrupoAttributoRelationResponseCollection = {
   __typename?: 'GrupoAttributoRelationResponseCollection';
   nodes: Array<GrupoAttributo>;
+};
+
+export type Hero = {
+  __typename?: 'Hero';
+  Descripcion?: Maybe<Scalars['JSON']['output']>;
+  Descuento?: Maybe<Scalars['Int']['output']>;
+  Url_imagen?: Maybe<Scalars['String']['output']>;
+  botonTexto?: Maybe<Scalars['String']['output']>;
+  classColorBoton?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations: Array<Maybe<Hero>>;
+  localizations_connection?: Maybe<HeroRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  redirectPromocion?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  titleH2?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type HeroHome = {
+  __typename?: 'HeroHome';
+  Descripcion?: Maybe<Scalars['String']['output']>;
+  Descuento?: Maybe<Scalars['Int']['output']>;
+  Url_imagen?: Maybe<Scalars['String']['output']>;
+  botonTexto?: Maybe<Scalars['String']['output']>;
+  classColorBoton?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  estado?: Maybe<Scalars['Boolean']['output']>;
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations: Array<Maybe<HeroHome>>;
+  localizations_connection?: Maybe<HeroHomeRelationResponseCollection>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  redirectPromocion?: Maybe<Scalars['String']['output']>;
+  titulodos?: Maybe<Scalars['String']['output']>;
+  tituloprinsipal?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type HeroHomeLocalizationsArgs = {
+  filters?: InputMaybe<HeroHomeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type HeroHomeLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<HeroHomeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type HeroHomeEntityResponseCollection = {
+  __typename?: 'HeroHomeEntityResponseCollection';
+  nodes: Array<HeroHome>;
+  pageInfo: Pagination;
+};
+
+export type HeroHomeFiltersInput = {
+  Descripcion?: InputMaybe<StringFilterInput>;
+  Descuento?: InputMaybe<IntFilterInput>;
+  Url_imagen?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<HeroHomeFiltersInput>>>;
+  botonTexto?: InputMaybe<StringFilterInput>;
+  classColorBoton?: InputMaybe<StringFilterInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
+  estado?: InputMaybe<BooleanFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<HeroHomeFiltersInput>;
+  not?: InputMaybe<HeroHomeFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<HeroHomeFiltersInput>>>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  redirectPromocion?: InputMaybe<StringFilterInput>;
+  titulodos?: InputMaybe<StringFilterInput>;
+  tituloprinsipal?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type HeroHomeInput = {
+  Descripcion?: InputMaybe<Scalars['String']['input']>;
+  Descuento?: InputMaybe<Scalars['Int']['input']>;
+  Url_imagen?: InputMaybe<Scalars['String']['input']>;
+  botonTexto?: InputMaybe<Scalars['String']['input']>;
+  classColorBoton?: InputMaybe<Scalars['String']['input']>;
+  estado?: InputMaybe<Scalars['Boolean']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  redirectPromocion?: InputMaybe<Scalars['String']['input']>;
+  titulodos?: InputMaybe<Scalars['String']['input']>;
+  tituloprinsipal?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroHomeRelationResponseCollection = {
+  __typename?: 'HeroHomeRelationResponseCollection';
+  nodes: Array<HeroHome>;
+};
+
+export type HeroInput = {
+  Descripcion?: InputMaybe<Scalars['JSON']['input']>;
+  Descuento?: InputMaybe<Scalars['Int']['input']>;
+  Url_imagen?: InputMaybe<Scalars['String']['input']>;
+  botonTexto?: InputMaybe<Scalars['String']['input']>;
+  classColorBoton?: InputMaybe<Scalars['String']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  redirectPromocion?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  titleH2?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HeroRelationResponseCollection = {
+  __typename?: 'HeroRelationResponseCollection';
+  nodes: Array<Hero>;
 };
 
 export type HomePagen = {
@@ -1340,6 +1457,7 @@ export type Mutation = {
   createDescuemto?: Maybe<Descuemto>;
   createDireccionEnvio?: Maybe<DireccionEnvio>;
   createGrupoAttributo?: Maybe<GrupoAttributo>;
+  createHeroHome?: Maybe<HeroHome>;
   createLugar?: Maybe<Lugar>;
   createOrder?: Maybe<Order>;
   createProducto?: Maybe<Producto>;
@@ -1362,6 +1480,8 @@ export type Mutation = {
   deleteDescuemto?: Maybe<DeleteMutationResponse>;
   deleteDireccionEnvio?: Maybe<DeleteMutationResponse>;
   deleteGrupoAttributo?: Maybe<DeleteMutationResponse>;
+  deleteHero?: Maybe<DeleteMutationResponse>;
+  deleteHeroHome?: Maybe<DeleteMutationResponse>;
   deleteHomePagen?: Maybe<DeleteMutationResponse>;
   deleteLugar?: Maybe<DeleteMutationResponse>;
   deleteOrder?: Maybe<DeleteMutationResponse>;
@@ -1396,6 +1516,8 @@ export type Mutation = {
   updateDescuemto?: Maybe<Descuemto>;
   updateDireccionEnvio?: Maybe<DireccionEnvio>;
   updateGrupoAttributo?: Maybe<GrupoAttributo>;
+  updateHero?: Maybe<Hero>;
+  updateHeroHome?: Maybe<HeroHome>;
   updateHomePagen?: Maybe<HomePagen>;
   updateLugar?: Maybe<Lugar>;
   updateOrder?: Maybe<Order>;
@@ -1466,6 +1588,12 @@ export type MutationCreateDireccionEnvioArgs = {
 
 export type MutationCreateGrupoAttributoArgs = {
   data: GrupoAttributoInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationCreateHeroHomeArgs = {
+  data: HeroHomeInput;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -1570,6 +1698,11 @@ export type MutationDeleteDireccionEnvioArgs = {
 
 
 export type MutationDeleteGrupoAttributoArgs = {
+  documentId: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteHeroHomeArgs = {
   documentId: Scalars['ID']['input'];
 };
 
@@ -1718,6 +1851,19 @@ export type MutationUpdateDireccionEnvioArgs = {
 
 export type MutationUpdateGrupoAttributoArgs = {
   data: GrupoAttributoInput;
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateHeroArgs = {
+  data: HeroInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateHeroHomeArgs = {
+  data: HeroHomeInput;
   documentId: Scalars['ID']['input'];
   status?: InputMaybe<PublicationStatus>;
 };
@@ -2109,6 +2255,10 @@ export type Query = {
   grupoAttributo?: Maybe<GrupoAttributo>;
   grupoAttributos: Array<Maybe<GrupoAttributo>>;
   grupoAttributos_connection?: Maybe<GrupoAttributoEntityResponseCollection>;
+  hero?: Maybe<Hero>;
+  heroHome?: Maybe<HeroHome>;
+  heroHomes: Array<Maybe<HeroHome>>;
+  heroHomes_connection?: Maybe<HeroHomeEntityResponseCollection>;
   homePagen?: Maybe<HomePagen>;
   i18NLocale?: Maybe<I18NLocale>;
   i18NLocales: Array<Maybe<I18NLocale>>;
@@ -2329,6 +2479,33 @@ export type QueryGrupoAttributosArgs = {
 
 export type QueryGrupoAttributos_ConnectionArgs = {
   filters?: InputMaybe<GrupoAttributoFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryHeroArgs = {
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryHeroHomeArgs = {
+  documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryHeroHomesArgs = {
+  filters?: InputMaybe<HeroHomeFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryHeroHomes_ConnectionArgs = {
+  filters?: InputMaybe<HeroHomeFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   status?: InputMaybe<PublicationStatus>;
@@ -3551,6 +3728,12 @@ export type GetAllParentCategoriesQueryVariables = Exact<{ [key: string]: never;
 
 export type GetAllParentCategoriesQuery = { __typename?: 'Query', categorias: Array<{ __typename?: 'Categoria', Nombre?: string | null, slug?: string | null, createdAt?: any | null, url_imagen?: string | null, padre?: { __typename?: 'Categoria', Nombre?: string | null, slug?: string | null } | null } | null> };
 
+export type GeHeroHomeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GeHeroHomeQuery = { __typename?: 'Query', heroHomes: Array<{ __typename?: 'HeroHome', documentId: string, tituloprinsipal?: string | null, titulodos?: string | null, Descripcion?: string | null, Url_imagen?: string | null, botonTexto?: string | null, classColorBoton?: string | null, redirectPromocion?: string | null, Descuento?: number | null } | null> };
+
 
 export const GetCategoriesAllDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCategoriesAll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categorias"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"100"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"padre"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoriesAllQuery, GetCategoriesAllQueryVariables>;
 export const GetAllParentCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllParentCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categorias"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"200"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"padre"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"url_imagen"}},{"kind":"Field","name":{"kind":"Name","value":"padre"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>;
+export const GeHeroHomeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeHeroHome"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heroHomes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"status"},"value":{"kind":"EnumValue","value":"PUBLISHED"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"tituloprinsipal"}},{"kind":"Field","name":{"kind":"Name","value":"titulodos"}},{"kind":"Field","name":{"kind":"Name","value":"Descripcion"}},{"kind":"Field","name":{"kind":"Name","value":"Url_imagen"}},{"kind":"Field","name":{"kind":"Name","value":"botonTexto"}},{"kind":"Field","name":{"kind":"Name","value":"classColorBoton"}},{"kind":"Field","name":{"kind":"Name","value":"redirectPromocion"}},{"kind":"Field","name":{"kind":"Name","value":"Descuento"}}]}}]}}]} as unknown as DocumentNode<GeHeroHomeQuery, GeHeroHomeQueryVariables>;

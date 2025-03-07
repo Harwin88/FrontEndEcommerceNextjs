@@ -9,7 +9,9 @@ import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
 import { useCategories } from "@/hooks/useCategories";
-
+import { useQuery } from "urql";
+import { GetAllParentCategoriesDocument } from "@/graphql/generated/graphql";
+import client from "@/graphql/client"; 
 
 import { menuData as staticMenuData } from "./menuData"; // Importamos el menú base
 
@@ -87,17 +89,18 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
   });
-
+  const [open, setOpen] = useState(false);
+  
+  const [result] = useQuery({ query: GetAllParentCategoriesDocument, client });
   const options = [
     { label: "Categorias", value: "0" },
-    { label: "Desktop", value: "1" },
-    { label: "Laptop", value: "2" },
-    { label: "Monitor", value: "3" },
-    { label: "Phone", value: "4" },
-    { label: "Watch", value: "5" },
-    { label: "Mouse", value: "6" },
-    { label: "Tablet", value: "7" },
+    ...(result.data?.categorias?.map((categoria, index) => ({
+      label: categoria.Nombre,
+      value: String(index + 1),
+    })) ?? []),
   ];
+   
+ 
 
   return (
     <header
@@ -141,7 +144,7 @@ const Header = () => {
                       type="search"
                       name="search"
                       id="search"
-                      placeholder="I am shopping for..."
+                      placeholder="Buscar productos..."
                       autoComplete="off"
                       className="custom-search w-full rounded-r-[5px] bg-gray-1 !border-l-0 border border-gray-3 py-2.5 pl-4 pr-10 outline-none ease-in duration-200"
                     />
@@ -289,7 +292,7 @@ const Header = () => {
 
                   <div>
                     <span className="block text-2xs text-dark-4 uppercase">
-                      cart
+                      Carrito
                     </span>
                     <p className="font-medium text-custom-sm text-dark">
                       ${totalPrice}

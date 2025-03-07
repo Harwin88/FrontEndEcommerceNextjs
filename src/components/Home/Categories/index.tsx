@@ -19,6 +19,7 @@ const Categories = () => {
   const data = result.data?.categorias.map((categoria, index) => ({
     title: categoria.Nombre,
     id: index + 1, // Asigna un ID basado en el índice
+    slug: categoria?.slug,
     img: categoria.url_imagen || "/images/categories/default.png", // Usa una imagen por defecto si es null
   }));
   

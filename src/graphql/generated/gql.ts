@@ -16,10 +16,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 type Documents = {
     "query GetCategoriesAll {\n  categorias(pagination: {page: 1, pageSize: 100}) {\n    Nombre\n    slug\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": typeof types.GetCategoriesAllDocument,
     "query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": typeof types.GetAllParentCategoriesDocument,
+    "query GeHeroHome {\n  heroHomes(status: PUBLISHED) {\n    documentId\n    tituloprinsipal\n    titulodos\n    Descripcion\n    Url_imagen\n    botonTexto\n    classColorBoton\n    redirectPromocion\n    Descuento\n  }\n}": typeof types.GeHeroHomeDocument,
 };
 const documents: Documents = {
     "query GetCategoriesAll {\n  categorias(pagination: {page: 1, pageSize: 100}) {\n    Nombre\n    slug\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": types.GetCategoriesAllDocument,
     "query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}": types.GetAllParentCategoriesDocument,
+    "query GeHeroHome {\n  heroHomes(status: PUBLISHED) {\n    documentId\n    tituloprinsipal\n    titulodos\n    Descripcion\n    Url_imagen\n    botonTexto\n    classColorBoton\n    redirectPromocion\n    Descuento\n  }\n}": types.GeHeroHomeDocument,
 };
 
 /**
@@ -44,6 +46,10 @@ export function graphql(source: "query GetCategoriesAll {\n  categorias(paginati
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}"): (typeof documents)["query GetAllParentCategories {\n  categorias(\n    pagination: {page: 1, pageSize: 200}\n    filters: {padre: {slug: {null: true}}}\n  ) {\n    Nombre\n    slug\n    createdAt\n    url_imagen\n    padre {\n      Nombre\n      slug\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query GeHeroHome {\n  heroHomes(status: PUBLISHED) {\n    documentId\n    tituloprinsipal\n    titulodos\n    Descripcion\n    Url_imagen\n    botonTexto\n    classColorBoton\n    redirectPromocion\n    Descuento\n  }\n}"): (typeof documents)["query GeHeroHome {\n  heroHomes(status: PUBLISHED) {\n    documentId\n    tituloprinsipal\n    titulodos\n    Descripcion\n    Url_imagen\n    botonTexto\n    classColorBoton\n    redirectPromocion\n    Descuento\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

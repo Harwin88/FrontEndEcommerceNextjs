@@ -1,0 +1,13 @@
+query GeHeroHome{
+  heroHomes(status: PUBLISHED) {
+    documentId
+    tituloprinsipal
+    titulodos
+    Descripcion
+    Url_imagen
+    botonTexto
+    classColorBoton
+    redirectPromocion
+    Descuento
+  }
+}
