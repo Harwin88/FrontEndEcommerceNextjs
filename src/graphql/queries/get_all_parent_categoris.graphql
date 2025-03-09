@@ -1,13 +1,13 @@
 query GetAllParentCategories {
-    categorias(pagination: { page: 1, pageSize: 200 }, filters: {
-      padre: { slug: { null: true } }
+    categories(pagination: { page: 1, pageSize: 200 }, filters: {
+      parent: { slug: { null: true } }
     }) {
-    Nombre
+    Name
     slug
     createdAt
-    url_imagen
-    padre {
-      Nombre
+    UrlImagen
+    parent {
+      Name
       slug
     }
   }

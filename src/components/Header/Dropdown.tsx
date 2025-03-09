@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import { useQuery } from "urql";
-import { GetCategoriesAllDocument } from "@/graphql/generated/graphql";
-import client from "@/graphql/client"; 
+import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { useQuery } from 'urql';
+import { GetCategoriesAllDocument } from '@/graphql/generated/graphql';
+import client from '@/graphql/client';
 
 const Dropdown = ({ menuItem, stickyMenu }) => {
   const [dropdownToggler, setDropdownToggler] = useState(false);
@@ -16,15 +16,19 @@ const Dropdown = ({ menuItem, stickyMenu }) => {
   if (fetching) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Procesamiento de datos para dividir categorías padres e hijas
-  const categories = data?.categorias || [];
-  
-  // Filtrar categorías padres
-  const parentCategories = categories.filter(category => category.padre === null);
-  
-  // Agrupar categorías hijas bajo sus padres
-  const groupedCategories = parentCategories.map(parent => {
-    const children = categories.filter(category => category.padre?.slug === parent.slug);
+  // Procesamiento de datos para dividir categorías parents e hijas
+  const categories = data?.categories || [];
+
+  // Filtrar categorías parents
+  const parentCategories = categories.filter(
+    (category) => category.parent === null
+  );
+
+  // Agrupar categorías hijas bajo sus parents
+  const groupedCategories = parentCategories.map((parent) => {
+    const children = categories.filter(
+      (category) => category.parent?.slug === parent?.slug
+    );
     return { ...parent, children };
   });
 
@@ -32,14 +36,14 @@ const Dropdown = ({ menuItem, stickyMenu }) => {
     <li
       onClick={() => setDropdownToggler(!dropdownToggler)}
       className={`group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full ${
-        pathUrl.includes(menuItem.title) && "before:!w-full"
+        pathUrl.includes(menuItem.title) && 'before:!w-full'
       }`}
     >
       <a
         href="#"
         className={`hover:text-blue text-custom-sm font-medium text-dark flex items-center gap-1.5 capitalize ${
-          stickyMenu ? "xl:py-4" : "xl:py-6"
-        } ${pathUrl.includes(menuItem.title) && "!text-blue"}`}
+          stickyMenu ? 'xl:py-4' : 'xl:py-6'
+        } ${pathUrl.includes(menuItem.title) && '!text-blue'}`}
       >
         {menuItem.title}
         <svg
@@ -60,22 +64,22 @@ const Dropdown = ({ menuItem, stickyMenu }) => {
 
       {/* Dropdown Start */}
       <ul
-        className={`dropdown ${dropdownToggler && "flex"} ${
+        className={`dropdown ${dropdownToggler && 'flex'} ${
           stickyMenu
-            ? "xl:group-hover:translate-y-0"
-            : "xl:group-hover:translate-y-0"
+            ? 'xl:group-hover:translate-y-0'
+            : 'xl:group-hover:translate-y-0'
         }`}
       >
-        {/* Renderizar las categorías padres */}
+        {/* Renderizar las categorías parents */}
         {groupedCategories.map((parent) => (
           <li key={parent.slug}>
             <Link
               href={`category/${parent.slug}`}
               className={`flex text-custom-sm hover:text-blue hover:bg-gray-1 py-[7px] px-4.5 ${
-                pathUrl === `category/${parent.slug}` && "text-blue bg-gray-1"
+                pathUrl === `category/${parent.slug}` && 'text-blue bg-gray-1'
               }`}
             >
-              {parent.Nombre}
+              {parent.Name}
             </Link>
 
             {/* Renderizar las categorías hijas si existen */}
@@ -86,10 +90,11 @@ const Dropdown = ({ menuItem, stickyMenu }) => {
                     <Link
                       href={`category/${child.slug}`}
                       className={`flex text-custom-sm hover:text-blue hover:bg-gray-1 py-[7px] px-4.5 ${
-                        pathUrl === `category/${child.slug}` && "text-blue bg-gray-1"
+                        pathUrl === `category/${child.slug}` &&
+                        'text-blue bg-gray-1'
                       }`}
                     >
-                      {child.Nombre}
+                      {child.Name}
                     </Link>
                   </li>
                 ))}

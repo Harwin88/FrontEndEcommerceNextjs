@@ -1,9 +1,9 @@
 query GetCategoriesAll {
-    categorias(pagination: { page: 1, pageSize: 100 }) {
-    Nombre
+    categories(pagination: { page: 1, pageSize: 100 }) {
+    Name
     slug
-     padre {
-      Nombre
+     parent {
+      Name
       slug
     }
   }

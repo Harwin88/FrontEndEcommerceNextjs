@@ -16,11 +16,11 @@ const Categories = () => {
   const sliderRef = useRef(null);
   // Realizar la consulta de categorías
   const [result] = useQuery({ query: GetAllParentCategoriesDocument, client });
-  const data = result.data?.categorias.map((categoria, index) => ({
-    title: categoria.Nombre,
+  const data = result.data?.categories.map((categoria, index) => ({
+    title: categoria.Name,
     id: index + 1, // Asigna un ID basado en el índice
     slug: categoria?.slug,
-    img: categoria.url_imagen || "/images/categories/default.png", // Usa una imagen por defecto si es null
+    img: categoria.UrlImagen || "/images/categories/categories-01.png", // Usa una imagen por defecto si es null
   }));
   
  

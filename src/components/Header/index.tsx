@@ -27,7 +27,6 @@ const Header = () => {
 
   const [menuItems, setMenuItems] = useState<Menu[]>(staticMenuData);
   const { categories, loading, error } = useCategories(); // Obtenemos categorías
-   console.log("categories", categories);
   // Función para construir la jerarquía de categorías
   const buildcategoriaTree = (categories) => {
     const categoriaMap = new Map();
@@ -36,7 +35,7 @@ const Header = () => {
     categories.forEach((categorias) => {
       categoriaMap.set(categories.slug, {
         id: categories.slug,
-        title: categories.Nombre,
+        title: categories.Name,
         path: `/categoria/${categories.slug}`,
         submenu: [], // Inicialmente vacío
       });
@@ -44,10 +43,10 @@ const Header = () => {
 
     const rootCategories = [];
 
-    // Asociar cada categoría a su padre correctamente
+    // Asociar cada categoría a su parent correctamente
     categories.forEach((categorias) => {
-      if (categories.padre) {
-        const parentcategoria = categoriaMap.get(categories.padre.slug);
+      if (categories.parent) {
+        const parentcategoria = categoriaMap.get(categories.parent?.slug);
         if (parentcategoria) {
           parentcategories.submenu.push(categoriaMap.get(categories.slug));
         }
@@ -94,8 +93,8 @@ const Header = () => {
   const [result] = useQuery({ query: GetAllParentCategoriesDocument, client });
   const options = [
     { label: "Categorias", value: "0" },
-    ...(result.data?.categorias?.map((categoria, index) => ({
-      label: categoria.Nombre,
+    ...(result.data?.categories?.map((categoria, index) => ({
+      label: categoria.Name,
       value: String(index + 1),
     })) ?? []),
   ];

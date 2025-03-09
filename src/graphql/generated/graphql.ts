@@ -19,6 +19,8 @@ export type Scalars = {
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: { input: any; output: any; }
   DireccionEnvioZonadinamicaDynamicZoneInput: { input: any; output: any; }
+  /** A string used to identify an i18n locale */
+  I18NLocaleCode: { input: any; output: any; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: { input: any; output: any; }
   /** The `BigInt` scalar type represents non-fractional signed whole numeric values. */
@@ -240,34 +242,20 @@ export type CalificacionRelationResponseCollection = {
 export type Categoria = {
   __typename?: 'Categoria';
   Nombre?: Maybe<Scalars['String']['output']>;
-  categoria: Array<Maybe<Categoria>>;
-  categoria_connection?: Maybe<CategoriaRelationResponseCollection>;
+  children?: Maybe<Categoria>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   locale?: Maybe<Scalars['String']['output']>;
   localizations: Array<Maybe<Categoria>>;
   localizations_connection?: Maybe<CategoriaRelationResponseCollection>;
-  padre?: Maybe<Categoria>;
+  parent: Array<Maybe<Categoria>>;
+  parent_connection?: Maybe<CategoriaRelationResponseCollection>;
   productos: Array<Maybe<Producto>>;
   productos_connection?: Maybe<ProductoRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  slug?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   url_imagen?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type CategoriaCategoriaArgs = {
-  filters?: InputMaybe<CategoriaFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type CategoriaCategoria_ConnectionArgs = {
-  filters?: InputMaybe<CategoriaFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
@@ -279,6 +267,20 @@ export type CategoriaLocalizationsArgs = {
 
 
 export type CategoriaLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<CategoriaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CategoriaParentArgs = {
+  filters?: InputMaybe<CategoriaFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CategoriaParent_ConnectionArgs = {
   filters?: InputMaybe<CategoriaFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -307,14 +309,14 @@ export type CategoriaEntityResponseCollection = {
 export type CategoriaFiltersInput = {
   Nombre?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<CategoriaFiltersInput>>>;
-  categoria?: InputMaybe<CategoriaFiltersInput>;
+  children?: InputMaybe<CategoriaFiltersInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   documentId?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<CategoriaFiltersInput>;
   not?: InputMaybe<CategoriaFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<CategoriaFiltersInput>>>;
-  padre?: InputMaybe<CategoriaFiltersInput>;
+  parent?: InputMaybe<CategoriaFiltersInput>;
   productos?: InputMaybe<ProductoFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   slug?: InputMaybe<StringFilterInput>;
@@ -324,9 +326,9 @@ export type CategoriaFiltersInput = {
 
 export type CategoriaInput = {
   Nombre?: InputMaybe<Scalars['String']['input']>;
-  categoria?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  children?: InputMaybe<Scalars['ID']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
-  padre?: InputMaybe<Scalars['ID']['input']>;
+  parent?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   productos?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -336,6 +338,88 @@ export type CategoriaInput = {
 export type CategoriaRelationResponseCollection = {
   __typename?: 'CategoriaRelationResponseCollection';
   nodes: Array<Categoria>;
+};
+
+export type Category = {
+  __typename?: 'Category';
+  Name?: Maybe<Scalars['String']['output']>;
+  UrlImagen?: Maybe<Scalars['String']['output']>;
+  children: Array<Maybe<Category>>;
+  children_connection?: Maybe<CategoryRelationResponseCollection>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  documentId: Scalars['ID']['output'];
+  locale?: Maybe<Scalars['String']['output']>;
+  localizations: Array<Maybe<Category>>;
+  localizations_connection?: Maybe<CategoryRelationResponseCollection>;
+  parent?: Maybe<Category>;
+  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type CategoryChildrenArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CategoryChildren_ConnectionArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CategoryLocalizationsArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type CategoryLocalizations_ConnectionArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoryEntityResponseCollection = {
+  __typename?: 'CategoryEntityResponseCollection';
+  nodes: Array<Category>;
+  pageInfo: Pagination;
+};
+
+export type CategoryFiltersInput = {
+  Name?: InputMaybe<StringFilterInput>;
+  UrlImagen?: InputMaybe<StringFilterInput>;
+  and?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
+  children?: InputMaybe<CategoryFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  documentId?: InputMaybe<IdFilterInput>;
+  locale?: InputMaybe<StringFilterInput>;
+  localizations?: InputMaybe<CategoryFiltersInput>;
+  not?: InputMaybe<CategoryFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
+  parent?: InputMaybe<CategoryFiltersInput>;
+  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  slug?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type CategoryInput = {
+  Name?: InputMaybe<Scalars['String']['input']>;
+  UrlImagen?: InputMaybe<Scalars['String']['input']>;
+  children?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CategoryRelationResponseCollection = {
+  __typename?: 'CategoryRelationResponseCollection';
+  nodes: Array<Category>;
 };
 
 export type Cliente = {
@@ -973,7 +1057,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = Banner | BannerPromocional | Calificacion | Categoria | Cliente | Comerce | ComponentOrderDicreccion | ComponentProducAttributos | ComponentProducBodegas | ComponentProducGoogleMap | ComponentProducSubcategorias | ComponentProducTipoDeProductos | Descuemto | DireccionEnvio | GrupoAttributo | Hero | HeroHome | HomePagen | I18NLocale | Lugar | Order | Page404 | Producto | Reserva | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Servicio | TipoDeProducto | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Variante;
+export type GenericMorph = Banner | BannerPromocional | Calificacion | Categoria | Category | Cliente | Comerce | ComponentOrderDicreccion | ComponentProducAttributos | ComponentProducBodegas | ComponentProducGoogleMap | ComponentProducSubcategorias | ComponentProducTipoDeProductos | Descuemto | DireccionEnvio | GrupoAttributo | Hero | HeroHome | HomePagen | I18NLocale | Lugar | Order | Page404 | Producto | Reserva | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | Servicio | TipoDeProducto | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Variante;
 
 export type GrupoAttributo = {
   __typename?: 'GrupoAttributo';
@@ -1452,6 +1536,7 @@ export type Mutation = {
   createBanner?: Maybe<Banner>;
   createCalificacion?: Maybe<Calificacion>;
   createCategoria?: Maybe<Categoria>;
+  createCategory?: Maybe<Category>;
   createCliente?: Maybe<Cliente>;
   createComerce?: Maybe<Comerce>;
   createDescuemto?: Maybe<Descuemto>;
@@ -1475,6 +1560,7 @@ export type Mutation = {
   deleteBannerPromocional?: Maybe<DeleteMutationResponse>;
   deleteCalificacion?: Maybe<DeleteMutationResponse>;
   deleteCategoria?: Maybe<DeleteMutationResponse>;
+  deleteCategory?: Maybe<DeleteMutationResponse>;
   deleteCliente?: Maybe<DeleteMutationResponse>;
   deleteComerce?: Maybe<DeleteMutationResponse>;
   deleteDescuemto?: Maybe<DeleteMutationResponse>;
@@ -1511,6 +1597,7 @@ export type Mutation = {
   updateBannerPromocional?: Maybe<BannerPromocional>;
   updateCalificacion?: Maybe<Calificacion>;
   updateCategoria?: Maybe<Categoria>;
+  updateCategory?: Maybe<Category>;
   updateCliente?: Maybe<Cliente>;
   updateComerce?: Maybe<Comerce>;
   updateDescuemto?: Maybe<Descuemto>;
@@ -1558,6 +1645,13 @@ export type MutationCreateCalificacionArgs = {
 
 export type MutationCreateCategoriaArgs = {
   data: CategoriaInput;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationCreateCategoryArgs = {
+  data: CategoryInput;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -1674,6 +1768,12 @@ export type MutationDeleteCalificacionArgs = {
 
 export type MutationDeleteCategoriaArgs = {
   documentId: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteCategoryArgs = {
+  documentId: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
 };
 
 
@@ -1817,6 +1917,14 @@ export type MutationUpdateCalificacionArgs = {
 export type MutationUpdateCategoriaArgs = {
   data: CategoriaInput;
   documentId: Scalars['ID']['input'];
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type MutationUpdateCategoryArgs = {
+  data: CategoryInput;
+  documentId: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -2240,6 +2348,9 @@ export type Query = {
   categoria?: Maybe<Categoria>;
   categorias: Array<Maybe<Categoria>>;
   categorias_connection?: Maybe<CategoriaEntityResponseCollection>;
+  categories: Array<Maybe<Category>>;
+  categories_connection?: Maybe<CategoryEntityResponseCollection>;
+  category?: Maybe<Category>;
   cliente?: Maybe<Cliente>;
   clientes: Array<Maybe<Cliente>>;
   clientes_connection?: Maybe<ClienteEntityResponseCollection>;
@@ -2371,6 +2482,31 @@ export type QueryCategorias_ConnectionArgs = {
   filters?: InputMaybe<CategoriaFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCategoriesArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCategories_ConnectionArgs = {
+  filters?: InputMaybe<CategoryFiltersInput>;
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  status?: InputMaybe<PublicationStatus>;
+};
+
+
+export type QueryCategoryArgs = {
+  documentId: Scalars['ID']['input'];
+  locale?: InputMaybe<Scalars['I18NLocaleCode']['input']>;
   status?: InputMaybe<PublicationStatus>;
 };
 
@@ -3721,12 +3857,12 @@ export type VarianteRelationResponseCollection = {
 export type GetCategoriesAllQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCategoriesAllQuery = { __typename?: 'Query', categorias: Array<{ __typename?: 'Categoria', Nombre?: string | null, slug?: string | null, padre?: { __typename?: 'Categoria', Nombre?: string | null, slug?: string | null } | null } | null> };
+export type GetCategoriesAllQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', Name?: string | null, slug?: string | null, parent?: { __typename?: 'Category', Name?: string | null, slug?: string | null } | null } | null> };
 
 export type GetAllParentCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllParentCategoriesQuery = { __typename?: 'Query', categorias: Array<{ __typename?: 'Categoria', Nombre?: string | null, slug?: string | null, createdAt?: any | null, url_imagen?: string | null, padre?: { __typename?: 'Categoria', Nombre?: string | null, slug?: string | null } | null } | null> };
+export type GetAllParentCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', Name?: string | null, slug?: string | null, createdAt?: any | null, UrlImagen?: string | null, parent?: { __typename?: 'Category', Name?: string | null, slug?: string | null } | null } | null> };
 
 export type GeHeroHomeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3734,6 +3870,6 @@ export type GeHeroHomeQueryVariables = Exact<{ [key: string]: never; }>;
 export type GeHeroHomeQuery = { __typename?: 'Query', heroHomes: Array<{ __typename?: 'HeroHome', documentId: string, tituloprinsipal?: string | null, titulodos?: string | null, Descripcion?: string | null, Url_imagen?: string | null, botonTexto?: string | null, classColorBoton?: string | null, redirectPromocion?: string | null, Descuento?: number | null } | null> };
 
 
-export const GetCategoriesAllDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCategoriesAll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categorias"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"100"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"padre"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoriesAllQuery, GetCategoriesAllQueryVariables>;
-export const GetAllParentCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllParentCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categorias"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"200"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"padre"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"url_imagen"}},{"kind":"Field","name":{"kind":"Name","value":"padre"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Nombre"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>;
+export const GetCategoriesAllDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCategoriesAll"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"100"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"parent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoriesAllQuery, GetCategoriesAllQueryVariables>;
+export const GetAllParentCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllParentCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"page"},"value":{"kind":"IntValue","value":"1"}},{"kind":"ObjectField","name":{"kind":"Name","value":"pageSize"},"value":{"kind":"IntValue","value":"200"}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"parent"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"slug"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"null"},"value":{"kind":"BooleanValue","value":true}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"UrlImagen"}},{"kind":"Field","name":{"kind":"Name","value":"parent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]}}]} as unknown as DocumentNode<GetAllParentCategoriesQuery, GetAllParentCategoriesQueryVariables>;
 export const GeHeroHomeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeHeroHome"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"heroHomes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"status"},"value":{"kind":"EnumValue","value":"PUBLISHED"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"documentId"}},{"kind":"Field","name":{"kind":"Name","value":"tituloprinsipal"}},{"kind":"Field","name":{"kind":"Name","value":"titulodos"}},{"kind":"Field","name":{"kind":"Name","value":"Descripcion"}},{"kind":"Field","name":{"kind":"Name","value":"Url_imagen"}},{"kind":"Field","name":{"kind":"Name","value":"botonTexto"}},{"kind":"Field","name":{"kind":"Name","value":"classColorBoton"}},{"kind":"Field","name":{"kind":"Name","value":"redirectPromocion"}},{"kind":"Field","name":{"kind":"Name","value":"Descuento"}}]}}]}}]} as unknown as DocumentNode<GeHeroHomeQuery, GeHeroHomeQueryVariables>;
