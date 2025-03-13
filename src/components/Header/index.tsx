@@ -12,9 +12,9 @@ import { useCategories } from "@/hooks/useCategories";
 import { useQuery } from "urql";
 import { GetAllParentCategoriesDocument } from "@/graphql/generated/graphql";
 import client from "@/graphql/client"; 
-
+import { useFetchAllCategories } from "./mapMenu/categoriesPagitor";
 import { menuData as staticMenuData } from "./menuData"; // Importamos el menú base
-
+import DropdownCategories from "./DropdownCategories";
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
@@ -99,8 +99,11 @@ const Header = () => {
     })) ?? []),
   ];
    
- 
-
+  const [categoriestree, setCategoriesTree] = useState<any[]>([]);
+  const fetchCategories = useFetchAllCategories();
+  useEffect(() => {
+    fetchCategories().then(setCategoriesTree).catch(console.error);
+  }, []);
   return (
     <header
       className={`fixed left-0 top-0 w-full z-9999 bg-white transition-all ease-in-out duration-300 ${
@@ -359,7 +362,11 @@ const Header = () => {
             >
               {/* <!-- Main Nav Start --> */}
               <nav>
+      
         <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
+    
+        <DropdownCategories key={0} categories={categoriestree} />
+  
           {menuItems.map((menuItem, i) =>
             menuItem.submenu && menuItem.submenu.length > 0 ? (
               <Dropdown key={i} menuItem={menuItem} />

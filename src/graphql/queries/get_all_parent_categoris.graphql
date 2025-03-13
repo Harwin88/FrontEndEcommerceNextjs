@@ -3,12 +3,14 @@ query GetAllParentCategories {
       parent: { slug: { null: true } }
     }) {
     Name
+    documentId
     slug
     createdAt
     UrlImagen
     parent {
       Name
       slug
+      UrlImagen
     }
   }
  

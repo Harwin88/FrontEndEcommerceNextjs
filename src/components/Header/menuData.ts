@@ -10,9 +10,17 @@ export const menuData: Menu[] = [
   },
   {
     id: 2,
-    title: "Comprar",
+    title: "categorías",
     newTab: false,
-    path: "/shop-with-sidebar",
+    path: "/categories",
+    submenu: [
+      {
+        id: 0,
+        title: "Ilumina tu hogar",
+        newTab: false,
+        path: "/contact",
+      }
+    ], // Se llenará dinámicamente en `Header.tsx`
   },
   {
     id: 3,
@@ -125,12 +133,5 @@ export const menuData: Menu[] = [
         path: "/blogs/blog-details",
       },
     ],
-  },
-  {
-    id: 4,
-    title: "Categorías",
-    newTab: false,
-    path: "#",
-    submenu: [], // Se llenará dinámicamente en `Header.tsx`
-  },
+  }
 ];

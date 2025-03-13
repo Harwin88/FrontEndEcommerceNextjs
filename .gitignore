@@ -21,6 +21,28 @@
 *.png
 *.jpg
 *.svg
+*.gif
+*.ico
+*.lock
+*.log
+*.tmp
+*.swp
+*.zip
+*.rar
+*.gz
+*.tar
+*.tgz
+*.map
+*.webp
+*.woff  
+*.woff2
+*.eot
+*.ttf
+*.otf
+*.mp4
+*.webm
+*.csv
+*.xlsx
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -35,4 +57,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-src/graphql/generated
+/graphql

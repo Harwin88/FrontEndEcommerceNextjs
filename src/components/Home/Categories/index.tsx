@@ -20,7 +20,7 @@ const Categories = () => {
     title: categoria.Name,
     id: index + 1, // Asigna un ID basado en el índice
     slug: categoria?.slug,
-    img: categoria.UrlImagen || "/images/categories/categories-01.png", // Usa una imagen por defecto si es null
+    img: categoria.UrlImagen || "/images/categories/defaul.png", // Usa una imagen por defecto si es null
   }));
   
  
