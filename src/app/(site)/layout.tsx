@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import "../css/euclid-circular-a-font.css";
 import "../css/style.css";
+
+
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -14,7 +16,7 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
-import PreLoader from "@/components/Common/PreLoader";
+import SkeletonLayout from "@/components/Common/layoutSkeletor";
 import { Provider } from "urql";
 import client from "@/graphql/client";
 
@@ -33,7 +35,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body>
         {loading ? (
-          <PreLoader />
+            <SkeletonLayout />
         ) : (
           <>
             <ReduxProvider>

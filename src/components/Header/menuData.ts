@@ -8,20 +8,7 @@ export const menuData: Menu[] = [
     newTab: false,
     path: "/",
   },
-  {
-    id: 2,
-    title: "categorías",
-    newTab: false,
-    path: "/categories",
-    submenu: [
-      {
-        id: 0,
-        title: "Ilumina tu hogar",
-        newTab: false,
-        path: "/contact",
-      }
-    ], // Se llenará dinámicamente en `Header.tsx`
-  },
+ 
   {
     id: 3,
     title: "Contatenos",

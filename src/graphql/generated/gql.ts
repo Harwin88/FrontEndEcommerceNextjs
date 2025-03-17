@@ -15,11 +15,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "query GetCategoriesAll($page: Int) {\n  categories(pagination: {page: $page, pageSize: 100}, sort: \"Name:asc\") {\n    Name\n    slug\n    UrlImagen\n    documentId\n    parent {\n      Name\n      slug\n      documentId\n      UrlImagen\n    }\n  }\n}": typeof types.GetCategoriesAllDocument,
+    "query GetProductsByCategory($slug: String!, $page: Int!, $pageSize: Int!) {\n  products(\n    filters: {category: {slug: {contains: $slug}}}\n    pagination: {page: $page, pageSize: $pageSize}\n  ) {\n    Name\n    Url_imagen {\n      Imagen\n      Name\n    }\n    Description\n    variants {\n      Sku\n      product\n      price\n      stock\n      attributes {\n        Name\n        value\n      }\n    }\n  }\n}": typeof types.GetProductsByCategoryDocument,
     "query GetAllParentCategories {\n  categories(\n    pagination: {page: 1, pageSize: 200}\n    filters: {parent: {slug: {null: true}}}\n  ) {\n    Name\n    documentId\n    slug\n    createdAt\n    UrlImagen\n    parent {\n      Name\n      slug\n      UrlImagen\n    }\n  }\n}": typeof types.GetAllParentCategoriesDocument,
     "query GeHeroHome {\n  heroHomes(status: PUBLISHED) {\n    documentId\n    tituloprinsipal\n    titulodos\n    Descripcion\n    Url_imagen\n    botonTexto\n    classColorBoton\n    redirectPromocion\n    Descuento\n  }\n}": typeof types.GeHeroHomeDocument,
 };
 const documents: Documents = {
     "query GetCategoriesAll($page: Int) {\n  categories(pagination: {page: $page, pageSize: 100}, sort: \"Name:asc\") {\n    Name\n    slug\n    UrlImagen\n    documentId\n    parent {\n      Name\n      slug\n      documentId\n      UrlImagen\n    }\n  }\n}": types.GetCategoriesAllDocument,
+    "query GetProductsByCategory($slug: String!, $page: Int!, $pageSize: Int!) {\n  products(\n    filters: {category: {slug: {contains: $slug}}}\n    pagination: {page: $page, pageSize: $pageSize}\n  ) {\n    Name\n    Url_imagen {\n      Imagen\n      Name\n    }\n    Description\n    variants {\n      Sku\n      product\n      price\n      stock\n      attributes {\n        Name\n        value\n      }\n    }\n  }\n}": types.GetProductsByCategoryDocument,
     "query GetAllParentCategories {\n  categories(\n    pagination: {page: 1, pageSize: 200}\n    filters: {parent: {slug: {null: true}}}\n  ) {\n    Name\n    documentId\n    slug\n    createdAt\n    UrlImagen\n    parent {\n      Name\n      slug\n      UrlImagen\n    }\n  }\n}": types.GetAllParentCategoriesDocument,
     "query GeHeroHome {\n  heroHomes(status: PUBLISHED) {\n    documentId\n    tituloprinsipal\n    titulodos\n    Descripcion\n    Url_imagen\n    botonTexto\n    classColorBoton\n    redirectPromocion\n    Descuento\n  }\n}": types.GeHeroHomeDocument,
 };
@@ -42,6 +44,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query GetCategoriesAll($page: Int) {\n  categories(pagination: {page: $page, pageSize: 100}, sort: \"Name:asc\") {\n    Name\n    slug\n    UrlImagen\n    documentId\n    parent {\n      Name\n      slug\n      documentId\n      UrlImagen\n    }\n  }\n}"): (typeof documents)["query GetCategoriesAll($page: Int) {\n  categories(pagination: {page: $page, pageSize: 100}, sort: \"Name:asc\") {\n    Name\n    slug\n    UrlImagen\n    documentId\n    parent {\n      Name\n      slug\n      documentId\n      UrlImagen\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query GetProductsByCategory($slug: String!, $page: Int!, $pageSize: Int!) {\n  products(\n    filters: {category: {slug: {contains: $slug}}}\n    pagination: {page: $page, pageSize: $pageSize}\n  ) {\n    Name\n    Url_imagen {\n      Imagen\n      Name\n    }\n    Description\n    variants {\n      Sku\n      product\n      price\n      stock\n      attributes {\n        Name\n        value\n      }\n    }\n  }\n}"): (typeof documents)["query GetProductsByCategory($slug: String!, $page: Int!, $pageSize: Int!) {\n  products(\n    filters: {category: {slug: {contains: $slug}}}\n    pagination: {page: $page, pageSize: $pageSize}\n  ) {\n    Name\n    Url_imagen {\n      Imagen\n      Name\n    }\n    Description\n    variants {\n      Sku\n      product\n      price\n      stock\n      attributes {\n        Name\n        value\n      }\n    }\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

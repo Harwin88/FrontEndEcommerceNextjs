@@ -1,0 +1,23 @@
+query GetProductsByCategory($slug: String!, $page: Int!, $pageSize: Int!) {
+  products(
+    filters: { category: { slug: { contains: $slug } } }
+    pagination: { page: $page, pageSize: $pageSize }
+  ) {
+    Name
+    Url_imagen {
+      Imagen
+      Name
+    }
+    Description
+    variants {
+      Sku
+      product
+      price
+      stock
+      attributes {
+        Name
+        value
+      }
+    }
+  }
+}

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import PreLoader from "@/components/Common/PreLoader";
+import AccordionSkeleton from "./loader/menu_spoin"
+
 interface Category {
   documentId: string;
   Name: string;
@@ -15,42 +16,142 @@ interface DropdownProps {
   stickyMenu?: boolean;
 }
 
+interface CategoryAccordionProps {
+  category: Category;
+  categories: Category[];
+  activePath: string;
+  onCategoryClick: () => void;
+  activeAncestors: string[];
+}
+
+const CategoryAccordion = ({
+  category,
+  categories,
+  activePath,
+  onCategoryClick,
+  activeAncestors,
+}: CategoryAccordionProps) => {
+  // Si la categoría actual es parte de la ruta activa, se expande por defecto.
+  const [expanded, setExpanded] = useState(activeAncestors.includes(category.documentId));
+  const children = categories.filter(
+    (cat) => cat.parent?.documentId === category.documentId
+  );
+  const categoryUrl = `/category/${category.slug}`;
+  const isActive = activePath === categoryUrl;
+
+  return (
+    <li className="mb-1">
+      <div className="flex items-center justify-between">
+        <Link
+          href={categoryUrl}
+          onClick={() => {
+            onCategoryClick();
+          }}
+          className={`block text-sm py-2 ${
+            isActive
+              ? "text-blue-600 font-bold"
+              : "text-gray-600 hover:text-blue-600"
+          }`}
+        >
+          {category.Name}
+        </Link>
+        {children.length > 0 && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setExpanded(!expanded);
+            }}
+            className="p-1 focus:outline-none"
+          >
+            <svg
+              className={`w-4 h-4 transform transition-transform ${
+                expanded ? "rotate-90" : ""
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        )}
+      </div>
+      {expanded && children.length > 0 && (
+        <ul className="pl-4 border-l border-gray-200">
+          {children.map((child) => (
+            <CategoryAccordion
+              key={child.documentId}
+              category={child}
+              categories={categories}
+              activePath={activePath}
+              onCategoryClick={onCategoryClick}
+              activeAncestors={activeAncestors}
+            />
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
+
 const DropdownCategories = ({ categories, stickyMenu }: DropdownProps) => {
-  const [dropdownToggler, setDropdownToggler] = useState(false);
-  const pathUrl = usePathname();
-   console.log("dropdowcategoria", categories);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const activePath = usePathname();
+  const dropdownRef = useRef<HTMLLIElement>(null);
+
+  // Filtramos las categorías raíz (sin padre)
+  const rootCategories = categories?.filter((cat) => !cat.parent) || [];
+
+  // Determinar la categoría activa según la ruta actual.
+  const activeCategory = categories.find(
+    (cat) => `/category/${cat.slug}` === activePath
+  );
+
+  // Recopilamos los id de los ancestros de la categoría activa.
+  let activeAncestors: string[] = [];
+  if (activeCategory) {
+    let current = activeCategory;
+    while (current.parent) {
+      activeAncestors.push(current.parent.documentId);
+      current = current.parent;
+    }
+  }
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (!(event.target as HTMLElement).closest(".dropdown-container")) {
-        setDropdownToggler(false);
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
       }
     };
+
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // Filtrar categorías raíz
-  const rootCategories = categories?.filter((cat) => !cat.parent) || [];
-
-  // Función para obtener subcategorías
-  const getSubcategories = (parentId: string) =>
-    categories?.filter((cat) => cat.parent?.documentId === parentId) || [];
+  const handleCategoryClick = () => {
+    setDropdownOpen(false);
+  };
 
   return (
-    <li
-      className={`dropdown-container group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full ${
-        pathUrl.includes("categorias") && "before:!w-full"
-      }`}
-    >
+    <li ref={dropdownRef} className="dropdown-container group relative">
       <a
         href="#"
         onClick={(e) => {
           e.preventDefault();
-          setDropdownToggler(!dropdownToggler);
+          setDropdownOpen((prev) => !prev);
         }}
-        className={`hover:text-blue text-custom-sm font-medium text-dark flex items-center gap-1.5 capitalize ${
+        className={`hover:text-blue text-custom-sm font-medium flex items-center gap-1.5 capitalize ${
           stickyMenu ? "xl:py-4" : "xl:py-6"
-        } ${pathUrl.includes("categorias") && "!text-blue"}`}
+        } ${activePath.includes("categorias") && "!text-blue"}`}
       >
         Categorías
         <svg
@@ -70,34 +171,28 @@ const DropdownCategories = ({ categories, stickyMenu }: DropdownProps) => {
         </svg>
       </a>
 
-      {/* Dropdown Mejorado */}
-      {dropdownToggler && (
-        <div
-          className="absolute left-0 top-full bg-white shadow-lg border border-gray-200 rounded-lg mt-2 p-6 w-[800px] grid grid-cols-4 gap-8"
-        >
-          {rootCategories.length > 0 ? (
-            rootCategories.map((rootCat) => (
-              <div key={rootCat.documentId}>
-                <h3 className="font-semibold text-gray-800 border-b pb-2 mb-2 text-lg">
-                  {rootCat.Name}
-                </h3>
-                <ul>
-                  {getSubcategories(rootCat.documentId).map((subCat) => (
-                    <li key={subCat.documentId}>
-                      <Link
-                        href={`/category/${subCat.slug}`}
-                        className="block text-sm text-gray-600 hover:text-blue-600 py-2"
-                      >
-                        {subCat.Name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-200"><div className="h-16 w-16 animate-spin rounded-full border-4 border-solid border-blue border-t-transparent"></div></p>
-          )}
+      {dropdownOpen && (
+        <div className="absolute left-0 top-full bg-white shadow-lg rounded-lg mt-2 w-[800px]">
+          <div className="p-6 max-h-[70vh] overflow-y-auto">
+            {rootCategories.length > 0 ? (
+              <ul>
+                {rootCategories.map((rootCat) => (
+                  <CategoryAccordion
+                    key={rootCat.documentId}
+                    category={rootCat}
+                    categories={categories}
+                    activePath={activePath}
+                    onCategoryClick={handleCategoryClick}
+                    activeAncestors={activeAncestors}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-200">
+                <AccordionSkeleton />
+              </p>
+            )}
+          </div>
         </div>
       )}
     </li>
