@@ -4,11 +4,11 @@ import { useCallback, useRef } from "react";
 import "swiper/css/navigation";
 import "swiper/css";
 import Image from "next/image";
-
+import { Navigation } from "swiper/modules";
 import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
 import { useAppSelector } from "@/redux/store";
 
-const PreviewSliderModal = () => {
+const PreviewSliderModal = ({imagesProduct}) => {
   const { closePreviewModal, isModalPreviewOpen } = usePreviewSlider();
 
   const data = useAppSelector((state) => state.productDetailsReducer.value);
@@ -95,17 +95,27 @@ const PreviewSliderModal = () => {
         </button>
       </div>
 
-      <Swiper ref={sliderRef} slidesPerView={1} spaceBetween={20}>
-        <SwiperSlide>
-          <div className="flex justify-center items-center">
-            <Image
-              src={"/images/products/product-2-bg-1.png"}
-              alt={"product image"}
-              width={450}
-              height={450}
-            />
-          </div>
-        </SwiperSlide>
+      <Swiper
+        ref={sliderRef}
+        slidesPerView={1}
+        spaceBetween={20}
+        navigation
+        modules={[Navigation]}
+      >
+        
+          <SwiperSlide >
+            <div className="flex justify-center items-center">
+            {imagesProduct.map((image, index) => (
+              <Image
+                src={image}
+                alt={`product image ${index + 1}`}
+                width={450}
+                height={450}
+              />
+            ))}
+            </div>
+          </SwiperSlide>
+       
       </Swiper>
     </div>
   );
