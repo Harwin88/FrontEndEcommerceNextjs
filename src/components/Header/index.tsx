@@ -5,6 +5,7 @@ import CustomSelect from "./CustomSelect";
 import Dropdown from "./Dropdown";
 import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
@@ -15,6 +16,9 @@ import client from "@/graphql/client";
 import { useFetchAllCategories } from "./mapMenu/categoriesPagitor";
 import { menuData as staticMenuData } from "./menuData"; // Importamos el menú base
 import DropdownCategories from "./DropdownCategories";
+import { logout } from "@/redux/features/authSlice";
+import { useRouter } from "next/navigation";
+
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
@@ -23,6 +27,7 @@ const Header = () => {
 
   const product = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
+  const { user } = useAppSelector((state) => state.auth); // Obtenemos el usuario autenticado
 
 
   const [menuItems, setMenuItems] = useState<Menu[]>(staticMenuData);
@@ -104,6 +109,16 @@ const Header = () => {
   useEffect(() => {
     fetchCategories().then(setCategoriesTree).catch(console.error);
   }, []);
+
+ // Función para cerrar sesión
+ const router = useRouter();
+ const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/signin");
+  };
+
+
   return (
     <header
       className={`fixed left-0 top-0 w-full z-9999 bg-white transition-all ease-in-out duration-300 ${
@@ -245,9 +260,20 @@ const Header = () => {
                     <span className="block text-2xs text-dark-4 uppercase">
                       Cuenta
                     </span>
-                    <p className="font-medium text-custom-sm text-dark">
-                      Login
-                    </p>
+                    {user ? (
+                      <button onClick={handleLogout}>
+                        <p className="font-medium text-custom-sm text-dark">
+                          Cerrar sesión
+                        </p>
+                      </button>
+                    ) : (
+                      <Link href="/signin">
+                        <p className="font-medium text-custom-sm text-dark">
+                          Iniciar sesión
+                        </p>
+                      </Link>
+                    )}
+                    
                   </div>
                 </Link>
 

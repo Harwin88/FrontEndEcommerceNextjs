@@ -1,0 +1,18 @@
+mutation Login($login: UsersPermissionsLoginInput!) {
+  login(input: $login) {
+    user {
+      role {
+        name
+        id
+        description
+        type
+      }
+      id
+      email
+      confirmed
+      blocked
+    }
+    jwt
+    
+  }
+}

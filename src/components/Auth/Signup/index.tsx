@@ -1,22 +1,37 @@
+"use client";
+
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { loginThunk } from "@/redux/features/authSlice";
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
+const router = useRouter();
+ const { loading, error, user } = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+      if (user) {
+        router.push("/my-account");
+      }
+    }, [user, router]);
+
   return (
     <>
-      <Breadcrumb title={"Signup"} pages={["Signup"]} />
+      <Breadcrumb title={"Crear una cuenta"} pages={["Crear una cuenta"]} />
       <section className="overflow-hidden py-20 bg-gray-2">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
             <div className="text-center mb-11">
               <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
-                Create an Account
+                Crear una cuenta
               </h2>
-              <p>Enter your detail below</p>
+              <p>Ingiresa tus datos a continuación</p>
             </div>
 
-            <div className="flex flex-col gap-4.5">
+          {/*  <div className="flex flex-col gap-4.5">
               <button className="flex justify-center items-center gap-3.5 rounded-lg border border-gray-3 bg-gray-1 p-3 ease-out duration-200 hover:bg-gray-2">
                 <svg
                   width="20"
@@ -79,7 +94,7 @@ const Signup = () => {
                 </svg>
                 Sign Up with Github
               </button>
-            </div>
+            </div>*/}
 
             <span className="relative z-1 block font-medium text-center mt-4.5">
               <span className="block absolute -z-1 left-0 top-1/2 h-px w-full bg-gray-3"></span>
@@ -90,7 +105,7 @@ const Signup = () => {
               <form>
                 <div className="mb-5">
                   <label htmlFor="name" className="block mb-2.5">
-                    Full Name <span className="text-red">*</span>
+                    Nombre Completo <span className="text-red">*</span>
                   </label>
 
                   <input
@@ -159,7 +174,7 @@ const Signup = () => {
                     href="/signin"
                     className="text-dark ease-out duration-200 hover:text-blue pl-2"
                   >
-                    Sign in Now
+                    Iniciar Sesion
                   </Link>
                 </p>
               </form>
