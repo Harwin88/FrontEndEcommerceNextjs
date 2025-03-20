@@ -7,10 +7,14 @@ import SingleListItem from "../Shop/SingleListItem";
 import CustomSelect from "../ShopWithSidebar/CustomSelect";
 
 import shopData from "../Shop/shopData";
+import { Product } from "@/types/product";
 
-const ShopWithoutSidebar = () => {
+type ShopWithoutSidebarProps = {
+  shop: Product[];
+};
+const ShopWithoutSidebar = ({ shop }: ShopWithoutSidebarProps) => {
   const [productStyle, setProductStyle] = useState("grid");
-
+  console.log("products ", shop);
   const options = [
     { label: "Latest Products", value: "0" },
     { label: "Best Selling", value: "1" },
@@ -129,7 +133,7 @@ const ShopWithoutSidebar = () => {
                     : "flex flex-col gap-7.5"
                 }`}
               >
-                {shopData.map((item, key) =>
+                {shop.map((item, key) =>
                   productStyle === "grid" ? (
                     <SingleGridItem item={item} key={key} />
                   ) : (

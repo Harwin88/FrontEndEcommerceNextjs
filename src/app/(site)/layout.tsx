@@ -13,7 +13,7 @@ import { ReduxProvider } from "@/redux/provider";
 import QuickViewModal from "@/components/Common/QuickViewModal";
 import CartSidebarModal from "@/components/Common/CartSidebarModal";
 import { PreviewSliderProvider } from "../context/PreviewSliderContext";
-import PreviewSliderModal from "@/components/Common/PreviewSlider";
+
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import SkeletonLayout from "@/components/Common/layoutSkeletor";
@@ -50,7 +50,7 @@ export default function RootLayout({
 
                     <QuickViewModal />
                     <CartSidebarModal />
-                    <PreviewSliderModal />
+                   
                   </PreviewSliderProvider>
                 </ModalProvider>
               </CartModalProvider>

@@ -1,6 +1,6 @@
 import React from "react";
 import ShopWithoutSidebar from "@/components/ShopWithoutSidebar";
-
+import shopData from "@/components/Shop/shopData";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Shop Page | NextCommerce Nextjs E-commerce template",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const ShopWithoutSidebarPage = () => {
   return (
     <main>
-      <ShopWithoutSidebar />
+     <ShopWithoutSidebar shop={shopData}  />
     </main>
   );
 };

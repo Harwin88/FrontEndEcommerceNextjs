@@ -1,9 +1,17 @@
+// CategoryPage.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
-import ProductCard from "@/components/ProductCard";
+import { Metadata } from "next";
+import ShopWithoutSidebar from "@/components/ShopWithoutSidebar";
 import { useFetchProductsByCategory } from "@/hooks/useFetchProductsByCategory";
+import { transformProducts } from "./transformProduct";
+
+export const shopMetadata: Metadata = {
+  title: "Shop Page | NextCommerce Nextjs E-commerce template",
+  description: "This is Shop Page for NextCommerce Template",
+};
 
 const CategoryPage = () => {
   const params = useParams();
@@ -21,7 +29,11 @@ const CategoryPage = () => {
   useEffect(() => {
     setLoading(true);
     fetchProducts(slug, page, pageSize)
-      .then((data) => setProducts(data))
+      .then((data) => {
+        // Transformamos la data externa al formato Product
+        const transformed = transformProducts(data);
+        setProducts(transformed);
+      })
       .finally(() => setLoading(false));
   }, [slug, page]);
 
@@ -29,36 +41,8 @@ const CategoryPage = () => {
   const prevPage = () => router.push(`/category/${slug}?page=${Math.max(1, page - 1)}`);
 
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4 capitalize">{slug.replace("-", " ")}</h1>
-
-      {loading ? (
-        <p className="text-center text-gray-500">Loading products...</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
-        </div>
-      )}
-
-      {/* Controles de paginación */}
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={prevPage}
-          disabled={page === 1}
-          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
-        >
-          Prev
-        </button>
-        <span className="text-lg">Page {page}</span>
-        <button
-          onClick={nextPage}
-          className="px-4 py-2 bg-gray-300 rounded"
-        >
-          Next
-        </button>
-      </div>
+    <main>
+      <ShopWithoutSidebar shop={products} />
     </main>
   );
 };

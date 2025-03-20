@@ -7,6 +7,8 @@ import { addItemToCart } from "@/redux/features/cart-slice";
 import { addItemToWishlist } from "@/redux/features/wishlist-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
+import { ModalProvider } from "@/app/context/QuickViewModalContext";
+import PreviewSliderModal from "@/components/Common/PreviewSlider";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -55,6 +57,7 @@ const SingleGridItem = ({ item }: { item: Product }) => {
             aria-label="button for quick view"
             className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-blue"
           >
+         
             <svg
               className="fill-current"
               width="16"
@@ -155,6 +158,9 @@ const SingleGridItem = ({ item }: { item: Product }) => {
         <span className="text-dark">${item.discountedPrice}</span>
         <span className="text-dark-4 line-through">${item.price}</span>
       </span>
+      <ModalProvider>
+            <PreviewSliderModal imagesProduct={item.imgs.thumbnails}/>
+      </ModalProvider>
     </div>
   );
 };
