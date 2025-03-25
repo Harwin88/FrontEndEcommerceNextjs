@@ -95,7 +95,13 @@ const HeroCarousal = () => {
                 </div>
 
                 <div>
-                  <Image src={hero.img} alt={hero.tituloprinsipal} width={351} height={358} />
+                <Image
+                  src={hero.img}
+                  alt={hero.tituloprinsipal || "Imagen del héroe"} // ✅ Evita valores vacíos
+                  width={351}
+                  height={358}
+                  key={hero.id}
+                />
                 </div>
               </div>
             </SwiperSlide>

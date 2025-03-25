@@ -21,6 +21,7 @@ const LatestPosts = ({ blogs }) => {
               >
                 <Image
                   src={blog.img}
+                  key={blog.id}
                   alt="blog"
                   className="rounded-[10px] w-full"
                   width={110}
