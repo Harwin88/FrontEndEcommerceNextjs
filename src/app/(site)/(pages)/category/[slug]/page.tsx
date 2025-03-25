@@ -1,17 +1,11 @@
-// CategoryPage.tsx
 "use client";
+
 
 import React, { useState, useEffect } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
-import { Metadata } from "next";
 import ShopWithoutSidebar from "@/components/ShopWithoutSidebar";
 import { useFetchProductsByCategory } from "@/hooks/useFetchProductsByCategory";
-import { transformProducts } from "./transformProduct";
-
-export const shopMetadata: Metadata = {
-  title: "Shop Page | NextCommerce Nextjs E-commerce template",
-  description: "This is Shop Page for NextCommerce Template",
-};
+import { transformProducts } from "./transFormProduct";
 
 const CategoryPage = () => {
   const params = useParams();
@@ -30,7 +24,6 @@ const CategoryPage = () => {
     setLoading(true);
     fetchProducts(slug, page, pageSize)
       .then((data) => {
-        // Transformamos la data externa al formato Product
         const transformed = transformProducts(data);
         setProducts(transformed);
       })

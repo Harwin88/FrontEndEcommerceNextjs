@@ -1,14 +1,14 @@
-"use client";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useCallback, useRef } from "react";
-import "swiper/css/navigation";
-import "swiper/css";
-import Image from "next/image";
-import { Navigation } from "swiper/modules";
-import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
-import { useAppSelector } from "@/redux/store";
+'use client';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { useCallback, useRef } from 'react';
+import 'swiper/css/navigation';
+import 'swiper/css';
+import Image from 'next/image';
+import { Navigation } from 'swiper/modules';
+import { usePreviewSlider } from '@/app/context/PreviewSliderContext';
+import { useAppSelector } from '@/redux/store';
 
-const PreviewSliderModal = ({imagesProduct}) => {
+const PreviewSliderModal = ({ imagesProduct }) => {
   const { closePreviewModal, isModalPreviewOpen } = usePreviewSlider();
 
   const data = useAppSelector((state) => state.productDetailsReducer.value);
@@ -28,7 +28,7 @@ const PreviewSliderModal = ({imagesProduct}) => {
   return (
     <div
       className={`preview-slider w-full h-screen  z-999999 inset-0 flex justify-center items-center bg-[#000000F2] bg-opacity-70 ${
-        isModalPreviewOpen ? "fixed" : "hidden"
+        isModalPreviewOpen ? 'fixed' : 'hidden'
       }`}
     >
       <button
@@ -66,8 +66,8 @@ const PreviewSliderModal = ({imagesProduct}) => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M14.5918 5.92548C14.9091 5.60817 15.4236 5.60817 15.7409 5.92548L22.2409 12.4255C22.5582 12.7428 22.5582 13.2572 22.2409 13.5745L15.7409 20.0745C15.4236 20.3918 14.9091 20.3918 14.5918 20.0745C14.2745 19.7572 14.2745 19.2428 14.5918 18.9255L19.7048 13.8125H4.33301C3.88428 13.8125 3.52051 13.4487 3.52051 13C3.52051 12.5513 3.88428 12.1875 4.33301 12.1875H19.7048L14.5918 7.07452C14.2745 6.75722 14.2745 6.24278 14.5918 5.92548Z"
               fill="#FDFDFD"
             />
@@ -86,8 +86,8 @@ const PreviewSliderModal = ({imagesProduct}) => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M14.5918 5.92548C14.9091 5.60817 15.4236 5.60817 15.7409 5.92548L22.2409 12.4255C22.5582 12.7428 22.5582 13.2572 22.2409 13.5745L15.7409 20.0745C15.4236 20.3918 14.9091 20.3918 14.5918 20.0745C14.2745 19.7572 14.2745 19.2428 14.5918 18.9255L19.7048 13.8125H4.33301C3.88428 13.8125 3.52051 13.4487 3.52051 13C3.52051 12.5513 3.88428 12.1875 4.33301 12.1875H19.7048L14.5918 7.07452C14.2745 6.75722 14.2745 6.24278 14.5918 5.92548Z"
               fill="#FDFDFD"
             />
@@ -102,20 +102,19 @@ const PreviewSliderModal = ({imagesProduct}) => {
         navigation
         modules={[Navigation]}
       >
-        
-          <SwiperSlide >
-            <div className="flex justify-center items-center">
+        <SwiperSlide>
+          <div className="flex justify-center items-center">
             {imagesProduct.map((image, index) => (
               <Image
+                key={index}
                 src={image}
                 alt={`product image ${index + 1}`}
                 width={450}
                 height={450}
               />
             ))}
-            </div>
-          </SwiperSlide>
-       
+          </div>
+        </SwiperSlide>
       </Swiper>
     </div>
   );

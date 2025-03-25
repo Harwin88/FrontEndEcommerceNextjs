@@ -1,6 +1,6 @@
 // pages/protected-page.tsx
 import { GetServerSideProps } from "next";
-import { initializeStore } from "@/redux/store";
+import { store } from "@/redux/store";
 import Cookies from "cookies"; // npm install cookies
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -20,7 +20,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      // ...
+      "/my-account": true,
+      "/checkout": true,
     },
   };
 };

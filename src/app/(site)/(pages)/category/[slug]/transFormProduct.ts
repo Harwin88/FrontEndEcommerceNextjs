@@ -8,7 +8,7 @@ export const transformProducts = (externalData: any[]): Product[] => {
     const variant = prod.variants && prod.variants.length > 0 ? prod.variants[0] : null;
      console.log("protrass000000000222", prod);
     return {
-      title: prod.name, // De "name" a "title"
+      title: prod.title, // De "name" a "title"
       reviews: 0, // Si no existe, se puede asignar 0 o algún valor por defecto
       price: variant?.price || 0,
       // Aquí puedes definir la lógica de precio con descuento. Por ejemplo, un 10% de descuento:

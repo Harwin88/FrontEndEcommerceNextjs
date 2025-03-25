@@ -18,6 +18,8 @@ import { menuData as staticMenuData } from "./menuData"; // Importamos el menú 
 import DropdownCategories from "./DropdownCategories";
 import { logout } from "@/redux/features/authSlice";
 import { useRouter } from "next/navigation";
+import { Menu } from "@/types/Menu";
+
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,7 +33,7 @@ const Header = () => {
 
 
   const [menuItems, setMenuItems] = useState<Menu[]>(staticMenuData);
-  const { categories, loading, error } = useCategories(); // Obtenemos categorías
+  const { categories } = useCategories(); // Obtenemos categorías
   // Función para construir la jerarquía de categorías
   const buildcategoriaTree = (categories) => {
     const categoriaMap = new Map();
@@ -261,17 +263,12 @@ const Header = () => {
                       Cuenta
                     </span>
                     {user ? (
-                      <button onClick={handleLogout}>
-                        <p className="font-medium text-custom-sm text-dark">
+                      <button onClick={handleLogout} className="font-medium text-custom-sm text-dark">
+
                           Cerrar sesión
-                        </p>
                       </button>
                     ) : (
-                      <Link href="/signin">
-                        <p className="font-medium text-custom-sm text-dark">
-                          Iniciar sesión
-                        </p>
-                      </Link>
+                      <span className="font-medium text-custom-sm text-dark">Iniciar sesión</span>
                     )}
                     
                   </div>

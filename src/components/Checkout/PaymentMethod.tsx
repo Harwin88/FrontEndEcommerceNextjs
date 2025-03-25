@@ -1,138 +1,71 @@
-import React, { useState } from "react";
-import Image from "next/image";
+"use client";
+import React from "react";
+import { initMercadoPago, Payment } from "@mercadopago/sdk-react";
 
-const PaymentMethod = () => {
-  const [payment, setPayment] = useState("bank");
+// Inicializa Mercado Pago con tu Public Key de prueba
+initMercadoPago("TEST-3f03751f-5689-4435-b898-d029d605de3f");
+
+const PaymentBrickExample = () => {
+  // Configuración de inicialización: monto y preferencia (reemplaza <PREFERENCE_ID> por el id real)
+  const initialization = {
+    amount: 10000, // Monto en la moneda que corresponda
+    preferenceId: "bankTransfer",
+  };
+
+  // Configuración de personalización: define qué métodos de pago mostrar
+  const customization = {
+    paymentMethods: {
+      ticket: "all",
+   bankTransfer: "all",
+   creditCard: "all",
+   prepaidCard: "all",
+   debitCard: "all",
+   mercadoPago: "all",
+    },
+  };
+
+  // Callback que se ejecuta al enviar el formulario del Brick
+  const onSubmit = async ({ selectedPaymentMethod, formData }: { selectedPaymentMethod: any; formData: any }) => {
+    return new Promise((resolve, reject) => {
+      fetch("/process_payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          console.log("Resultado del pago:", response);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Error al procesar el pago:", error);
+          reject(error);
+        });
+    });
+  };
+
+  // Callback para manejar errores en el Brick
+  const onError = async (error: any) => {
+    console.error("Error en Payment Brick:", error);
+  };
+
+  // Callback que se ejecuta cuando el Brick está listo
+  const onReady = async () => {
+    console.log("Payment Brick listo");
+  };
+
   return (
-    <div className="bg-white shadow-1 rounded-[10px] mt-7.5">
-      <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-        <h3 className="font-medium text-xl text-dark">Payment Method</h3>
-      </div>
-
-      <div className="p-4 sm:p-8.5">
-        <div className="flex flex-col gap-3">
-          <label
-            htmlFor="bank"
-            className="flex cursor-pointer select-none items-center gap-4"
-          >
-            <div className="relative">
-              <input
-                type="checkbox"
-                name="bank"
-                id="bank"
-                className="sr-only"
-                onChange={() => setPayment("bank")}
-              />
-              <div
-                className={`flex h-4 w-4 items-center justify-center rounded-full ${
-                  payment === "bank"
-                    ? "border-4 border-blue"
-                    : "border border-gray-4"
-                }`}
-              ></div>
-            </div>
-
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none ${
-                payment === "bank"
-                  ? "border-transparent bg-gray-2"
-                  : " border-gray-4 shadow-1"
-              }`}
-            >
-              <div className="flex items-center">
-                <div className="pr-2.5">
-                  <Image src="/images/checkout/bank.svg" alt="bank" width={29} height={12}/>
-                </div>
-
-                <div className="border-l border-gray-4 pl-2.5">
-                  <p>Direct bank transfer</p>
-                </div>
-              </div>
-            </div>
-          </label>
-
-          <label
-            htmlFor="cash"
-            className="flex cursor-pointer select-none items-center gap-4"
-          >
-            <div className="relative">
-              <input
-                type="checkbox"
-                name="cash"
-                id="cash"
-                className="sr-only"
-                onChange={() => setPayment("cash")}
-              />
-              <div
-                className={`flex h-4 w-4 items-center justify-center rounded-full ${
-                  payment === "cash"
-                    ? "border-4 border-blue"
-                    : "border border-gray-4"
-                }`}
-              ></div>
-            </div>
-
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none min-w-[240px] ${
-                payment === "cash"
-                  ? "border-transparent bg-gray-2"
-                  : " border-gray-4 shadow-1"
-              }`}
-            >
-              <div className="flex items-center">
-                <div className="pr-2.5">
-                  <Image src="/images/checkout/cash.svg" alt="cash" width={21} height={21} />
-                </div>
-
-                <div className="border-l border-gray-4 pl-2.5">
-                  <p>Cash on delivery</p>
-                </div>
-              </div>
-            </div>
-          </label>
-
-          <label
-            htmlFor="paypal"
-            className="flex cursor-pointer select-none items-center gap-4"
-          >
-            <div className="relative">
-              <input
-                type="checkbox"
-                name="paypal"
-                id="paypal"
-                className="sr-only"
-                onChange={() => setPayment("paypal")}
-              />
-              <div
-                className={`flex h-4 w-4 items-center justify-center rounded-full ${
-                  payment === "paypal"
-                    ? "border-4 border-blue"
-                    : "border border-gray-4"
-                }`}
-              ></div>
-            </div>
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none min-w-[240px] ${
-                payment === "paypal"
-                  ? "border-transparent bg-gray-2"
-                  : " border-gray-4 shadow-1"
-              }`}
-            >
-              <div className="flex items-center">
-                <div className="pr-2.5">
-                  <Image src="/images/checkout/paypal.svg" alt="paypal" width={75} height={20}/>
-                </div>
-
-                <div className="border-l border-gray-4 pl-2.5">
-                  <p>Paypal</p>
-                </div>
-              </div>
-            </div>
-          </label>
-        </div>
-      </div>
+    <div>
+      <h2 className="text-xl font-bold mb-4">Payment Brick Example</h2>
+      <Payment
+        initialization={initialization}
+        customization={customization}
+        onSubmit={onSubmit}
+        onError={onError}
+        onReady={onReady}
+      />
     </div>
   );
 };
 
-export default PaymentMethod;
+export default PaymentBrickExample;
