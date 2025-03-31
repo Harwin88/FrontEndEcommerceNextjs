@@ -209,9 +209,9 @@ const DropdownCategories = ({ categories, stickyMenu }: DropdownProps) => {
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-200">
+              <div className="text-gray-200">
                 <AccordionSkeleton />
-              </p>
+              </div>
             )}
           </div>
         </div>

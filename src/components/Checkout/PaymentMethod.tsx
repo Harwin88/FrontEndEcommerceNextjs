@@ -1,33 +1,84 @@
 "use client";
-import React from "react";
-import { initMercadoPago, Payment } from "@mercadopago/sdk-react";
 
-// Inicializa Mercado Pago con tu Public Key de prueba
-initMercadoPago("TEST-3f03751f-5689-4435-b898-d029d605de3f");
+import React, { useState, useEffect } from "react";
+import { initMercadoPago, Payment } from "@mercadopago/sdk-react";
+import { useAppSelector } from "@/redux/store";
+import { selectTotalPrice } from "@/redux/features/cart-slice";
+import Checkout from ".";
+
+initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY!, { locale: "es-CO" });
 
 const PaymentBrickExample = () => {
-  // Configuración de inicialización: monto y preferencia (reemplaza <PREFERENCE_ID> por el id real)
+  const cartItems = useAppSelector((state) => state.cartReducer.items);
+  const totalPrice = useAppSelector(selectTotalPrice);
+  const [preferenceId, setPreferenceId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [cashOnDelivery, setCashOnDelivery] = useState(false);
+
+  useEffect(() => {
+    const createPreference = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch("/api/create_preference", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            items: cartItems.map((item) => ({
+              id: item.id,
+              title: item.title,
+              price: item.price,
+              quantity: item.quantity,
+            })),
+            successUrl: "https://qrzq2bsn-3000.use.devtunnels.ms/mail-success",
+            failureUrl: "https://qrzq2bsn-3000.use.devtunnels.ms/failure",
+            pendingUrl: "https://qrzq2bsn-3000.use.devtunnels.ms/pending",
+            notificationUrl: "https://qrzq2bsn-3000.use.devtunnels.ms/api/mercadopago/webhook",
+          }),
+        });
+
+        const data = await response.json();
+        if (data.preference_id) {
+          setPreferenceId(data.preference_id);
+        } else {
+          setError("No se pudo obtener el preference_id");
+        }
+      } catch (error) {
+        console.error("Error al obtener el preference_id:", error);
+        setError("Error al comunicarse con Mercado Pago.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (cartItems.length > 0 && totalPrice > 0) {
+      createPreference();
+    } else {
+      setLoading(false);
+    }
+  }, [cartItems, totalPrice]);
+
   const initialization = {
-    amount: 10000, // Monto en la moneda que corresponda
-    preferenceId: "bankTransfer",
+    amount: Number(totalPrice) > 0 ? Number(totalPrice) : 1,
+    preferenceId,
   };
 
-  // Configuración de personalización: define qué métodos de pago mostrar
   const customization = {
     paymentMethods: {
-      ticket: "all",
-   bankTransfer: "all",
-   creditCard: "all",
-   prepaidCard: "all",
-   debitCard: "all",
-   mercadoPago: "all",
+      wallet_purchase: "all",
+      bankTransfer: "all",
+      creditCard: "all",
+      debitCard: "all",
+      atm: "all",
+      maxInstallments: 12,
     },
   };
 
-  // Callback que se ejecuta al enviar el formulario del Brick
   const onSubmit = async ({ selectedPaymentMethod, formData }: { selectedPaymentMethod: any; formData: any }) => {
     return new Promise((resolve, reject) => {
-      fetch("/process_payment", {
+      fetch("/api/process_payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -44,26 +95,38 @@ const PaymentBrickExample = () => {
     });
   };
 
-  // Callback para manejar errores en el Brick
-  const onError = async (error: any) => {
-    console.error("Error en Payment Brick:", error);
-  };
-
-  // Callback que se ejecuta cuando el Brick está listo
-  const onReady = async () => {
-    console.log("Payment Brick listo");
+  const onCashOnDelivery = () => {
+    setCashOnDelivery(true);
+    console.log("Pago contra entrega seleccionado");
   };
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Payment Brick Example</h2>
-      <Payment
-        initialization={initialization}
-        customization={customization}
-        onSubmit={onSubmit}
-        onError={onError}
-        onReady={onReady}
-      />
+      {loading ? (
+        <p>Cargando opciones de pago...</p>
+      ) : error ? (
+        <p className="text-red-500">{error}</p>
+      ) : (
+        <>
+          {preferenceId && (
+            <Payment
+              initialization={initialization}
+              customization={customization}
+              onSubmit={onSubmit}
+            />
+          )}
+          <div className="mt-4">
+            <button
+              onClick={onCashOnDelivery}
+              className="bg-blue-500  px-4 py-2 rounded w-full random border-2 border-blue-500 hover:bg-blue-700 transition duration-300 ease-in-out"
+            >
+              Pago contra entrega
+            </button>
+            {cashOnDelivery && <p className="text-green-500 mt-2">Pago contra entrega seleccionado</p>}
+          </div>
+        </>
+      )}
     </div>
   );
 };

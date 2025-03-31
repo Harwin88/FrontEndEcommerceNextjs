@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"; // Si usas JWT directamente
 export function middleware(req: NextRequest) {
   console.log("Middleware ejecutado:", req.nextUrl.pathname);
 
-  const protectedPaths = ["/my-account", "/checkout"];
+  const protectedPaths = ["/my-account"];
 
   if (protectedPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
     const token = req.cookies.get("token")?.value;
