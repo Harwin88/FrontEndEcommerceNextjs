@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+
+import { useAppSelector } from "@/redux/store";
+import { selectTotalPrice } from "@/redux/features/cart-slice";
 import Breadcrumb from "../Common/Breadcrumb";
 import Login from "./Login";
 import Shipping from "./Shipping";
@@ -7,10 +9,13 @@ import ShippingMethod from "./ShippingMethod";
 import PaymentMethod from "./PaymentMethod";
 import Coupon from "./Coupon";
 import Billing from "./Billing";
-import CardPaymentComponent from "./PaymentMethod"; // Importa el componente de pago con tarjeta
+import CardPaymentComponent from "./PaymentMethod";
+import { useState } from "react";
 
 const Checkout = () => {
   const [showCardPayment, setShowCardPayment] = useState(false);
+  const cartItems = useAppSelector((state) => state.cartReducer.items);
+  const totalPrice = useAppSelector(selectTotalPrice);
 
   const handleShowCardPayment = () => {
     setShowCardPayment(true);
@@ -33,17 +38,20 @@ const Checkout = () => {
                 <Coupon />
                 <ShippingMethod />
                 <PaymentMethod />
+                <div className="border-t border-gray-3 pt-5">
+                  <h3 className="text-lg font-medium">Resumen del Pedido</h3>
+                  {cartItems.map((item, key) => (
+                    <div key={key} className="flex justify-between py-2">
+                      <span>{item.title}</span>
+                      <span>${item.discountedPrice * item.quantity}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between font-medium text-lg mt-3">
+                    <span>Total:</span>
+                    <span>${totalPrice}</span>
+                  </div>
+                </div>
 
-                {/* Botón para redirigir al Checkout Pro de Mercado Pago */}
-                <button
-                  type="button"
-                  className="w-full flex justify-center font-medium text-white bg-blue py-3 px-6 rounded-md hover:bg-blue-dark mt-7.5"
-                  // Aquí se mantendría tu método de redirección
-                >
-                  Pagar con Mercado Pago
-                </button>
-
-                {/* Botón para activar el pago con tarjeta de prueba */}
                 <button
                   type="button"
                   onClick={handleShowCardPayment}
@@ -52,7 +60,6 @@ const Checkout = () => {
                   Pagar con Tarjeta de Prueba
                 </button>
 
-                {/* Renderizar el formulario de pago con tarjeta */}
                 {showCardPayment && <CardPaymentComponent />}
               </div>
             </div>
