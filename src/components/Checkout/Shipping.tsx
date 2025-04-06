@@ -9,7 +9,7 @@ const Shipping = () => {
         onClick={() => setDropdown(!dropdown)}
         className="cursor-pointer flex items-center gap-2.5 font-medium text-lg text-dark py-5 px-5.5"
       >
-        Ship to a different address?
+        ¿Enviar a una dirección diferente?
         <svg
           className={`fill-current ease-out duration-200 ${
             dropdown && 'rotate-180'
@@ -39,9 +39,13 @@ const Shipping = () => {
 
           <div className="relative">
             <select className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
-              <option value="0">Australia</option>
-              <option value="1">America</option>
-              <option value="2">England</option>
+              <option value="">Ciudad</option>
+              <option value="Barranquilla">Barranquilla</option>
+              <option value="Manizales">Manizales</option>
+              <option value="Bucaramanga">Bucaramanga</option>
+              <option value="Cali">Cali</option>
+              <option value="Medellin">Medellin</option>
+              <option value="Bogota">Bogota</option>
             </select>
 
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-dark-4">
@@ -101,7 +105,7 @@ const Shipping = () => {
 
         <div className="mb-5">
           <label htmlFor="country" className="block mb-2.5">
-            Country
+            Pais
           </label>
 
           <input
