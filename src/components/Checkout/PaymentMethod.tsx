@@ -5,10 +5,11 @@ import { initMercadoPago, Payment } from "@mercadopago/sdk-react";
 import { useAppSelector } from "@/redux/store";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import Checkout from ".";
+import {FormData} from "./types/formbilling"
 
 initMercadoPago(process.env.NEXT_PUBLIC_MERCADO_PAGO_PUBLIC_KEY!, { locale: "es-CO" });
 
-const PaymentBrickExample = () => {
+const PaymentBrick = ({shippingCoste, dataForm }) => {
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useAppSelector(selectTotalPrice);
   const [preferenceId, setPreferenceId] = useState<string | null>(null);
@@ -26,10 +27,11 @@ const PaymentBrickExample = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            dataForm,
             items: cartItems.map((item) => ({
               id: item.id,
               title: item.title,
-              price: item.price,
+              price: Number(item.price) + Number(shippingCoste),
               quantity: item.quantity,
             })),
             successUrl: "https://qrzq2bsn-3000.use.devtunnels.ms/mail-success",
@@ -102,7 +104,7 @@ const PaymentBrickExample = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Payment Brick Example</h2>
+      <h2 className="text-xl font-bold mb-4">Bloque de pago</h2>
       {loading ? (
         <p>Cargando opciones de pago...</p>
       ) : error ? (
@@ -131,4 +133,4 @@ const PaymentBrickExample = () => {
   );
 };
 
-export default PaymentBrickExample;
+export default PaymentBrick;

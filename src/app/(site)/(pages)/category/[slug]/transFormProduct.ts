@@ -2,7 +2,9 @@
 import { Product } from "@/types/product";
 
 export const transformProducts = (externalData: any[]): Product[] => {
- 
+ if (externalData.length === 0) {
+    return []; // Retorna un array vacío si no hay datos
+  }
   return externalData.map((prod, index) => {
     // Suponemos que se usa la primera variante para extraer el precio.
     const variant = prod.variants && prod.variants.length > 0 ? prod.variants[0] : null;

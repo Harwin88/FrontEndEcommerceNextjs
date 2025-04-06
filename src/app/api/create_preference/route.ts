@@ -5,14 +5,14 @@ import { MercadoPagoConfig, Preference } from 'mercadopago';
 
 export async function POST(req: Request) {
   try {
-    const { items, successUrl, failureUrl, pendingUrl, notificationUrl } = await req.json();
+    const { dataForm, items, successUrl, failureUrl, pendingUrl, notificationUrl } = await req.json();
 
     // Validar que el access token está definido
     const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
     if (!accessToken) {
       throw new Error("El token de acceso de Mercado Pago no está configurado.");
     }
-
+    console.log("paymen data:", dataForm);
     // Inicializar la configuración de Mercado Pago
     const client_one = new MercadoPagoConfig({ accessToken: accessToken });
 
@@ -33,19 +33,19 @@ export async function POST(req: Request) {
           unit_price: Number(item.price),
         })),
         payer: {
-          name: "Harwin",
-          surname: "Galvis",
-          email: "test_user_123456@testuser.com",
+          name: dataForm.firstName,
+          surname: dataForm.lastName,
+          email: dataForm.email,
           identification: {
-            type: "CC", // Cédula de ciudadanía para Colombia
-            number: "1057651",
+            type: dataForm.documentType, // Cédula de ciudadanía para Colombia
+            number: dataForm.documentNumber,
           },
           phone: {
             area_code: "57",
-            number: "3126711425",
+            number: dataForm.phone,
           },
           address: {
-            street_name: "Cra. 92 hacia Cl. 75.",
+            street_name: dataForm.address,
             zip_code: "110110",
           },
         },
