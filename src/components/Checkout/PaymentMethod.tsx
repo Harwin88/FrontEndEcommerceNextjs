@@ -88,6 +88,11 @@ const PaymentBrick = ({shippingCoste, dataForm }) => {
         .then((response) => response.json())
         .then((response) => {
           console.log("Resultado del pago:", response);
+          
+        if (response.transaction_details.external_resource_url) {
+          // 🔁 Redireccionar al callback_url
+          window.location.href = response.transaction_details.external_resource_url;
+        }
           resolve(response);
         })
         .catch((error) => {

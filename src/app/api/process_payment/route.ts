@@ -84,6 +84,7 @@ export async function POST(req: NextRequest) {
 
  
     console.log("✅ Respuesta de Mercado Pago:", response);
+   
     // Devuelve la respuesta exitosa
     return NextResponse.json(response, { status: 200 });
   } catch (error: any) {
