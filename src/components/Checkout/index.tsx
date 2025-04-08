@@ -12,10 +12,10 @@ import Billing from "./Billing";
 import { useState } from "react";
 
 const Checkout = () => {
-  const [showCardPayment, setShowCardPayment] = useState(false);
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useAppSelector(selectTotalPrice);
   const [shippingMethodCoste, setShippingMethodCoste] = useState(null);
+  const [shippingMethodShow, setShippingMethodShow] = useState(false);
   // En el state:
   const [dataForm, setDataForm] = useState({
     firstName: '',
@@ -41,10 +41,7 @@ const Checkout = () => {
     }));
   };
 
-  const handleShowCardPayment = () => {
-    setShowCardPayment(true);
-  };
-
+ 
   const isFormComplete = () => {
     const requiredFields = [
       'firstName',
@@ -77,7 +74,18 @@ const Checkout = () => {
             <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-11">
               <div className="lg:max-w-[670px] w-full">
                 <Login />
-                <Billing dataForm={dataForm} onDataFormChange={handleDataFormChange} />
+                <Billing dataForm={dataForm} onDataFormChange={handleDataFormChange} setShippingMethodShow={setShippingMethodShow} />
+                {shippingMethodShow ? (
+                   <ShippingMethod setShippingMethodCoste={setShippingMethodCoste} />
+                ) : (
+                  <p className="text-red-500">Para poder selecionar un metodo de envio es necesario que llene todo el formularo</p>
+                )}
+                {isFormComplete() && shippingMethodCoste !== null ? (
+                  <PaymentBrick shippingCoste={shippingMethodCoste}   dataForm={dataForm} />
+                ) : (
+                  <p className="text-red-500">Por favor completa todos los campos requeridos para continuar el proceso de pago.</p>
+                )}
+                
                 <Shipping />
               </div>
               
@@ -96,13 +104,9 @@ const Checkout = () => {
                   </div>
                 </div>
                 <Coupon />
-                <ShippingMethod setShippingMethodCoste={setShippingMethodCoste} />
+                
 
-                {isFormComplete() && shippingMethodCoste !== null ? (
-                  <PaymentBrick shippingCoste={shippingMethodCoste}   dataForm={dataForm} />
-                ) : (
-                  <p className="text-red-500">Por favor completa todos los campos requeridos para continuar el proceso de pago.</p>
-                )}
+                
                
 
                 
