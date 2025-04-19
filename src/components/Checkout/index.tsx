@@ -75,7 +75,7 @@ const Checkout = () => {
               <div className="lg:max-w-[670px] w-full">
                 <Login />
                 <Billing dataForm={dataForm} onDataFormChange={handleDataFormChange} setShippingMethodShow={setShippingMethodShow} />
-                {shippingMethodShow ? (
+                {shippingMethodShow || isFormComplete() ? (
                    <ShippingMethod setShippingMethodCoste={setShippingMethodCoste} />
                 ) : (
                   <p className="text-red-500">Para poder selecionar un metodo de envio es necesario que llene todo el formularo</p>
@@ -104,12 +104,6 @@ const Checkout = () => {
                   </div>
                 </div>
                 <Coupon />
-                
-
-                
-               
-
-                
               </div>
             </div>
           </form>

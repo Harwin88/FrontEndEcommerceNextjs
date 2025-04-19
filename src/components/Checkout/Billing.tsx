@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState  } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/redux/store';
 import {
@@ -10,6 +10,9 @@ import {
 const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
   const dispatch = useDispatch();
   const initialized = useRef(false);
+  const [errors, setErrors] = React.useState<string[]>([]);
+
+
 
   useEffect(() => {
     if (typeof window !== 'undefined' && !initialized.current) {
@@ -18,7 +21,6 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
       if (stored) {
         try {
           const parsedData = JSON.parse(stored);
-
           dispatch(setFormData(parsedData));
           dispatch(toggleEdit());
 
@@ -32,7 +34,7 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
         }
       }
 
-      initialized.current = true; // evita futuros bucles
+      initialized.current = true;
     }
   }, [dispatch, onDataFormChange]);
 
@@ -54,6 +56,32 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
     'phone',
     'email',
   ];
+  
+  const missingFields = requiredFields.filter((field) => !dataForm[field]);
+  const hasErrors = missingFields.length > 0;
+
+  const handleSave = () => {
+   
+
+    if (hasErrors) {
+    setErrors(missingFields);
+    return;
+  }
+
+    setErrors([]); // limpiamos si todo está bien
+    dispatch(setFormData(dataForm));
+    localStorage.setItem('billingData', JSON.stringify(dataForm));
+    dispatch(toggleEdit());
+    setShippingMethodShow(true);
+  };
+
+  const handleEdit = () => {
+    setShippingMethodShow(false);
+    dispatch(toggleEdit());
+  };
+
+ 
+
   const fieldLabels: Record<string, string> = {
     firstName: 'Nombre',
     lastName: 'Apellido',
@@ -66,26 +94,9 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
     documentNumber: 'Número de documento',
     companyName: 'Nombre de la empresa',
     addressTwo: 'Dirección adicional',
-    // Puedes agregar más si es necesario
-  };
-  const handleSave = () => {
-   // <-- activa el envío
-    const hasErrors = requiredFields.some((field) => !dataForm[field]);
-    if (hasErrors) {
-      alert('Por favor completa todos los campos obligatorios.');
-      return;
-    }
-    setShippingMethodShow(true);
-
-    dispatch(setFormData(dataForm)); // <-- actualiza Redux
-    localStorage.setItem('billingData', JSON.stringify(dataForm));
-    dispatch(toggleEdit());
   };
 
-  const handleEdit = () => {
-    setShippingMethodShow(false);
-    dispatch(toggleEdit());
-  };
+ 
 
   if (!isEditing) {
     return (
@@ -166,9 +177,16 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
               value={dataForm.firstName || ''}
               onChange={handleChange}
               id="firstName"
-              placeholder="Jhon"
-              className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-            />
+              placeholder="su nombre"
+              required
+              className={`rounded-md border ${
+                hasErrors && missingFields.includes('firstName') ? 'border-red' : 'bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20'
+              } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+            
+              />
+              {hasErrors && errors.includes('firstName') && (
+                <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+              )}
           </div>
 
           <div className="w-full">
@@ -181,9 +199,16 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
               id="lastName"
               value={dataForm.lastName || ''}
               onChange={handleChange}
-              placeholder="Pérez"
-              className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-            />
+              placeholder="su apellido"
+              required
+              className={`rounded-md border ${
+                hasErrors && missingFields.includes('lastName') ? 'border-red' : 'bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20'
+              } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+            
+              />
+               {hasErrors && errors.includes('lastName') && (
+                <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+              )}
           </div>
         </div>
 
@@ -197,13 +222,18 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
               id="documentType"
               value={dataForm.documentType || ''}
               onChange={handleChange}
-              className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-            >
+              className={`rounded-md border ${
+                hasErrors && missingFields.includes('documentType') ? 'border-red' : 'border-gray-3'
+              } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+             >
               <option value="">Selecciona una opción</option>
               <option value="cc">Cédula de Ciudadanía</option>
               <option value="pasaporte">Pasaporte</option>
               <option value="nit">NIT</option>
             </select>
+            {hasErrors && errors.includes('documentType') && (
+              <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+            )}
           </div>
 
           <div className="w-full">
@@ -217,8 +247,14 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
               value={dataForm.documentNumber || ''}
               onChange={handleChange}
               placeholder="123456789"
-              className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-            />
+              className={`rounded-md border ${
+                hasErrors && missingFields.includes('documentNumber') ? 'border-red' : 'bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20'
+              } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+            
+              />
+               {hasErrors && errors.includes('documentNumber') && (
+                <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+              )}
           </div>
         </div>
 
@@ -247,8 +283,14 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
             value={dataForm.address || ''}
             onChange={handleChange}
             placeholder="Número de casa y nombre de la calle"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-          />
+            className={`rounded-md border ${
+              hasErrors && missingFields.includes('address') ? 'border-red' : 'bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20'
+            } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+          
+            />
+             {hasErrors && errors.includes('address') && (
+              <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+            )}
           <div className="mt-5">
             <input
               type="text"
@@ -272,8 +314,14 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
             value={dataForm.town || ''}
             onChange={handleChange}
             id="town"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-          />
+            className={`rounded-md border ${
+              hasErrors && missingFields.includes('town') ? 'border-red' : 'bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20'
+            } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+          
+            />
+             {hasErrors && errors.includes('town') && (
+              <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+            )}
         </div>
 
         <div className="mb-5">
@@ -286,8 +334,14 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
             value={dataForm.phone || ''}
             onChange={handleChange}
             id="phone"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-          />
+            className={`rounded-md border ${
+              hasErrors && missingFields.includes('phone') ? 'border-red' : 'bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20'
+            } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+          
+            />
+             {hasErrors && errors.includes('phone') && (
+              <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+            )}
         </div>
 
         <div className="mb-5.5">
@@ -300,8 +354,14 @@ const Billing = ({ dataForm, onDataFormChange, setShippingMethodShow }) => {
             value={dataForm.email || ''}
             onChange={handleChange}
             id="email"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-          />
+            className={`rounded-md border ${
+              hasErrors && missingFields.includes('email') ? 'border-red' : 'bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20'
+            } bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+          
+            />
+             {hasErrors && errors.includes('email') && (
+              <p className="text-sm text-red mt-1">Este campo es obligatorio</p>
+            )}
         </div>
 
         <div className="flex items-center padding-5 mb-10">
