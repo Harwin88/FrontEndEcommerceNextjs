@@ -144,11 +144,16 @@ const Header = () => {
                 width={219}
                 height={36}
               />*/}
-              <p className="font-bold text-heading-4 bg-gradient-to-r from-blue to-blue-light text-transparent bg-clip-text uppercase tracking-wide">
+             {/* <p className="font-bold text-heading-4 bg-gradient-to-r from-blue to-blue-light text-transparent bg-clip-text uppercase tracking-wide">
                 100x100 ∞
-              </p>
+              </p>*/}
+              <Image 
+                src="/images/logo/logo-vg.svg"
+                alt="Logo"
+                width={120}
+                height={25}
+              />
             </Link>
-
             <div className="max-w-[475px] w-full">
               <form>
                 <div className="flex items-center">
@@ -194,7 +199,7 @@ const Header = () => {
           </div>
 
           {/* <!-- header top right --> */}
-          <div className="flex w-full lg:w-auto items-center gap-7.5">
+          <div  className="flex w-full lg:w-auto items-center gap-7.5">
             <div className="hidden xl:flex items-center gap-3.5">
               <svg
                 width="24"

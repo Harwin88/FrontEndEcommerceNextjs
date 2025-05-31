@@ -1,0 +1,57 @@
+{
+  "recommendations": [
+    // 🚀 Essential for Next.js Development
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    // ⚛️ React Development
+    "dsznajder.es7-react-js-snippets",
+    "formulahendry.auto-rename-tag",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-json",
+    // 🧬 GraphQL Support
+    "graphql.vscode-graphql",
+    "graphql.vscode-graphql-syntax",
+    "prisma.prisma",
+    // 🔄 Redux Development
+    "ms-vscode.vscode-redux-devtools",
+    // 🛠️ Development Tools
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "ms-vscode.vscode-node-azure-pack",
+    "ms-vscode.powershell",
+    // 🎨 UI/UX Enhancement
+    "pkief.material-icon-theme",
+    "zhuangtongfa.material-theme",
+    "oderwat.indent-rainbow",
+    "streetsidesoftware.code-spell-checker",
+    // 🔍 Code Analysis
+    "ms-vscode.vscode-typescript-next",
+    "usernamehw.errorlens",
+    "gruntfuggly.todo-tree",
+    "waderyan.gitblame",
+    // 📊 Performance & Analysis
+    "ms-vscode.vscode-bundle-analyzer",
+    "ms-vscode.live-server",
+    // 🔧 Utilities
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.vscode-css-peek",
+    "htmlhint.vscode-htmlhint",
+    // 📝 Documentation
+    "yzhang.markdown-all-in-one",
+    "shd101wyy.markdown-preview-enhanced",
+    // 🔒 Security
+    "ms-vscode.vscode-security-tools",
+    // 💳 Payment Development (MercadoPago specific)
+    "ms-vscode.vscode-rest-client",
+    // 🧪 Testing Support
+    "ms-vscode.test-adapter-converter",
+    "hbenl.vscode-test-explorer"
+  ],
+  "unwantedRecommendations": [
+    "ms-vscode.vscode-typescript",
+    "hookyqr.beautify"
+  ]
+}

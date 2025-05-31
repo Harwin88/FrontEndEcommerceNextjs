@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import client from "@/graphql/client";
-import { LoginDocument, RegisterDocument } from "@/graphql/generated/graphql";
-import Cookies from "js-cookie";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import client from '@/graphql/client';
+import { LoginDocument, RegisterDocument } from '@/graphql/generated/graphql';
+import Cookies from 'js-cookie';
 
 interface User {
   id: string;
@@ -25,7 +25,7 @@ const initialState: AuthState = {
 
 // Acción asíncrona para login
 export const loginThunk = createAsyncThunk(
-  "auth/login",
+  'auth/login',
   async (
     { identifier, password }: { identifier: string; password: string },
     { rejectWithValue }
@@ -41,15 +41,17 @@ export const loginThunk = createAsyncThunk(
         return rejectWithValue(result.error.message);
       }
       if (!result.data?.login) {
-        return rejectWithValue("No se obtuvo respuesta de inicio de sesión.");
+        return rejectWithValue('No se obtuvo respuesta de inicio de sesión.');
       }
 
       const { jwt, user } = result.data.login;
 
-      Cookies.set("token", jwt, {
-        expires: 7,
-        sameSite: "strict",
-        secure: true,
+      Cookies.set('token', jwt, {
+        expires: 1000,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        domain: process.env.NODE_ENV === 'production' ? undefined : undefined,
       });
 
       return user;
@@ -61,14 +63,24 @@ export const loginThunk = createAsyncThunk(
 
 // Acción asíncrona para registro
 export const registerThunk = createAsyncThunk(
-  "auth/register",
+  'auth/register',
   async (
-    { username, email, password, confirmPassword }: { username: string; email: string; password: string; confirmPassword: string },
+    {
+      username,
+      email,
+      password,
+      confirmPassword,
+    }: {
+      username: string;
+      email: string;
+      password: string;
+      confirmPassword: string;
+    },
     { rejectWithValue }
   ) => {
     try {
       if (password !== confirmPassword) {
-        return rejectWithValue("Las contraseñas no coinciden.");
+        return rejectWithValue('Las contraseñas no coinciden.');
       }
 
       const result = await client
@@ -82,15 +94,17 @@ export const registerThunk = createAsyncThunk(
       }
 
       if (!result.data?.register) {
-        return rejectWithValue("No se obtuvo respuesta de registro.");
+        return rejectWithValue('No se obtuvo respuesta de registro.');
       }
 
       const { jwt, user } = result.data.register;
 
-      Cookies.set("token", jwt, {
+      Cookies.set('token', jwt, {
         expires: 7,
-        sameSite: "strict",
-        secure: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        domain: process.env.NODE_ENV === 'production' ? undefined : undefined,
       });
 
       return user;
@@ -101,14 +115,14 @@ export const registerThunk = createAsyncThunk(
 );
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     logout(state) {
       state.user = null;
       state.successMessage = null;
       state.error = null;
-      Cookies.remove("token");
+      Cookies.remove('token');
     },
   },
   extraReducers: (builder) => {
@@ -120,7 +134,7 @@ const authSlice = createSlice({
     builder.addCase(loginThunk.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
-      state.successMessage = "Inicio de sesión exitoso.";
+      state.successMessage = 'Inicio de sesión exitoso.';
       state.error = null;
     });
     builder.addCase(loginThunk.rejected, (state, action) => {
@@ -136,7 +150,7 @@ const authSlice = createSlice({
     builder.addCase(registerThunk.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
-      state.successMessage = "Registro exitoso.";
+      state.successMessage = 'Registro exitoso.';
       state.error = null;
     });
     builder.addCase(registerThunk.rejected, (state, action) => {
@@ -148,4 +162,9 @@ const authSlice = createSlice({
 });
 
 export const { logout } = authSlice.actions;
+
+// ✅ AGREGADO: Alias para mantener compatibilidad
+export const loginUser = loginThunk;
+export const registerUser = registerThunk;
+
 export default authSlice.reducer;

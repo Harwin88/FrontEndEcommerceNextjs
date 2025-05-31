@@ -251,6 +251,10 @@ input[type='search']::-webkit-search-results-decoration {
   @apply !bg-blue;
 }
 
+#contact-ecommerce{
+    margin-left: 72px;
+
+  }
 
 
 @layer base {

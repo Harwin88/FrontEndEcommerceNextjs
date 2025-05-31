@@ -2,8 +2,8 @@ import Home from "@/components/Home";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "NextCommerce | Nextjs E-commerce template",
-  description: "This is Home for NextCommerce Template",
+  title: "FixZona | Home",
+  description: "Fix zona is a platform that connects users with local service providers for home repairs and maintenance.",
   // other metadata
 };
 

@@ -1,18 +1,18 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
-import "dotenv/config";
- 
+import type { CodegenConfig } from '@graphql-codegen/cli';
+import 'dotenv/config';
+
 const config: CodegenConfig = {
   schema: process.env.API_URL, // URL o path del esquema GraphQL
-  documents: "src/graphql/**/*.graphql", // Ruta donde estarán tus queries, mutations y fragments
+  documents: 'src/graphql/**/*.graphql', // Todos los archivos GraphQL
   generates: {
-    "src/graphql/generated/": {
-      preset: "client",
+    'src/graphql/generated/': {
+      preset: 'client',
       plugins: [],
     },
   },
   hooks: {
-    afterAllFileWrite: ["prettier --write"],
+    afterAllFileWrite: ['prettier --write'],
   },
 };
-console.log("Configuración de GraphQL Codegen:",process.env.API_URL);
+console.log('Configuración de GraphQL Codegen:', process.env.API_URL);
 export default config;

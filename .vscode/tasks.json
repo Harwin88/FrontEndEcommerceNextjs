@@ -1,0 +1,303 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🚀 Start Development Server",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "dev"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "icon": {
+        "id": "rocket",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
+      "label": "🧬 Debug GraphQL Orders",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "debug:graphql"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      },
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
+      "icon": {
+        "id": "debug-alt",
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "🛒 Debug Orders System",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "debug:orders"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      },
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
+      "icon": {
+        "id": "package",
+        "color": "terminal.ansiYellow"
+      }
+    },
+    {
+      "label": "💳 Debug Payment System",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "debug:payment"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      },
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
+      "icon": {
+        "id": "credit-card",
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "🔧 Type Check",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "type-check"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "icon": {
+        "id": "checklist",
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "🔧 Type Check (Watch)",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "type-check:watch"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      },
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
+      "isBackground": true,
+      "icon": {
+        "id": "eye",
+        "color": "terminal.ansiCyan"
+      }
+    },
+    {
+      "label": "🧹 Clean Project",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "clean"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "icon": {
+        "id": "trash",
+        "color": "terminal.ansiRed"
+      }
+    },
+    {
+      "label": "🏗️ Build Production",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      },
+      "problemMatcher": [
+        "$tsc"
+      ],
+      "icon": {
+        "id": "tools",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
+      "label": "📊 Analyze Bundle",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "analyze"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      },
+      "icon": {
+        "id": "graph",
+        "color": "terminal.ansiBlue"
+      }
+    },
+    {
+      "label": "🧬 Generate GraphQL Types",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "generate"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "icon": {
+        "id": "symbol-interface",
+        "color": "terminal.ansiMagenta"
+      }
+    },
+    {
+      "label": "🔍 Lint Code",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "lint"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
+      "icon": {
+        "id": "search",
+        "color": "terminal.ansiYellow"
+      }
+    },
+    {
+      "label": "🧪 Test GraphQL Orders",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "Navigate to http://localhost:3000/test-graphql-orders to test the GraphQL orders system"
+      ],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "dependsOn": "🚀 Start Development Server",
+      "icon": {
+        "id": "beaker",
+        "color": "terminal.ansiGreen"
+      }
+    },
+    {
+      "label": "🔄 Restart Development Server",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "Restarting development server..."
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "🧹 Clean Project",
+        "🚀 Start Development Server"
+      ],
+      "icon": {
+        "id": "refresh",
+        "color": "terminal.ansiBlue"
+      }
+    }
+  ]
+}

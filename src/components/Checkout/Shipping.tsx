@@ -2,6 +2,26 @@ import React, { useState } from 'react';
 
 const Shipping = () => {
   const [dropdown, setDropdown] = useState(false);
+  
+  // ✅ AGREGADO: Estado para los campos de envío
+  const [shippingData, setShippingData] = useState({
+    country: '',
+    address: '',
+    addressTwo: '',
+    town: '',
+    countryField: '',
+    phone: '',
+    email: ''
+  });
+
+  // ✅ AGREGADO: Manejar cambios en los campos
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setShippingData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
     <div className="bg-white shadow-1 rounded-[10px] mt-7.5">
@@ -32,13 +52,18 @@ const Shipping = () => {
       {/* <!-- dropdown menu --> */}
       <div className={`p-4 sm:p-8.5 ${dropdown ? 'block' : 'hidden'}`}>
         <div className="mb-5">
-          <label htmlFor="countryName" className="block mb-2.5">
+          <label htmlFor="country" className="block mb-2.5">
             Country/ Region
             <span className="text-red">*</span>
           </label>
 
           <div className="relative">
-            <select className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
+            <select 
+              name="country"
+              value={shippingData.country}
+              onChange={handleChange}
+              className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            >
               <option value="">Ciudad</option>
               <option value="Barranquilla">Barranquilla</option>
               <option value="Manizales">Manizales</option>
@@ -77,6 +102,8 @@ const Shipping = () => {
           <input
             type="text"
             name="address"
+            value={shippingData.address}
+            onChange={handleChange}
             placeholder="House number and street name"
             className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
@@ -84,7 +111,9 @@ const Shipping = () => {
           <div className="mt-5">
             <input
               type="text"
-              name="address"
+              name="addressTwo"
+              value={shippingData.addressTwo}
+              onChange={handleChange}
               placeholder="Apartment, suite, unit, etc. (optional)"
               className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
             />
@@ -99,18 +128,22 @@ const Shipping = () => {
           <input
             type="text"
             name="town"
+            value={shippingData.town}
+            onChange={handleChange}
             className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
 
         <div className="mb-5">
-          <label htmlFor="country" className="block mb-2.5">
+          <label htmlFor="countryField" className="block mb-2.5">
             Pais
           </label>
 
           <input
             type="text"
-            name="country"
+            name="countryField"
+            value={shippingData.countryField}
+            onChange={handleChange}
             className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
@@ -123,6 +156,8 @@ const Shipping = () => {
           <input
             type="text"
             name="phone"
+            value={shippingData.phone}
+            onChange={handleChange}
             className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
@@ -135,6 +170,8 @@ const Shipping = () => {
           <input
             type="email"
             name="email"
+            value={shippingData.email}
+            onChange={handleChange}
             className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>

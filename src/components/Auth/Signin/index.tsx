@@ -1,46 +1,54 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Breadcrumb from "@/components/Common/Breadcrumb";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
-import { loginThunk } from "@/redux/features/authSlice";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useState, useEffect } from 'react';
+import Breadcrumb from '@/components/Common/Breadcrumb';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store';
+import { loginThunk } from '@/redux/features/authSlice';
+import { useRouter } from 'next/navigation';
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
+
 const Signin = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error, user } = useSelector((state: RootState) => state.auth);
+  const { loading, error, user } = useSelector(
+    (state: RootState) => state.auth
+  );
   const router = useRouter();
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
+  const { redirectAfterLogin } = useAuthRedirect();
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
+
   useEffect(() => {
     if (user) {
-      router.push("/my-account");
+      redirectAfterLogin();
     }
-  }, [user, router]);
+  }, [user, redirectAfterLogin]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Despachas la acción asíncrona
     await dispatch(loginThunk({ identifier, password }));
-    // Aquí podrías redirigir, mostrar un mensaje, etc.
+    // La redirección se maneja en el useEffect cuando user cambia
   };
-
 
   return (
     <>
-      <Breadcrumb title={"Signin"} pages={["Signin"]} />
+      <Breadcrumb title={'Signin'} pages={['Signin']} />
       <section className="overflow-hidden py-20 bg-gray-2">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
             <div className="text-center mb-11">
               <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
-                 Iniciar sesión en su cuenta
+                Iniciar sesión en su cuenta
               </h2>
               <p>Ingrese sus datos a continuación</p>
             </div>
 
             {/* Muestra error o estado */}
             {error && (
-              <p className="text-red-500 text-center mb-4">Usuario o Password Incorrecto</p>
+              <p className="text-red-500 text-center mb-4">
+                Usuario o Password Incorrecto
+              </p>
             )}
             {user && (
               <p className="text-green-600 text-center mb-4">
@@ -83,7 +91,7 @@ const Signin = () => {
                 disabled={loading}
                 className="w-full flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
               >
-                {loading ? "Cargando..." : "Iniciar sesión en la cuenta"}
+                {loading ? 'Cargando...' : 'Iniciar sesión en la cuenta'}
               </button>
 
               <a
@@ -106,7 +114,7 @@ const Signin = () => {
                   href="/signup"
                   className="text-dark ease-out duration-200 hover:text-blue pl-2"
                 >
-                 ¡Regístrate ahora!
+                  ¡Regístrate ahora!
                 </Link>
               </p>
             </form>

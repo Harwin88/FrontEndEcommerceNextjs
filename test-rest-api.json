@@ -1,0 +1,29 @@
+{
+  "cliente": {
+    "firstName": "Test",
+    "lastName": "REST API",
+    "email": "test-rest-api@test.com",
+    "phone": "123456789"
+  },
+  "shippingAddress": {
+    "firstName": "Test",
+    "lastName": "REST API",
+    "addressLine1": "Calle REST API 123",
+    "city": "Bogotá",
+    "state": "cundinamarca",
+    "postalCode": "110111",
+    "country": "CO",
+    "phone": "123456789",
+    "email": "test-rest-api@test.com"
+  },
+  "items": [
+    {
+      "productId": "1",
+      "quantity": 1,
+      "unitPrice": 300000,
+      "title": "Producto REST API",
+      "sku": "REST-API-001"
+    }
+  ],
+  "notes": "{\"mercadoPagoId\":\"TEST-REST-API-123\",\"status\":\"pending\",\"source\":\"order_success_page\"}"
+}

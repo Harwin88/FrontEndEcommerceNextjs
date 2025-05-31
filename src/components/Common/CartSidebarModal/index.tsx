@@ -1,44 +1,63 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useEffect, useState } from 'react';
 
-import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
+import { useCartModalContext } from '@/app/context/CartSidebarModalContext';
 import {
   removeItemFromCart,
   selectTotalPrice,
-} from "@/redux/features/cart-slice";
-import { useAppSelector } from "@/redux/store";
-import { useSelector } from "react-redux";
-import SingleItem from "./SingleItem";
-import Link from "next/link";
-import EmptyCart from "./EmptyCart";
+} from '@/redux/features/cart-slice';
+import { useAppSelector } from '@/redux/store';
+import { useSelector } from 'react-redux';
+import SingleItem from './SingleItem';
+import Link from 'next/link';
+import EmptyCart from './EmptyCart';
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
+import { useRouter } from 'next/navigation';
 
 const CartSidebarModal = () => {
   const { isCartModalOpen, closeCartModal } = useCartModalContext();
   const cartItems = useAppSelector((state) => state.cartReducer.items);
+  const { isAuthenticated, saveIntendedUrl } = useAuthRedirect();
+  const router = useRouter();
 
   const totalPrice = useSelector(selectTotalPrice);
+
+  // ✅ AGREGADO: Manejar click en checkout con autenticación
+  const handleCheckoutClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    closeCartModal();
+
+    if (isAuthenticated) {
+      // Si está autenticado, ir directamente al checkout
+      router.push('/checkout');
+    } else {
+      // Si no está autenticado, guardar la intención y redirigir al login
+      saveIntendedUrl('/checkout');
+      router.push('/signin');
+    }
+  };
 
   useEffect(() => {
     // closing modal while clicking outside
     function handleClickOutside(event) {
-      if (!event.target.closest(".modal-content")) {
+      if (!event.target.closest('.modal-content')) {
         closeCartModal();
       }
     }
 
     if (isCartModalOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isCartModalOpen, closeCartModal]);
 
   return (
     <div
       className={`fixed top-0 left-0 z-99999 overflow-y-auto no-scrollbar w-full h-screen bg-dark/70 ease-linear duration-300 ${
-        isCartModalOpen ? "translate-x-0" : "translate-x-full"
+        isCartModalOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
       <div className="flex items-center justify-end">
@@ -104,10 +123,11 @@ const CartSidebarModal = () => {
                 href="/cart"
                 className="w-full flex justify-center font-medium text-white bg-blue py-[13px] px-6 rounded-md ease-out duration-200 hover:bg-blue-dark"
               >
-                View Cart
+                Ver Carrito
               </Link>
 
               <Link
+                onClick={handleCheckoutClick}
                 href="/checkout"
                 className="w-full flex justify-center font-medium text-white bg-dark py-[13px] px-6 rounded-md ease-out duration-200 hover:bg-opacity-95"
               >

@@ -1,0 +1,139 @@
+# ===== QUERIES CORRECTAS CON CAMPOS REALES =====
+query GetOrders(
+  $filters: OrderFiltersInput
+  $pagination: PaginationArg
+  $sort: [String]
+) {
+  orders(filters: $filters, pagination: $pagination, sort: $sort) {
+    documentId
+    orderNumber
+    status
+    subtotal
+    totalAmount
+    orderDate
+    createdAt
+    updatedAt
+    cliente {
+      documentId
+      firstName
+      lastName
+      email
+    }
+  }
+}
+
+query GetOrderById($documentId: ID!) {
+  order(documentId: $documentId) {
+    documentId
+    orderNumber
+    status
+    subtotal
+    totalAmount
+    taxAmount
+    shippingCost
+    discountAmount
+    orderDate
+    estimatedDeliveryDate
+    notes
+    trackingNumber
+    createdAt
+    updatedAt
+    cliente {
+      documentId
+      firstName
+      lastName
+      email
+      phone
+    }
+    shippingAddress {
+      documentId
+      firstName
+      lastName
+      addressLine1
+      addressLine2
+      city
+      state
+      postalCode
+      country
+      phone
+      email
+    }
+  }
+}
+
+# ===== QUERIES DE CLIENTES =====
+query GetClientes($filters: ClienteFiltersInput, $pagination: PaginationArg) {
+  clientes(filters: $filters, pagination: $pagination) {
+    documentId
+    firstName
+    lastName
+    email
+    phone
+    isActive
+    totalOrders
+    totalSpent
+    createdAt
+    updatedAt
+  }
+}
+
+query GetClienteById($documentId: ID!) {
+  cliente(documentId: $documentId) {
+    documentId
+    firstName
+    lastName
+    email
+    phone
+    birthDate
+    customerType
+    isActive
+    totalOrders
+    totalSpent
+    createdAt
+    updatedAt
+    direccion_envios {
+      documentId
+      firstName
+      lastName
+      addressLine1
+      addressLine2
+      city
+      state
+      postalCode
+      country
+      phone
+      email
+      isDefault
+    }
+  }
+}
+
+# ===== BÚSQUEDA DE ÓRDENES =====
+query SearchOrders($search: String!, $pagination: PaginationArg) {
+  orders(
+    filters: {
+      or: [
+        { orderNumber: { containsi: $search } }
+        { cliente: { firstName: { containsi: $search } } }
+        { cliente: { lastName: { containsi: $search } } }
+        { cliente: { email: { containsi: $search } } }
+      ]
+    }
+    pagination: $pagination
+    sort: ["createdAt:desc"]
+  ) {
+    documentId
+    orderNumber
+    status
+    subtotal
+    totalAmount
+    orderDate
+    createdAt
+    cliente {
+      documentId
+      firstName
+      lastName
+      email
+    }
+  }
+}

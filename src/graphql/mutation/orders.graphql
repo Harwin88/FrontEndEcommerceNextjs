@@ -1,0 +1,132 @@
+# ===== MUTATIONS CORRECTAS CON CAMPOS REALES =====
+mutation CreateOrder($data: OrderInput!) {
+  createOrder(data: $data) {
+    documentId
+    orderNumber
+    status
+    subtotal
+    totalAmount
+    orderDate
+    createdAt
+    updatedAt
+    cliente {
+      documentId
+      firstName
+      lastName
+      email
+    }
+  }
+}
+
+mutation UpdateOrder($documentId: ID!, $data: OrderInput!) {
+  updateOrder(documentId: $documentId, data: $data) {
+    documentId
+    orderNumber
+    status
+    subtotal
+    totalAmount
+    taxAmount
+    shippingCost
+    discountAmount
+    updatedAt
+  }
+}
+
+# ===== MUTATIONS DE CLIENTES =====
+mutation CreateCliente($data: ClienteInput!) {
+  createCliente(data: $data) {
+    documentId
+    firstName
+    lastName
+    email
+    phone
+    isActive
+    createdAt
+    updatedAt
+  }
+}
+
+mutation UpdateCliente($documentId: ID!, $data: ClienteInput!) {
+  updateCliente(documentId: $documentId, data: $data) {
+    documentId
+    firstName
+    lastName
+    email
+    phone
+    isActive
+    updatedAt
+  }
+}
+
+# ===== MUTATIONS DE DIRECCIONES DE ENVÍO =====
+mutation CreateDireccionEnvio($data: DireccionEnvioInput!) {
+  createDireccionEnvio(data: $data) {
+    documentId
+    firstName
+    lastName
+    addressLine1
+    addressLine2
+    city
+    state
+    postalCode
+    country
+    phone
+    email
+    isDefault
+    cliente {
+      documentId
+      firstName
+      lastName
+    }
+  }
+}
+
+mutation UpdateDireccionEnvio($documentId: ID!, $data: DireccionEnvioInput!) {
+  updateDireccionEnvio(documentId: $documentId, data: $data) {
+    documentId
+    firstName
+    lastName
+    addressLine1
+    addressLine2
+    city
+    state
+    postalCode
+    country
+    phone
+    email
+    isDefault
+  }
+}
+
+# ===== MUTATIONS DE ORDER ITEMS =====
+mutation CreateOrderItem($data: OrderItemInput!) {
+  createOrderItem(data: $data) {
+    documentId
+    quantity
+    unitPrice
+    subtotal
+    product {
+      documentId
+      Name
+    }
+    order {
+      documentId
+      orderNumber
+    }
+  }
+}
+
+mutation UpdateOrderItem($documentId: ID!, $data: OrderItemInput!) {
+  updateOrderItem(documentId: $documentId, data: $data) {
+    documentId
+    quantity
+    unitPrice
+    subtotal
+  }
+}
+
+mutation DeleteOrderItem($documentId: ID!) {
+  deleteOrderItem(documentId: $documentId) {
+    documentId
+  }
+}

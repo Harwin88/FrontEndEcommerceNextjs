@@ -1,0 +1,2873 @@
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""A time string with format HH:mm:ss.SSS"""
+scalar Time
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+The `BigInt` scalar type represents non-fractional signed whole numeric values.
+"""
+scalar Long
+
+type Error {
+  code: String!
+  message: String
+}
+
+type Pagination {
+  total: Int!
+  page: Int!
+  pageSize: Int!
+  pageCount: Int!
+}
+
+type DeleteMutationResponse {
+  documentId: ID!
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+}
+
+input IDFilterInput {
+  and: [ID]
+  or: [ID]
+  not: IDFilterInput
+  eq: ID
+  eqi: ID
+  ne: ID
+  nei: ID
+  startsWith: ID
+  endsWith: ID
+  contains: ID
+  notContains: ID
+  containsi: ID
+  notContainsi: ID
+  gt: ID
+  gte: ID
+  lt: ID
+  lte: ID
+  null: Boolean
+  notNull: Boolean
+  in: [ID]
+  notIn: [ID]
+  between: [ID]
+}
+
+input BooleanFilterInput {
+  and: [Boolean]
+  or: [Boolean]
+  not: BooleanFilterInput
+  eq: Boolean
+  eqi: Boolean
+  ne: Boolean
+  nei: Boolean
+  startsWith: Boolean
+  endsWith: Boolean
+  contains: Boolean
+  notContains: Boolean
+  containsi: Boolean
+  notContainsi: Boolean
+  gt: Boolean
+  gte: Boolean
+  lt: Boolean
+  lte: Boolean
+  null: Boolean
+  notNull: Boolean
+  in: [Boolean]
+  notIn: [Boolean]
+  between: [Boolean]
+}
+
+input StringFilterInput {
+  and: [String]
+  or: [String]
+  not: StringFilterInput
+  eq: String
+  eqi: String
+  ne: String
+  nei: String
+  startsWith: String
+  endsWith: String
+  contains: String
+  notContains: String
+  containsi: String
+  notContainsi: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  null: Boolean
+  notNull: Boolean
+  in: [String]
+  notIn: [String]
+  between: [String]
+}
+
+input IntFilterInput {
+  and: [Int]
+  or: [Int]
+  not: IntFilterInput
+  eq: Int
+  eqi: Int
+  ne: Int
+  nei: Int
+  startsWith: Int
+  endsWith: Int
+  contains: Int
+  notContains: Int
+  containsi: Int
+  notContainsi: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  null: Boolean
+  notNull: Boolean
+  in: [Int]
+  notIn: [Int]
+  between: [Int]
+}
+
+input LongFilterInput {
+  and: [Long]
+  or: [Long]
+  not: LongFilterInput
+  eq: Long
+  eqi: Long
+  ne: Long
+  nei: Long
+  startsWith: Long
+  endsWith: Long
+  contains: Long
+  notContains: Long
+  containsi: Long
+  notContainsi: Long
+  gt: Long
+  gte: Long
+  lt: Long
+  lte: Long
+  null: Boolean
+  notNull: Boolean
+  in: [Long]
+  notIn: [Long]
+  between: [Long]
+}
+
+input FloatFilterInput {
+  and: [Float]
+  or: [Float]
+  not: FloatFilterInput
+  eq: Float
+  eqi: Float
+  ne: Float
+  nei: Float
+  startsWith: Float
+  endsWith: Float
+  contains: Float
+  notContains: Float
+  containsi: Float
+  notContainsi: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  null: Boolean
+  notNull: Boolean
+  in: [Float]
+  notIn: [Float]
+  between: [Float]
+}
+
+input DateFilterInput {
+  and: [Date]
+  or: [Date]
+  not: DateFilterInput
+  eq: Date
+  eqi: Date
+  ne: Date
+  nei: Date
+  startsWith: Date
+  endsWith: Date
+  contains: Date
+  notContains: Date
+  containsi: Date
+  notContainsi: Date
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  null: Boolean
+  notNull: Boolean
+  in: [Date]
+  notIn: [Date]
+  between: [Date]
+}
+
+input TimeFilterInput {
+  and: [Time]
+  or: [Time]
+  not: TimeFilterInput
+  eq: Time
+  eqi: Time
+  ne: Time
+  nei: Time
+  startsWith: Time
+  endsWith: Time
+  contains: Time
+  notContains: Time
+  containsi: Time
+  notContainsi: Time
+  gt: Time
+  gte: Time
+  lt: Time
+  lte: Time
+  null: Boolean
+  notNull: Boolean
+  in: [Time]
+  notIn: [Time]
+  between: [Time]
+}
+
+input DateTimeFilterInput {
+  and: [DateTime]
+  or: [DateTime]
+  not: DateTimeFilterInput
+  eq: DateTime
+  eqi: DateTime
+  ne: DateTime
+  nei: DateTime
+  startsWith: DateTime
+  endsWith: DateTime
+  contains: DateTime
+  notContains: DateTime
+  containsi: DateTime
+  notContainsi: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  null: Boolean
+  notNull: Boolean
+  in: [DateTime]
+  notIn: [DateTime]
+  between: [DateTime]
+}
+
+input JSONFilterInput {
+  and: [JSON]
+  or: [JSON]
+  not: JSONFilterInput
+  eq: JSON
+  eqi: JSON
+  ne: JSON
+  nei: JSON
+  startsWith: JSON
+  endsWith: JSON
+  contains: JSON
+  notContains: JSON
+  containsi: JSON
+  notContainsi: JSON
+  gt: JSON
+  gte: JSON
+  lt: JSON
+  lte: JSON
+  null: Boolean
+  notNull: Boolean
+  in: [JSON]
+  notIn: [JSON]
+  between: [JSON]
+}
+
+type ComponentProducTipoDeProductos {
+  id: ID!
+  Nombre: String
+  Descripcion: String
+}
+
+type ComponentProducSubcategorias {
+  id: ID!
+  Nombre: String!
+  Descripcion: String!
+  ImagenCategorya_connection(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  ImagenCategorya(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UploadFile]!
+}
+
+type ComponentProducGoogleMap {
+  id: ID!
+}
+
+enum ENUM_COMPONENTPRODUCBODEGAS_UBICACION {
+  Bogota
+  cali
+  Medellin
+  Manizales
+  Pereira
+  Barranquilla
+  Cartagena
+}
+
+type ComponentProducBodegas {
+  id: ID!
+  Ubicacion: ENUM_COMPONENTPRODUCBODEGAS_UBICACION
+  Inventario: Int
+  Direccion: String
+}
+
+type ComponentOrderShippingAddress {
+  id: ID!
+  street_name: String!
+  street_number: Int
+  zip_code: String!
+  city: String!
+  department: String!
+  country: String!
+}
+
+enum ENUM_COMPONENTORDERDICRECCION_TIPO_DE_DOCUMENTO {
+  Cedula_de_Ciudadania
+  Cedula_de_Extranjeria
+  NIT
+  Pasaporte
+}
+
+type ComponentOrderDicreccion {
+  id: ID!
+  Nombre_completo: String
+  Telefono_de_contacto: Long
+  Email: String
+  tipo_de_documento: ENUM_COMPONENTORDERDICRECCION_TIPO_DE_DOCUMENTO
+  numero_de_documento: Long
+  direccion_principal: String
+  complemento: String
+  barrio: String
+  departamento: String
+  ciudad_municipio: String
+  punto_de_referencia: String
+  codigo_postal: Int
+}
+
+input ComponentImageUrlImagenFiltersInput {
+  Imagen: StringFilterInput
+  Name: StringFilterInput
+  Statu: BooleanFilterInput
+  and: [ComponentImageUrlImagenFiltersInput]
+  or: [ComponentImageUrlImagenFiltersInput]
+  not: ComponentImageUrlImagenFiltersInput
+}
+
+input ComponentImageUrlImagenInput {
+  id: ID
+  Imagen: String
+  Name: String
+  Statu: Boolean
+}
+
+type ComponentImageUrlImagen {
+  id: ID!
+  Imagen: String
+  Name: String
+  Statu: Boolean
+}
+
+input ComponentAttributesVariantTtributesOfProductFiltersInput {
+  Name: StringFilterInput
+  Values: StringFilterInput
+  and: [ComponentAttributesVariantTtributesOfProductFiltersInput]
+  or: [ComponentAttributesVariantTtributesOfProductFiltersInput]
+  not: ComponentAttributesVariantTtributesOfProductFiltersInput
+}
+
+input ComponentAttributesVariantTtributesOfProductInput {
+  id: ID
+  Name: String
+  Values: String
+}
+
+type ComponentAttributesVariantTtributesOfProduct {
+  id: ID!
+  Name: String
+  Values: String
+}
+
+input ComponentAttributesVariantAttributesFiltersInput {
+  Name: StringFilterInput
+  value: StringFilterInput
+  and: [ComponentAttributesVariantAttributesFiltersInput]
+  or: [ComponentAttributesVariantAttributesFiltersInput]
+  not: ComponentAttributesVariantAttributesFiltersInput
+}
+
+input ComponentAttributesVariantAttributesInput {
+  id: ID
+  Name: String
+  value: String
+}
+
+type ComponentAttributesVariantAttributes {
+  id: ID!
+  Name: String
+  value: String
+}
+
+input UploadFileFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  alternativeText: StringFilterInput
+  caption: StringFilterInput
+  width: IntFilterInput
+  height: IntFilterInput
+  formats: JSONFilterInput
+  hash: StringFilterInput
+  ext: StringFilterInput
+  mime: StringFilterInput
+  size: FloatFilterInput
+  url: StringFilterInput
+  previewUrl: StringFilterInput
+  provider: StringFilterInput
+  provider_metadata: JSONFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: UploadFileFiltersInput
+  and: [UploadFileFiltersInput]
+  or: [UploadFileFiltersInput]
+  not: UploadFileFiltersInput
+}
+
+type UploadFile {
+  documentId: ID!
+  name: String!
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String!
+  ext: String
+  mime: String!
+  size: Float!
+  url: String!
+  previewUrl: String
+  provider: String!
+  provider_metadata: JSON
+  related: [GenericMorph]
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  localizations(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UploadFile]!
+}
+
+type UploadFileEntityResponseCollection {
+  nodes: [UploadFile!]!
+  pageInfo: Pagination!
+}
+
+type UploadFileRelationResponseCollection {
+  nodes: [UploadFile!]!
+}
+
+input I18NLocaleFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  code: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: I18NLocaleFiltersInput
+  and: [I18NLocaleFiltersInput]
+  or: [I18NLocaleFiltersInput]
+  not: I18NLocaleFiltersInput
+}
+
+type I18NLocale {
+  documentId: ID!
+  name: String
+  code: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): I18NLocaleRelationResponseCollection
+  localizations(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [I18NLocale]!
+}
+
+type I18NLocaleEntityResponseCollection {
+  nodes: [I18NLocale!]!
+  pageInfo: Pagination!
+}
+
+type I18NLocaleRelationResponseCollection {
+  nodes: [I18NLocale!]!
+}
+
+input ReviewWorkflowsWorkflowFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  stages: ReviewWorkflowsWorkflowStageFiltersInput
+  contentTypes: JSONFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ReviewWorkflowsWorkflowFiltersInput
+  and: [ReviewWorkflowsWorkflowFiltersInput]
+  or: [ReviewWorkflowsWorkflowFiltersInput]
+  not: ReviewWorkflowsWorkflowFiltersInput
+}
+
+input ReviewWorkflowsWorkflowInput {
+  name: String
+  stages: [ID]
+  contentTypes: JSON
+  publishedAt: DateTime
+  locale: String
+}
+
+type ReviewWorkflowsWorkflow {
+  documentId: ID!
+  name: String!
+  stages_connection(filters: ReviewWorkflowsWorkflowStageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ReviewWorkflowsWorkflowStageRelationResponseCollection
+  stages(filters: ReviewWorkflowsWorkflowStageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ReviewWorkflowsWorkflowStage]!
+  contentTypes: JSON!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ReviewWorkflowsWorkflowFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ReviewWorkflowsWorkflowRelationResponseCollection
+  localizations(filters: ReviewWorkflowsWorkflowFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ReviewWorkflowsWorkflow]!
+}
+
+type ReviewWorkflowsWorkflowEntityResponseCollection {
+  nodes: [ReviewWorkflowsWorkflow!]!
+  pageInfo: Pagination!
+}
+
+type ReviewWorkflowsWorkflowRelationResponseCollection {
+  nodes: [ReviewWorkflowsWorkflow!]!
+}
+
+input ReviewWorkflowsWorkflowStageFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  color: StringFilterInput
+  workflow: ReviewWorkflowsWorkflowFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ReviewWorkflowsWorkflowStageFiltersInput
+  and: [ReviewWorkflowsWorkflowStageFiltersInput]
+  or: [ReviewWorkflowsWorkflowStageFiltersInput]
+  not: ReviewWorkflowsWorkflowStageFiltersInput
+}
+
+input ReviewWorkflowsWorkflowStageInput {
+  name: String
+  color: String
+  workflow: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type ReviewWorkflowsWorkflowStage {
+  documentId: ID!
+  name: String
+  color: String
+  workflow: ReviewWorkflowsWorkflow
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ReviewWorkflowsWorkflowStageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ReviewWorkflowsWorkflowStageRelationResponseCollection
+  localizations(filters: ReviewWorkflowsWorkflowStageFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ReviewWorkflowsWorkflowStage]!
+}
+
+type ReviewWorkflowsWorkflowStageEntityResponseCollection {
+  nodes: [ReviewWorkflowsWorkflowStage!]!
+  pageInfo: Pagination!
+}
+
+type ReviewWorkflowsWorkflowStageRelationResponseCollection {
+  nodes: [ReviewWorkflowsWorkflowStage!]!
+}
+
+input UsersPermissionsPermissionFiltersInput {
+  documentId: IDFilterInput
+  action: StringFilterInput
+  role: UsersPermissionsRoleFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: UsersPermissionsPermissionFiltersInput
+  and: [UsersPermissionsPermissionFiltersInput]
+  or: [UsersPermissionsPermissionFiltersInput]
+  not: UsersPermissionsPermissionFiltersInput
+}
+
+type UsersPermissionsPermission {
+  documentId: ID!
+  action: String!
+  role: UsersPermissionsRole
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: UsersPermissionsPermissionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UsersPermissionsPermissionRelationResponseCollection
+  localizations(filters: UsersPermissionsPermissionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UsersPermissionsPermission]!
+}
+
+type UsersPermissionsPermissionRelationResponseCollection {
+  nodes: [UsersPermissionsPermission!]!
+}
+
+input UsersPermissionsRoleFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  description: StringFilterInput
+  type: StringFilterInput
+  permissions: UsersPermissionsPermissionFiltersInput
+  users: UsersPermissionsUserFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: UsersPermissionsRoleFiltersInput
+  and: [UsersPermissionsRoleFiltersInput]
+  or: [UsersPermissionsRoleFiltersInput]
+  not: UsersPermissionsRoleFiltersInput
+}
+
+input UsersPermissionsRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type UsersPermissionsRole {
+  documentId: ID!
+  name: String!
+  description: String
+  type: String
+  permissions_connection(filters: UsersPermissionsPermissionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UsersPermissionsPermissionRelationResponseCollection
+  permissions(filters: UsersPermissionsPermissionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UsersPermissionsPermission]!
+  users_connection(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UsersPermissionsUserRelationResponseCollection
+  users(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UsersPermissionsUser]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: UsersPermissionsRoleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UsersPermissionsRoleRelationResponseCollection
+  localizations(filters: UsersPermissionsRoleFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UsersPermissionsRole]!
+}
+
+type UsersPermissionsRoleEntityResponseCollection {
+  nodes: [UsersPermissionsRole!]!
+  pageInfo: Pagination!
+}
+
+type UsersPermissionsRoleRelationResponseCollection {
+  nodes: [UsersPermissionsRole!]!
+}
+
+input UsersPermissionsUserFiltersInput {
+  documentId: IDFilterInput
+  username: StringFilterInput
+  email: StringFilterInput
+  provider: StringFilterInput
+  confirmed: BooleanFilterInput
+  blocked: BooleanFilterInput
+  role: UsersPermissionsRoleFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: UsersPermissionsUserFiltersInput
+  and: [UsersPermissionsUserFiltersInput]
+  or: [UsersPermissionsUserFiltersInput]
+  not: UsersPermissionsUserFiltersInput
+}
+
+input UsersPermissionsUserInput {
+  username: String
+  email: String
+  provider: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type UsersPermissionsUser {
+  documentId: ID!
+  username: String!
+  email: String!
+  provider: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsRole
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UsersPermissionsUserRelationResponseCollection
+  localizations(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UsersPermissionsUser]!
+}
+
+type UsersPermissionsUserEntityResponse {
+  data: UsersPermissionsUser
+}
+
+type UsersPermissionsUserEntityResponseCollection {
+  nodes: [UsersPermissionsUser!]!
+  pageInfo: Pagination!
+}
+
+type UsersPermissionsUserRelationResponseCollection {
+  nodes: [UsersPermissionsUser!]!
+}
+
+input AttributoFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  value: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: AttributoFiltersInput
+  and: [AttributoFiltersInput]
+  or: [AttributoFiltersInput]
+  not: AttributoFiltersInput
+}
+
+input AttributoInput {
+  name: String
+  value: String
+  publishedAt: DateTime
+  locale: String
+}
+
+type Attributo {
+  documentId: ID!
+  name: String
+  value: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: AttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): AttributoRelationResponseCollection
+  localizations(filters: AttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Attributo]!
+}
+
+type AttributoEntityResponseCollection {
+  nodes: [Attributo!]!
+  pageInfo: Pagination!
+}
+
+type AttributoRelationResponseCollection {
+  nodes: [Attributo!]!
+}
+
+input BannerFiltersInput {
+  documentId: IDFilterInput
+  Nombre_Banner: StringFilterInput
+  url: StringFilterInput
+  Cuerpo_de_banner: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: BannerFiltersInput
+  and: [BannerFiltersInput]
+  or: [BannerFiltersInput]
+  not: BannerFiltersInput
+}
+
+input BannerInput {
+  Nombre_Banner: String
+  url: String
+  Cuerpo_de_banner: String
+  fondo: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type Banner {
+  documentId: ID!
+  Nombre_Banner: String
+  url: String
+  Cuerpo_de_banner: String
+  fondo: UploadFile
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: BannerFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): BannerRelationResponseCollection
+  localizations(filters: BannerFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Banner]!
+}
+
+type BannerEntityResponseCollection {
+  nodes: [Banner!]!
+  pageInfo: Pagination!
+}
+
+type BannerRelationResponseCollection {
+  nodes: [Banner!]!
+}
+
+input BannerPromocionalInput {
+  Nombre: String
+  estado: Boolean
+  fondo: ID
+  body_de_la_promocion: JSON
+  enlace: String
+  class_css: JSON
+  publishedAt: DateTime
+  locale: String
+}
+
+type BannerPromocional {
+  documentId: ID!
+  Nombre: String
+  estado: Boolean!
+  fondo: UploadFile
+  body_de_la_promocion: JSON!
+  enlace: String
+  class_css: JSON
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection: BannerPromocionalRelationResponseCollection
+  localizations: [BannerPromocional]!
+}
+
+type BannerPromocionalRelationResponseCollection {
+  nodes: [BannerPromocional!]!
+}
+
+input CalificacionFiltersInput {
+  documentId: IDFilterInput
+  nombre: StringFilterInput
+  Email: StringFilterInput
+  extrellas: IntFilterInput
+  personas: IntFilterInput
+  comentario: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: CalificacionFiltersInput
+  and: [CalificacionFiltersInput]
+  or: [CalificacionFiltersInput]
+  not: CalificacionFiltersInput
+}
+
+input CalificacionInput {
+  nombre: String
+  Email: String
+  extrellas: Int
+  personas: Int
+  comentario: String
+  evidencia: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type Calificacion {
+  documentId: ID!
+  nombre: String
+  Email: String
+  extrellas: Int
+  personas: Int
+  comentario: String
+  evidencia_connection(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  evidencia(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UploadFile]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: CalificacionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CalificacionRelationResponseCollection
+  localizations(filters: CalificacionFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Calificacion]!
+}
+
+type CalificacionEntityResponseCollection {
+  nodes: [Calificacion!]!
+  pageInfo: Pagination!
+}
+
+type CalificacionRelationResponseCollection {
+  nodes: [Calificacion!]!
+}
+
+input CategoryFiltersInput {
+  documentId: IDFilterInput
+  Name: StringFilterInput
+  slug: StringFilterInput
+  UrlImagen: StringFilterInput
+  parent: CategoryFiltersInput
+  children: CategoryFiltersInput
+  products: ProductFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: CategoryFiltersInput
+  and: [CategoryFiltersInput]
+  or: [CategoryFiltersInput]
+  not: CategoryFiltersInput
+}
+
+input CategoryInput {
+  Name: String
+  slug: String
+  UrlImagen: String
+  parent: ID
+  children: [ID]
+  products: [ID]
+  publishedAt: DateTime
+}
+
+type Category {
+  documentId: ID!
+  Name: String
+  slug: String
+  UrlImagen: String
+  parent: Category
+  children_connection(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CategoryRelationResponseCollection
+  children(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Category]!
+  products_connection(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ProductRelationResponseCollection
+  products(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Product]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CategoryRelationResponseCollection
+  localizations(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Category]!
+}
+
+type CategoryEntityResponseCollection {
+  nodes: [Category!]!
+  pageInfo: Pagination!
+}
+
+type CategoryRelationResponseCollection {
+  nodes: [Category!]!
+}
+
+enum ENUM_CLIENTE_GENDER {
+  male
+  female
+  other
+  prefer_not_to_say
+}
+
+enum ENUM_CLIENTE_CUSTOMERTYPE {
+  regular
+  vip
+  wholesale
+}
+
+input ClienteFiltersInput {
+  documentId: IDFilterInput
+  firstName: StringFilterInput
+  lastName: StringFilterInput
+  email: StringFilterInput
+  phone: StringFilterInput
+  birthDate: DateFilterInput
+  gender: StringFilterInput
+  customerType: StringFilterInput
+  isActive: BooleanFilterInput
+  registrationDate: DateTimeFilterInput
+  lastLoginDate: DateTimeFilterInput
+  totalOrders: IntFilterInput
+  totalSpent: FloatFilterInput
+  notes: StringFilterInput
+  orders: OrderFiltersInput
+  direccion_envios: DireccionEnvioFiltersInput
+  reserva: ReservaFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ClienteFiltersInput
+  and: [ClienteFiltersInput]
+  or: [ClienteFiltersInput]
+  not: ClienteFiltersInput
+}
+
+input ClienteInput {
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  birthDate: Date
+  gender: ENUM_CLIENTE_GENDER
+  customerType: ENUM_CLIENTE_CUSTOMERTYPE
+  isActive: Boolean
+  registrationDate: DateTime
+  lastLoginDate: DateTime
+  totalOrders: Int
+  totalSpent: Float
+  notes: String
+  orders: [ID]
+  direccion_envios: [ID]
+  reserva: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type Cliente {
+  documentId: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String
+  birthDate: Date
+  gender: ENUM_CLIENTE_GENDER
+  customerType: ENUM_CLIENTE_CUSTOMERTYPE
+  isActive: Boolean
+  registrationDate: DateTime
+  lastLoginDate: DateTime
+  totalOrders: Int
+  totalSpent: Float
+  notes: String
+  orders_connection(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderRelationResponseCollection
+  orders(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Order]!
+  direccion_envios_connection(filters: DireccionEnvioFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DireccionEnvioRelationResponseCollection
+  direccion_envios(filters: DireccionEnvioFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [DireccionEnvio]!
+  reserva: Reserva
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ClienteFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ClienteRelationResponseCollection
+  localizations(filters: ClienteFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Cliente]!
+}
+
+type ClienteEntityResponseCollection {
+  nodes: [Cliente!]!
+  pageInfo: Pagination!
+}
+
+type ClienteRelationResponseCollection {
+  nodes: [Cliente!]!
+}
+
+enum ENUM_COMERCE_ACTIVIDAD {
+  Ferrecteria
+  electrodomesticos
+  repuestos
+  electronicos
+}
+
+input ComerceFiltersInput {
+  documentId: IDFilterInput
+  Nombre: StringFilterInput
+  Descripcion: StringFilterInput
+  telefono: LongFilterInput
+  CorreoElectronico: StringFilterInput
+  Actividad: StringFilterInput
+  Estado: BooleanFilterInput
+  variants: VariantFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ComerceFiltersInput
+  and: [ComerceFiltersInput]
+  or: [ComerceFiltersInput]
+  not: ComerceFiltersInput
+}
+
+input ComerceInput {
+  Nombre: String
+  Descripcion: String
+  telefono: Long
+  CorreoElectronico: String
+  Logo: ID
+  Actividad: ENUM_COMERCE_ACTIVIDAD
+  Estado: Boolean
+  variants: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type Comerce {
+  documentId: ID!
+  Nombre: String
+  Descripcion: String
+  telefono: Long!
+  CorreoElectronico: String
+  Logo: UploadFile
+  Actividad: ENUM_COMERCE_ACTIVIDAD
+  Estado: Boolean
+  variants_connection(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): VariantRelationResponseCollection
+  variants(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Variant]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ComerceFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ComerceRelationResponseCollection
+  localizations(filters: ComerceFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Comerce]!
+}
+
+type ComerceEntityResponseCollection {
+  nodes: [Comerce!]!
+  pageInfo: Pagination!
+}
+
+type ComerceRelationResponseCollection {
+  nodes: [Comerce!]!
+}
+
+enum ENUM_COUPON_TYPE {
+  percentage
+  fixed_amount
+  free_shipping
+  buy_x_get_y
+}
+
+input CouponFiltersInput {
+  documentId: IDFilterInput
+  code: StringFilterInput
+  name: StringFilterInput
+  description: StringFilterInput
+  type: StringFilterInput
+  value: FloatFilterInput
+  minimumOrderAmount: FloatFilterInput
+  maximumDiscountAmount: FloatFilterInput
+  isActive: BooleanFilterInput
+  startDate: DateTimeFilterInput
+  endDate: DateTimeFilterInput
+  usageLimit: IntFilterInput
+  usageLimitPerCustomer: IntFilterInput
+  usedCount: IntFilterInput
+  applicableToProducts: ProductFiltersInput
+  applicableToCategories: CategoryFiltersInput
+  orders: OrderFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: CouponFiltersInput
+  and: [CouponFiltersInput]
+  or: [CouponFiltersInput]
+  not: CouponFiltersInput
+}
+
+input CouponInput {
+  code: String
+  name: String
+  description: String
+  type: ENUM_COUPON_TYPE
+  value: Float
+  minimumOrderAmount: Float
+  maximumDiscountAmount: Float
+  isActive: Boolean
+  startDate: DateTime
+  endDate: DateTime
+  usageLimit: Int
+  usageLimitPerCustomer: Int
+  usedCount: Int
+  applicableToProducts: [ID]
+  applicableToCategories: [ID]
+  orders: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type Coupon {
+  documentId: ID!
+  code: String!
+  name: String!
+  description: String
+  type: ENUM_COUPON_TYPE!
+  value: Float!
+  minimumOrderAmount: Float
+  maximumDiscountAmount: Float
+  isActive: Boolean
+  startDate: DateTime!
+  endDate: DateTime!
+  usageLimit: Int
+  usageLimitPerCustomer: Int
+  usedCount: Int
+  applicableToProducts_connection(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ProductRelationResponseCollection
+  applicableToProducts(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Product]!
+  applicableToCategories_connection(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CategoryRelationResponseCollection
+  applicableToCategories(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Category]!
+  orders_connection(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderRelationResponseCollection
+  orders(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Order]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: CouponFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CouponRelationResponseCollection
+  localizations(filters: CouponFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Coupon]!
+}
+
+type CouponEntityResponseCollection {
+  nodes: [Coupon!]!
+  pageInfo: Pagination!
+}
+
+type CouponRelationResponseCollection {
+  nodes: [Coupon!]!
+}
+
+enum ENUM_DESCUENTO_TYPE {
+  percentage
+  fixed_amount
+}
+
+input DescuentoFiltersInput {
+  documentId: IDFilterInput
+  title: StringFilterInput
+  description: StringFilterInput
+  type: StringFilterInput
+  value: FloatFilterInput
+  isActive: BooleanFilterInput
+  startDate: DateTimeFilterInput
+  endDate: DateTimeFilterInput
+  minimumQuantity: IntFilterInput
+  maximumDiscountAmount: FloatFilterInput
+  applicableToProducts: ProductFiltersInput
+  applicableToCategories: CategoryFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: DescuentoFiltersInput
+  and: [DescuentoFiltersInput]
+  or: [DescuentoFiltersInput]
+  not: DescuentoFiltersInput
+}
+
+input DescuentoInput {
+  title: String
+  description: String
+  type: ENUM_DESCUENTO_TYPE
+  value: Float
+  isActive: Boolean
+  startDate: DateTime
+  endDate: DateTime
+  minimumQuantity: Int
+  maximumDiscountAmount: Float
+  applicableToProducts: [ID]
+  applicableToCategories: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type Descuento {
+  documentId: ID!
+  title: String!
+  description: String
+  type: ENUM_DESCUENTO_TYPE!
+  value: Float!
+  isActive: Boolean
+  startDate: DateTime
+  endDate: DateTime
+  minimumQuantity: Int
+  maximumDiscountAmount: Float
+  applicableToProducts_connection(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ProductRelationResponseCollection
+  applicableToProducts(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Product]!
+  applicableToCategories_connection(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CategoryRelationResponseCollection
+  applicableToCategories(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Category]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: DescuentoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DescuentoRelationResponseCollection
+  localizations(filters: DescuentoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Descuento]!
+}
+
+type DescuentoEntityResponseCollection {
+  nodes: [Descuento!]!
+  pageInfo: Pagination!
+}
+
+type DescuentoRelationResponseCollection {
+  nodes: [Descuento!]!
+}
+
+enum ENUM_DIRECCIONENVIO_STATE {
+  Amazonas
+  Antioquia
+  Arauca
+  Atlantico
+  Bolivar
+  Boyaca
+  Caldas
+  Caqueta
+  Casanare
+  Cauca
+  Cesar
+  Choco
+  Cordoba
+  Cundinamarca
+  Guainia
+  Guaviare
+  Huila
+  La_Guajira
+  Magdalena
+  Meta
+  Narino
+  Norte_de_Santander
+  Putumayo
+  Quindio
+  Risaralda
+  San_Andres_y_Providencia
+  Santander
+  Sucre
+  Tolima
+  Valle_del_Cauca
+  Vaupes
+  Vichada
+}
+
+enum ENUM_DIRECCIONENVIO_ADDRESSTYPE {
+  home
+  work
+  other
+}
+
+union DireccionEnvioCoordinatesDynamicZone = ComponentProducGoogleMap | Error
+
+scalar DireccionEnvioCoordinatesDynamicZoneInput
+
+input DireccionEnvioFiltersInput {
+  documentId: IDFilterInput
+  firstName: StringFilterInput
+  lastName: StringFilterInput
+  company: StringFilterInput
+  addressLine1: StringFilterInput
+  addressLine2: StringFilterInput
+  city: StringFilterInput
+  state: StringFilterInput
+  postalCode: StringFilterInput
+  country: StringFilterInput
+  phone: StringFilterInput
+  email: StringFilterInput
+  isDefault: BooleanFilterInput
+  addressType: StringFilterInput
+  deliveryInstructions: StringFilterInput
+  cliente: ClienteFiltersInput
+  shippingOrders: OrderFiltersInput
+  billingOrders: OrderFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: DireccionEnvioFiltersInput
+  and: [DireccionEnvioFiltersInput]
+  or: [DireccionEnvioFiltersInput]
+  not: DireccionEnvioFiltersInput
+}
+
+input DireccionEnvioInput {
+  firstName: String
+  lastName: String
+  company: String
+  addressLine1: String
+  addressLine2: String
+  city: String
+  state: ENUM_DIRECCIONENVIO_STATE
+  postalCode: String
+  country: String
+  phone: String
+  email: String
+  isDefault: Boolean
+  addressType: ENUM_DIRECCIONENVIO_ADDRESSTYPE
+  deliveryInstructions: String
+  coordinates: [DireccionEnvioCoordinatesDynamicZoneInput!]
+  cliente: ID
+  shippingOrders: [ID]
+  billingOrders: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type DireccionEnvio {
+  documentId: ID!
+  firstName: String!
+  lastName: String!
+  company: String
+  addressLine1: String!
+  addressLine2: String
+  city: String!
+  state: ENUM_DIRECCIONENVIO_STATE!
+  postalCode: String
+  country: String
+  phone: String
+  email: String
+  isDefault: Boolean
+  addressType: ENUM_DIRECCIONENVIO_ADDRESSTYPE
+  deliveryInstructions: String
+  coordinates: [DireccionEnvioCoordinatesDynamicZone]
+  cliente: Cliente
+  shippingOrders_connection(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderRelationResponseCollection
+  shippingOrders(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Order]!
+  billingOrders_connection(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderRelationResponseCollection
+  billingOrders(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Order]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: DireccionEnvioFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): DireccionEnvioRelationResponseCollection
+  localizations(filters: DireccionEnvioFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [DireccionEnvio]!
+}
+
+type DireccionEnvioEntityResponseCollection {
+  nodes: [DireccionEnvio!]!
+  pageInfo: Pagination!
+}
+
+type DireccionEnvioRelationResponseCollection {
+  nodes: [DireccionEnvio!]!
+}
+
+input GrupoAttributoFiltersInput {
+  documentId: IDFilterInput
+  Nombre: StringFilterInput
+  Descripcion: StringFilterInput
+  tipo_de_productos: TipoDeProductoFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: GrupoAttributoFiltersInput
+  and: [GrupoAttributoFiltersInput]
+  or: [GrupoAttributoFiltersInput]
+  not: GrupoAttributoFiltersInput
+}
+
+input GrupoAttributoInput {
+  Nombre: String
+  Descripcion: String
+  tipo_de_productos: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type GrupoAttributo {
+  documentId: ID!
+  Nombre: String
+  Descripcion: String
+  tipo_de_productos_connection(filters: TipoDeProductoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): TipoDeProductoRelationResponseCollection
+  tipo_de_productos(filters: TipoDeProductoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [TipoDeProducto]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: GrupoAttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): GrupoAttributoRelationResponseCollection
+  localizations(filters: GrupoAttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [GrupoAttributo]!
+}
+
+type GrupoAttributoEntityResponseCollection {
+  nodes: [GrupoAttributo!]!
+  pageInfo: Pagination!
+}
+
+type GrupoAttributoRelationResponseCollection {
+  nodes: [GrupoAttributo!]!
+}
+
+input HeroInput {
+  title: String
+  titleH2: String
+  Descripcion: JSON
+  botonTexto: String
+  Url_imagen: String
+  Descuento: Int
+  redirectPromocion: String
+  classColorBoton: String
+  publishedAt: DateTime
+  locale: String
+}
+
+type Hero {
+  documentId: ID!
+  title: String
+  titleH2: String
+  Descripcion: JSON
+  botonTexto: String
+  Url_imagen: String
+  Descuento: Int
+  redirectPromocion: String
+  classColorBoton: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection: HeroRelationResponseCollection
+  localizations: [Hero]!
+}
+
+type HeroRelationResponseCollection {
+  nodes: [Hero!]!
+}
+
+input HeroHomeFiltersInput {
+  documentId: IDFilterInput
+  tituloprinsipal: StringFilterInput
+  titulodos: StringFilterInput
+  Descripcion: StringFilterInput
+  botonTexto: StringFilterInput
+  Url_imagen: StringFilterInput
+  Descuento: IntFilterInput
+  redirectPromocion: StringFilterInput
+  classColorBoton: StringFilterInput
+  estado: BooleanFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: HeroHomeFiltersInput
+  and: [HeroHomeFiltersInput]
+  or: [HeroHomeFiltersInput]
+  not: HeroHomeFiltersInput
+}
+
+input HeroHomeInput {
+  tituloprinsipal: String
+  titulodos: String
+  Descripcion: String
+  botonTexto: String
+  Url_imagen: String
+  Descuento: Int
+  redirectPromocion: String
+  classColorBoton: String
+  estado: Boolean
+  publishedAt: DateTime
+  locale: String
+}
+
+type HeroHome {
+  documentId: ID!
+  tituloprinsipal: String
+  titulodos: String
+  Descripcion: String
+  botonTexto: String
+  Url_imagen: String
+  Descuento: Int
+  redirectPromocion: String
+  classColorBoton: String
+  estado: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: HeroHomeFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): HeroHomeRelationResponseCollection
+  localizations(filters: HeroHomeFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [HeroHome]!
+}
+
+type HeroHomeEntityResponseCollection {
+  nodes: [HeroHome!]!
+  pageInfo: Pagination!
+}
+
+type HeroHomeRelationResponseCollection {
+  nodes: [HeroHome!]!
+}
+
+input HomePagenInput {
+  Titulo: String
+  Logo: ID
+  Body: JSON
+  slider: [ID]
+  empresa: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type HomePagen {
+  documentId: ID!
+  Titulo: String
+  Logo: UploadFile!
+  Body: JSON
+  slider_connection(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  slider(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UploadFile]!
+  empresa: Comerce
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection: HomePagenRelationResponseCollection
+  localizations: [HomePagen]!
+}
+
+type HomePagenRelationResponseCollection {
+  nodes: [HomePagen!]!
+}
+
+input LugarFiltersInput {
+  documentId: IDFilterInput
+  nombre_del_lugar: StringFilterInput
+  ciudad: StringFilterInput
+  capacidad_maxima: IntFilterInput
+  descripcion: JSONFilterInput
+  direccion: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: LugarFiltersInput
+  and: [LugarFiltersInput]
+  or: [LugarFiltersInput]
+  not: LugarFiltersInput
+}
+
+input LugarInput {
+  nombre_del_lugar: String
+  ciudad: String
+  capacidad_maxima: Int
+  descripcion: JSON
+  direccion: String
+  publishedAt: DateTime
+  locale: String
+}
+
+type Lugar {
+  documentId: ID!
+  nombre_del_lugar: String
+  ciudad: String
+  capacidad_maxima: Int
+  descripcion: JSON
+  direccion: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: LugarFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): LugarRelationResponseCollection
+  localizations(filters: LugarFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Lugar]!
+}
+
+type LugarEntityResponseCollection {
+  nodes: [Lugar!]!
+  pageInfo: Pagination!
+}
+
+type LugarRelationResponseCollection {
+  nodes: [Lugar!]!
+}
+
+enum ENUM_ORDER_STATUS {
+  pending
+  confirmed
+  processing
+  shipped
+  delivered
+  cancelled
+  refunded
+}
+
+input OrderFiltersInput {
+  documentId: IDFilterInput
+  orderNumber: StringFilterInput
+  status: StringFilterInput
+  subtotal: FloatFilterInput
+  taxAmount: FloatFilterInput
+  shippingCost: FloatFilterInput
+  discountAmount: FloatFilterInput
+  totalAmount: FloatFilterInput
+  currency: StringFilterInput
+  orderDate: DateTimeFilterInput
+  estimatedDeliveryDate: DateFilterInput
+  actualDeliveryDate: DateTimeFilterInput
+  notes: StringFilterInput
+  trackingNumber: StringFilterInput
+  cliente: ClienteFiltersInput
+  orderItems: OrderItemFiltersInput
+  shippingAddress: DireccionEnvioFiltersInput
+  billingAddress: DireccionEnvioFiltersInput
+  paymentMethod: PaymentMethodFiltersInput
+  appliedCoupons: CouponFiltersInput
+  orderHistory: OrderHistoryFiltersInput
+  shippingMethod: ShippingMethodFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: OrderFiltersInput
+  and: [OrderFiltersInput]
+  or: [OrderFiltersInput]
+  not: OrderFiltersInput
+}
+
+input OrderInput {
+  orderNumber: String
+  status: ENUM_ORDER_STATUS
+  subtotal: Float
+  taxAmount: Float
+  shippingCost: Float
+  discountAmount: Float
+  totalAmount: Float
+  currency: String
+  orderDate: DateTime
+  estimatedDeliveryDate: Date
+  actualDeliveryDate: DateTime
+  notes: String
+  trackingNumber: String
+  cliente: ID
+  orderItems: [ID]
+  shippingAddress: ID
+  billingAddress: ID
+  paymentMethod: ID
+  appliedCoupons: [ID]
+  orderHistory: [ID]
+  shippingMethod: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type Order {
+  documentId: ID!
+  orderNumber: String!
+  status: ENUM_ORDER_STATUS!
+  subtotal: Float!
+  taxAmount: Float
+  shippingCost: Float
+  discountAmount: Float
+  totalAmount: Float!
+  currency: String
+  orderDate: DateTime!
+  estimatedDeliveryDate: Date
+  actualDeliveryDate: DateTime
+  notes: String
+  trackingNumber: String
+  cliente: Cliente!
+  orderItems_connection(filters: OrderItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderItemRelationResponseCollection
+  orderItems(filters: OrderItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [OrderItem]!
+  shippingAddress: DireccionEnvio
+  billingAddress: DireccionEnvio
+  paymentMethod: PaymentMethod
+  appliedCoupons_connection(filters: CouponFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CouponRelationResponseCollection
+  appliedCoupons(filters: CouponFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Coupon]!
+  orderHistory_connection(filters: OrderHistoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderHistoryRelationResponseCollection
+  orderHistory(filters: OrderHistoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [OrderHistory]!
+  shippingMethod: ShippingMethod
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderRelationResponseCollection
+  localizations(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Order]!
+}
+
+type OrderEntityResponseCollection {
+  nodes: [Order!]!
+  pageInfo: Pagination!
+}
+
+type OrderRelationResponseCollection {
+  nodes: [Order!]!
+}
+
+enum ENUM_ORDERHISTORY_STATUS {
+  pending
+  confirmed
+  processing
+  shipped
+  delivered
+  cancelled
+  refunded
+}
+
+enum ENUM_ORDERHISTORY_PREVIOUSSTATUS {
+  pending
+  confirmed
+  processing
+  shipped
+  delivered
+  cancelled
+  refunded
+}
+
+input OrderHistoryFiltersInput {
+  documentId: IDFilterInput
+  status: StringFilterInput
+  previousStatus: StringFilterInput
+  changeDate: DateTimeFilterInput
+  notes: StringFilterInput
+  changedBy: StringFilterInput
+  automaticChange: BooleanFilterInput
+  notificationSent: BooleanFilterInput
+  order: OrderFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: OrderHistoryFiltersInput
+  and: [OrderHistoryFiltersInput]
+  or: [OrderHistoryFiltersInput]
+  not: OrderHistoryFiltersInput
+}
+
+input OrderHistoryInput {
+  status: ENUM_ORDERHISTORY_STATUS
+  previousStatus: ENUM_ORDERHISTORY_PREVIOUSSTATUS
+  changeDate: DateTime
+  notes: String
+  changedBy: String
+  automaticChange: Boolean
+  notificationSent: Boolean
+  order: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type OrderHistory {
+  documentId: ID!
+  status: ENUM_ORDERHISTORY_STATUS!
+  previousStatus: ENUM_ORDERHISTORY_PREVIOUSSTATUS
+  changeDate: DateTime!
+  notes: String
+  changedBy: String
+  automaticChange: Boolean
+  notificationSent: Boolean
+  order: Order!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: OrderHistoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderHistoryRelationResponseCollection
+  localizations(filters: OrderHistoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [OrderHistory]!
+}
+
+type OrderHistoryEntityResponseCollection {
+  nodes: [OrderHistory!]!
+  pageInfo: Pagination!
+}
+
+type OrderHistoryRelationResponseCollection {
+  nodes: [OrderHistory!]!
+}
+
+input OrderItemFiltersInput {
+  documentId: IDFilterInput
+  product: ProductFiltersInput
+  variant: VariantFiltersInput
+  quantity: IntFilterInput
+  unitPrice: FloatFilterInput
+  originalPrice: FloatFilterInput
+  discountAmount: FloatFilterInput
+  subtotal: FloatFilterInput
+  sku: StringFilterInput
+  productName: StringFilterInput
+  variantTitle: StringFilterInput
+  productImage: StringFilterInput
+  order: OrderFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: OrderItemFiltersInput
+  and: [OrderItemFiltersInput]
+  or: [OrderItemFiltersInput]
+  not: OrderItemFiltersInput
+}
+
+input OrderItemInput {
+  product: ID
+  variant: ID
+  quantity: Int
+  unitPrice: Float
+  originalPrice: Float
+  discountAmount: Float
+  subtotal: Float
+  sku: String
+  productName: String
+  variantTitle: String
+  productImage: String
+  order: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type OrderItem {
+  documentId: ID!
+  product: Product!
+  variant: Variant
+  quantity: Int!
+  unitPrice: Float!
+  originalPrice: Float!
+  discountAmount: Float
+  subtotal: Float!
+  sku: String
+  productName: String!
+  variantTitle: String
+  productImage: String
+  order: Order!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: OrderItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderItemRelationResponseCollection
+  localizations(filters: OrderItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [OrderItem]!
+}
+
+type OrderItemEntityResponseCollection {
+  nodes: [OrderItem!]!
+  pageInfo: Pagination!
+}
+
+type OrderItemRelationResponseCollection {
+  nodes: [OrderItem!]!
+}
+
+input Page404Input {
+  Titulo: String
+  Body: JSON
+  publishedAt: DateTime
+  locale: String
+}
+
+type Page404 {
+  documentId: ID!
+  Titulo: String
+  Body: JSON
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection: Page404RelationResponseCollection
+  localizations: [Page404]!
+}
+
+type Page404RelationResponseCollection {
+  nodes: [Page404!]!
+}
+
+enum ENUM_PAYMENTMETHOD_TYPE {
+  credit_card
+  debit_card
+  bank_transfer
+  cash_on_delivery
+  digital_wallet
+  cryptocurrency
+  installments
+}
+
+enum ENUM_PAYMENTMETHOD_PROCESSINGFEETYPE {
+  fixed
+  percentage
+}
+
+input PaymentMethodFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  type: StringFilterInput
+  provider: StringFilterInput
+  isActive: BooleanFilterInput
+  processingFee: FloatFilterInput
+  processingFeeType: StringFilterInput
+  minAmount: FloatFilterInput
+  maxAmount: FloatFilterInput
+  description: StringFilterInput
+  orders: OrderFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: PaymentMethodFiltersInput
+  and: [PaymentMethodFiltersInput]
+  or: [PaymentMethodFiltersInput]
+  not: PaymentMethodFiltersInput
+}
+
+input PaymentMethodInput {
+  name: String
+  type: ENUM_PAYMENTMETHOD_TYPE
+  provider: String
+  isActive: Boolean
+  processingFee: Float
+  processingFeeType: ENUM_PAYMENTMETHOD_PROCESSINGFEETYPE
+  minAmount: Float
+  maxAmount: Float
+  description: String
+  icon: ID
+  orders: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type PaymentMethod {
+  documentId: ID!
+  name: String!
+  type: ENUM_PAYMENTMETHOD_TYPE!
+  provider: String
+  isActive: Boolean
+  processingFee: Float
+  processingFeeType: ENUM_PAYMENTMETHOD_PROCESSINGFEETYPE
+  minAmount: Float
+  maxAmount: Float
+  description: String
+  icon: UploadFile
+  orders_connection(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): OrderRelationResponseCollection
+  orders(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Order]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: PaymentMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): PaymentMethodRelationResponseCollection
+  localizations(filters: PaymentMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [PaymentMethod]!
+}
+
+type PaymentMethodEntityResponseCollection {
+  nodes: [PaymentMethod!]!
+  pageInfo: Pagination!
+}
+
+type PaymentMethodRelationResponseCollection {
+  nodes: [PaymentMethod!]!
+}
+
+enum ENUM_PRODUCT_STATU {
+  ex
+  draft
+  published
+  archived
+}
+
+input ProductFiltersInput {
+  documentId: IDFilterInput
+  Name: StringFilterInput
+  slug: StringFilterInput
+  Description: JSONFilterInput
+  Statu: StringFilterInput
+  Url_imagen: ComponentImageUrlImagenFiltersInput
+  variants: VariantFiltersInput
+  Attribute_of_products: ComponentAttributesVariantTtributesOfProductFiltersInput
+  categories: CategoryFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ProductFiltersInput
+  and: [ProductFiltersInput]
+  or: [ProductFiltersInput]
+  not: ProductFiltersInput
+}
+
+input ProductInput {
+  Name: String
+  slug: String
+  Description: JSON
+  Statu: ENUM_PRODUCT_STATU
+  Imagenes: [ID]
+  Url_imagen: [ComponentImageUrlImagenInput]
+  variants: [ID]
+  Attribute_of_products: [ComponentAttributesVariantTtributesOfProductInput]
+  categories: [ID]
+  publishedAt: DateTime
+}
+
+type Product {
+  documentId: ID!
+  Name: String
+  slug: String
+  Description: JSON
+  Statu: ENUM_PRODUCT_STATU
+  Imagenes_connection(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): UploadFileRelationResponseCollection
+  Imagenes(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [UploadFile]!
+  Url_imagen(filters: ComponentImageUrlImagenFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentImageUrlImagen]
+  variants_connection(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): VariantRelationResponseCollection
+  variants(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Variant]!
+  Attribute_of_products(filters: ComponentAttributesVariantTtributesOfProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentAttributesVariantTtributesOfProduct]
+  categories_connection(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CategoryRelationResponseCollection
+  categories(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Category]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ProductRelationResponseCollection
+  localizations(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Product]!
+}
+
+type ProductEntityResponseCollection {
+  nodes: [Product!]!
+  pageInfo: Pagination!
+}
+
+type ProductRelationResponseCollection {
+  nodes: [Product!]!
+}
+
+enum ENUM_RESERVA_TIPO_DE_RESERVA {
+  Individual
+  Grupal
+  Corporativa
+}
+
+enum ENUM_RESERVA_ESTADO_DE_LA_RESERVA {
+  Pendiente
+  Confirmada
+  Cancelada
+  Completada
+}
+
+input ReservaFiltersInput {
+  documentId: IDFilterInput
+  cliente: ClienteFiltersInput
+  Tipo_de_reserva: StringFilterInput
+  fecha_de_reserva: DateFilterInput
+  hora_de_inicio: TimeFilterInput
+  hora_de_finalizacion: TimeFilterInput
+  fecha_de_finalizacion: DateFilterInput
+  duracion: IntFilterInput
+  estado_de_la_reserva: StringFilterInput
+  cantidad_de_personas: IntFilterInput
+  detalles_adicionales: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ReservaFiltersInput
+  and: [ReservaFiltersInput]
+  or: [ReservaFiltersInput]
+  not: ReservaFiltersInput
+}
+
+input ReservaInput {
+  cliente: ID
+  Tipo_de_reserva: ENUM_RESERVA_TIPO_DE_RESERVA
+  fecha_de_reserva: Date
+  hora_de_inicio: Time
+  hora_de_finalizacion: Time
+  fecha_de_finalizacion: Date
+  duracion: Int
+  estado_de_la_reserva: ENUM_RESERVA_ESTADO_DE_LA_RESERVA
+  cantidad_de_personas: Int
+  detalles_adicionales: String
+  publishedAt: DateTime
+  locale: String
+}
+
+type Reserva {
+  documentId: ID!
+  cliente: Cliente
+  Tipo_de_reserva: ENUM_RESERVA_TIPO_DE_RESERVA
+  fecha_de_reserva: Date
+  hora_de_inicio: Time
+  hora_de_finalizacion: Time
+  fecha_de_finalizacion: Date
+  duracion: Int
+  estado_de_la_reserva: ENUM_RESERVA_ESTADO_DE_LA_RESERVA
+  cantidad_de_personas: Int
+  detalles_adicionales: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ReservaFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ReservaRelationResponseCollection
+  localizations(filters: ReservaFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Reserva]!
+}
+
+type ReservaEntityResponseCollection {
+  nodes: [Reserva!]!
+  pageInfo: Pagination!
+}
+
+type ReservaRelationResponseCollection {
+  nodes: [Reserva!]!
+}
+
+enum ENUM_SERVICIO_TIPO_DE_SERVICIO {
+  Online
+  Presencial
+  Mixto
+}
+
+input ServicioFiltersInput {
+  documentId: IDFilterInput
+  nombre_del_servicio: StringFilterInput
+  descripcion: JSONFilterInput
+  duracion_predeterminada: IntFilterInput
+  precio: FloatFilterInput
+  tipo_de_servicio: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ServicioFiltersInput
+  and: [ServicioFiltersInput]
+  or: [ServicioFiltersInput]
+  not: ServicioFiltersInput
+}
+
+input ServicioInput {
+  nombre_del_servicio: String
+  descripcion: JSON
+  duracion_predeterminada: Int
+  precio: Float
+  tipo_de_servicio: ENUM_SERVICIO_TIPO_DE_SERVICIO
+  publishedAt: DateTime
+  locale: String
+}
+
+type Servicio {
+  documentId: ID!
+  nombre_del_servicio: String
+  descripcion: JSON
+  duracion_predeterminada: Int
+  precio: Float
+  tipo_de_servicio: ENUM_SERVICIO_TIPO_DE_SERVICIO
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ServicioFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ServicioRelationResponseCollection
+  localizations(filters: ServicioFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Servicio]!
+}
+
+type ServicioEntityResponseCollection {
+  nodes: [Servicio!]!
+  pageInfo: Pagination!
+}
+
+type ServicioRelationResponseCollection {
+  nodes: [Servicio!]!
+}
+
+enum ENUM_SHIPPINGMETHOD_TYPE {
+  standard
+  express
+  overnight
+  pickup
+  free
+}
+
+input ShippingMethodFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  description: StringFilterInput
+  carrier: StringFilterInput
+  type: StringFilterInput
+  baseCost: FloatFilterInput
+  costPerKg: FloatFilterInput
+  freeShippingThreshold: FloatFilterInput
+  estimatedDays: IntFilterInput
+  maxWeight: FloatFilterInput
+  isActive: BooleanFilterInput
+  availableStates: JSONFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: ShippingMethodFiltersInput
+  and: [ShippingMethodFiltersInput]
+  or: [ShippingMethodFiltersInput]
+  not: ShippingMethodFiltersInput
+}
+
+input ShippingMethodInput {
+  name: String
+  description: String
+  carrier: String
+  type: ENUM_SHIPPINGMETHOD_TYPE
+  baseCost: Float
+  costPerKg: Float
+  freeShippingThreshold: Float
+  estimatedDays: Int
+  maxWeight: Float
+  isActive: Boolean
+  availableStates: JSON
+  icon: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type ShippingMethod {
+  documentId: ID!
+  name: String!
+  description: String
+  carrier: String
+  type: ENUM_SHIPPINGMETHOD_TYPE!
+  baseCost: Float!
+  costPerKg: Float
+  freeShippingThreshold: Float
+  estimatedDays: Int!
+  maxWeight: Float
+  isActive: Boolean
+  availableStates: JSON
+  icon: UploadFile
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: ShippingMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ShippingMethodRelationResponseCollection
+  localizations(filters: ShippingMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ShippingMethod]!
+}
+
+type ShippingMethodEntityResponseCollection {
+  nodes: [ShippingMethod!]!
+  pageInfo: Pagination!
+}
+
+type ShippingMethodRelationResponseCollection {
+  nodes: [ShippingMethod!]!
+}
+
+enum ENUM_TAX_TYPE {
+  IVA
+  ICA
+  retencion
+  other
+}
+
+input TaxFiltersInput {
+  documentId: IDFilterInput
+  name: StringFilterInput
+  rate: FloatFilterInput
+  type: StringFilterInput
+  isActive: BooleanFilterInput
+  description: StringFilterInput
+  applicableToProducts: ProductFiltersInput
+  applicableToCategories: CategoryFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: TaxFiltersInput
+  and: [TaxFiltersInput]
+  or: [TaxFiltersInput]
+  not: TaxFiltersInput
+}
+
+input TaxInput {
+  name: String
+  rate: Float
+  type: ENUM_TAX_TYPE
+  isActive: Boolean
+  description: String
+  applicableToProducts: [ID]
+  applicableToCategories: [ID]
+  publishedAt: DateTime
+  locale: String
+}
+
+type Tax {
+  documentId: ID!
+  name: String!
+  rate: Float!
+  type: ENUM_TAX_TYPE!
+  isActive: Boolean
+  description: String
+  applicableToProducts_connection(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): ProductRelationResponseCollection
+  applicableToProducts(filters: ProductFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Product]!
+  applicableToCategories_connection(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): CategoryRelationResponseCollection
+  applicableToCategories(filters: CategoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Category]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: TaxFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): TaxRelationResponseCollection
+  localizations(filters: TaxFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Tax]!
+}
+
+type TaxEntityResponseCollection {
+  nodes: [Tax!]!
+  pageInfo: Pagination!
+}
+
+type TaxRelationResponseCollection {
+  nodes: [Tax!]!
+}
+
+input TipoDeProductoFiltersInput {
+  documentId: IDFilterInput
+  Nombre: StringFilterInput
+  Descripcion: StringFilterInput
+  grupo_attributo: GrupoAttributoFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: TipoDeProductoFiltersInput
+  and: [TipoDeProductoFiltersInput]
+  or: [TipoDeProductoFiltersInput]
+  not: TipoDeProductoFiltersInput
+}
+
+input TipoDeProductoInput {
+  Nombre: String
+  Descripcion: String
+  grupo_attributo: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type TipoDeProducto {
+  documentId: ID!
+  Nombre: String
+  Descripcion: String
+  grupo_attributo: GrupoAttributo
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: TipoDeProductoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): TipoDeProductoRelationResponseCollection
+  localizations(filters: TipoDeProductoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [TipoDeProducto]!
+}
+
+type TipoDeProductoEntityResponseCollection {
+  nodes: [TipoDeProducto!]!
+  pageInfo: Pagination!
+}
+
+type TipoDeProductoRelationResponseCollection {
+  nodes: [TipoDeProducto!]!
+}
+
+input VariantFiltersInput {
+  documentId: IDFilterInput
+  Title: StringFilterInput
+  product_parent: ProductFiltersInput
+  price: LongFilterInput
+  stock: LongFilterInput
+  Sku: StringFilterInput
+  attributes: ComponentAttributesVariantAttributesFiltersInput
+  empresa: ComerceFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  locale: StringFilterInput
+  localizations: VariantFiltersInput
+  and: [VariantFiltersInput]
+  or: [VariantFiltersInput]
+  not: VariantFiltersInput
+}
+
+input VariantInput {
+  Title: String
+  product_parent: ID
+  price: Long
+  stock: Long
+  Sku: String
+  attributes: [ComponentAttributesVariantAttributesInput]
+  empresa: ID
+  publishedAt: DateTime
+  locale: String
+}
+
+type Variant {
+  documentId: ID!
+  Title: String
+  product_parent: Product
+  price: Long
+  stock: Long
+  Sku: String
+  attributes(filters: ComponentAttributesVariantAttributesFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [ComponentAttributesVariantAttributes]!
+  empresa: Comerce
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+  locale: String
+  localizations_connection(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): VariantRelationResponseCollection
+  localizations(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): [Variant]!
+}
+
+type VariantEntityResponseCollection {
+  nodes: [Variant!]!
+  pageInfo: Pagination!
+}
+
+type VariantRelationResponseCollection {
+  nodes: [Variant!]!
+}
+
+union GenericMorph = ComponentProducTipoDeProductos | ComponentProducSubcategorias | ComponentProducGoogleMap | ComponentProducBodegas | ComponentOrderShippingAddress | ComponentOrderDicreccion | ComponentImageUrlImagen | ComponentAttributesVariantTtributesOfProduct | ComponentAttributesVariantAttributes | UploadFile | I18NLocale | ReviewWorkflowsWorkflow | ReviewWorkflowsWorkflowStage | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | Attributo | Banner | BannerPromocional | Calificacion | Category | Cliente | Comerce | Coupon | Descuento | DireccionEnvio | GrupoAttributo | Hero | HeroHome | HomePagen | Lugar | Order | OrderHistory | OrderItem | Page404 | PaymentMethod | Product | Reserva | Servicio | ShippingMethod | Tax | TipoDeProducto | Variant
+
+input FileInfoInput {
+  name: String
+  alternativeText: String
+  caption: String
+}
+
+"""A string used to identify an i18n locale"""
+scalar I18NLocaleCode
+
+type UsersPermissionsMe {
+  id: ID!
+  username: String!
+  email: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+}
+
+input UsersPermissionsRegisterInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input UsersPermissionsLoginInput {
+  identifier: String!
+  password: String!
+  provider: String! = "local"
+}
+
+type UsersPermissionsPasswordPayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsLoginPayload {
+  jwt: String
+  user: UsersPermissionsMe!
+}
+
+type UsersPermissionsCreateRolePayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsUpdateRolePayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsDeleteRolePayload {
+  ok: Boolean!
+}
+
+input PaginationArg {
+  page: Int
+  pageSize: Int
+  start: Int
+  limit: Int
+}
+
+type Query {
+  uploadFile(documentId: ID!, status: PublicationStatus = PUBLISHED): UploadFile
+  uploadFiles_connection(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): UploadFileEntityResponseCollection
+  uploadFiles(filters: UploadFileFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [UploadFile]!
+  i18NLocale(documentId: ID!, status: PublicationStatus = PUBLISHED): I18NLocale
+  i18NLocales_connection(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): I18NLocaleEntityResponseCollection
+  i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [I18NLocale]!
+  reviewWorkflowsWorkflow(documentId: ID!, status: PublicationStatus = PUBLISHED): ReviewWorkflowsWorkflow
+  reviewWorkflowsWorkflows_connection(filters: ReviewWorkflowsWorkflowFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): ReviewWorkflowsWorkflowEntityResponseCollection
+  reviewWorkflowsWorkflows(filters: ReviewWorkflowsWorkflowFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [ReviewWorkflowsWorkflow]!
+  reviewWorkflowsWorkflowStage(documentId: ID!, status: PublicationStatus = PUBLISHED): ReviewWorkflowsWorkflowStage
+  reviewWorkflowsWorkflowStages_connection(filters: ReviewWorkflowsWorkflowStageFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): ReviewWorkflowsWorkflowStageEntityResponseCollection
+  reviewWorkflowsWorkflowStages(filters: ReviewWorkflowsWorkflowStageFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [ReviewWorkflowsWorkflowStage]!
+  usersPermissionsRole(documentId: ID!, status: PublicationStatus = PUBLISHED): UsersPermissionsRole
+  usersPermissionsRoles_connection(filters: UsersPermissionsRoleFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): UsersPermissionsRoleEntityResponseCollection
+  usersPermissionsRoles(filters: UsersPermissionsRoleFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [UsersPermissionsRole]!
+  usersPermissionsUser(documentId: ID!, status: PublicationStatus = PUBLISHED): UsersPermissionsUser
+  usersPermissionsUsers_connection(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): UsersPermissionsUserEntityResponseCollection
+  usersPermissionsUsers(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [UsersPermissionsUser]!
+  attributo(documentId: ID!, status: PublicationStatus = PUBLISHED): Attributo
+  attributos_connection(filters: AttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): AttributoEntityResponseCollection
+  attributos(filters: AttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Attributo]!
+  banner(documentId: ID!, status: PublicationStatus = PUBLISHED): Banner
+  banners_connection(filters: BannerFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): BannerEntityResponseCollection
+  banners(filters: BannerFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Banner]!
+  bannerPromocional(status: PublicationStatus = PUBLISHED): BannerPromocional
+  calificacion(documentId: ID!, status: PublicationStatus = PUBLISHED): Calificacion
+  calificacions_connection(filters: CalificacionFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): CalificacionEntityResponseCollection
+  calificacions(filters: CalificacionFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Calificacion]!
+  category(
+    documentId: ID!
+    status: PublicationStatus = PUBLISHED
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): Category
+  categories_connection(
+    filters: CategoryFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    status: PublicationStatus = PUBLISHED
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): CategoryEntityResponseCollection
+  categories(
+    filters: CategoryFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    status: PublicationStatus = PUBLISHED
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): [Category]!
+  cliente(documentId: ID!, status: PublicationStatus = PUBLISHED): Cliente
+  clientes_connection(filters: ClienteFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): ClienteEntityResponseCollection
+  clientes(filters: ClienteFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Cliente]!
+  comerce(documentId: ID!, status: PublicationStatus = PUBLISHED): Comerce
+  comerces_connection(filters: ComerceFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): ComerceEntityResponseCollection
+  comerces(filters: ComerceFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Comerce]!
+  coupon(documentId: ID!, status: PublicationStatus = PUBLISHED): Coupon
+  coupons_connection(filters: CouponFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): CouponEntityResponseCollection
+  coupons(filters: CouponFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Coupon]!
+  descuento(documentId: ID!, status: PublicationStatus = PUBLISHED): Descuento
+  descuentos_connection(filters: DescuentoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): DescuentoEntityResponseCollection
+  descuentos(filters: DescuentoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Descuento]!
+  direccionEnvio(documentId: ID!, status: PublicationStatus = PUBLISHED): DireccionEnvio
+  direccionEnvios_connection(filters: DireccionEnvioFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): DireccionEnvioEntityResponseCollection
+  direccionEnvios(filters: DireccionEnvioFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [DireccionEnvio]!
+  grupoAttributo(documentId: ID!, status: PublicationStatus = PUBLISHED): GrupoAttributo
+  grupoAttributos_connection(filters: GrupoAttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): GrupoAttributoEntityResponseCollection
+  grupoAttributos(filters: GrupoAttributoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [GrupoAttributo]!
+  hero(status: PublicationStatus = PUBLISHED): Hero
+  heroHome(documentId: ID!, status: PublicationStatus = PUBLISHED): HeroHome
+  heroHomes_connection(filters: HeroHomeFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): HeroHomeEntityResponseCollection
+  heroHomes(filters: HeroHomeFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [HeroHome]!
+  homePagen(status: PublicationStatus = PUBLISHED): HomePagen
+  lugar(documentId: ID!, status: PublicationStatus = PUBLISHED): Lugar
+  lugars_connection(filters: LugarFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): LugarEntityResponseCollection
+  lugars(filters: LugarFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Lugar]!
+  order(documentId: ID!, status: PublicationStatus = PUBLISHED): Order
+  orders_connection(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): OrderEntityResponseCollection
+  orders(filters: OrderFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Order]!
+  orderHistory(documentId: ID!, status: PublicationStatus = PUBLISHED): OrderHistory
+  orderHistories_connection(filters: OrderHistoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): OrderHistoryEntityResponseCollection
+  orderHistories(filters: OrderHistoryFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [OrderHistory]!
+  orderItem(documentId: ID!, status: PublicationStatus = PUBLISHED): OrderItem
+  orderItems_connection(filters: OrderItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): OrderItemEntityResponseCollection
+  orderItems(filters: OrderItemFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [OrderItem]!
+  page404(status: PublicationStatus = PUBLISHED): Page404
+  paymentMethod(documentId: ID!, status: PublicationStatus = PUBLISHED): PaymentMethod
+  paymentMethods_connection(filters: PaymentMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): PaymentMethodEntityResponseCollection
+  paymentMethods(filters: PaymentMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [PaymentMethod]!
+  product(
+    documentId: ID!
+    status: PublicationStatus = PUBLISHED
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): Product
+  products_connection(
+    filters: ProductFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    status: PublicationStatus = PUBLISHED
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): ProductEntityResponseCollection
+  products(
+    filters: ProductFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    status: PublicationStatus = PUBLISHED
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): [Product]!
+  reserva(documentId: ID!, status: PublicationStatus = PUBLISHED): Reserva
+  reservas_connection(filters: ReservaFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): ReservaEntityResponseCollection
+  reservas(filters: ReservaFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Reserva]!
+  servicio(documentId: ID!, status: PublicationStatus = PUBLISHED): Servicio
+  servicios_connection(filters: ServicioFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): ServicioEntityResponseCollection
+  servicios(filters: ServicioFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Servicio]!
+  shippingMethod(documentId: ID!, status: PublicationStatus = PUBLISHED): ShippingMethod
+  shippingMethods_connection(filters: ShippingMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): ShippingMethodEntityResponseCollection
+  shippingMethods(filters: ShippingMethodFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [ShippingMethod]!
+  tax(documentId: ID!, status: PublicationStatus = PUBLISHED): Tax
+  taxes_connection(filters: TaxFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): TaxEntityResponseCollection
+  taxes(filters: TaxFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Tax]!
+  tipoDeProducto(documentId: ID!, status: PublicationStatus = PUBLISHED): TipoDeProducto
+  tipoDeProductos_connection(filters: TipoDeProductoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): TipoDeProductoEntityResponseCollection
+  tipoDeProductos(filters: TipoDeProductoFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [TipoDeProducto]!
+  variant(documentId: ID!, status: PublicationStatus = PUBLISHED): Variant
+  variants_connection(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): VariantEntityResponseCollection
+  variants(filters: VariantFiltersInput, pagination: PaginationArg = {}, sort: [String] = [], status: PublicationStatus = PUBLISHED): [Variant]!
+  me: UsersPermissionsMe
+}
+
+type Mutation {
+  createReviewWorkflowsWorkflow(status: PublicationStatus = PUBLISHED, data: ReviewWorkflowsWorkflowInput!): ReviewWorkflowsWorkflow
+  updateReviewWorkflowsWorkflow(documentId: ID!, status: PublicationStatus = PUBLISHED, data: ReviewWorkflowsWorkflowInput!): ReviewWorkflowsWorkflow
+  deleteReviewWorkflowsWorkflow(documentId: ID!): DeleteMutationResponse
+  createReviewWorkflowsWorkflowStage(status: PublicationStatus = PUBLISHED, data: ReviewWorkflowsWorkflowStageInput!): ReviewWorkflowsWorkflowStage
+  updateReviewWorkflowsWorkflowStage(documentId: ID!, status: PublicationStatus = PUBLISHED, data: ReviewWorkflowsWorkflowStageInput!): ReviewWorkflowsWorkflowStage
+  deleteReviewWorkflowsWorkflowStage(documentId: ID!): DeleteMutationResponse
+  createAttributo(status: PublicationStatus = PUBLISHED, data: AttributoInput!): Attributo
+  updateAttributo(documentId: ID!, status: PublicationStatus = PUBLISHED, data: AttributoInput!): Attributo
+  deleteAttributo(documentId: ID!): DeleteMutationResponse
+  createBanner(status: PublicationStatus = PUBLISHED, data: BannerInput!): Banner
+  updateBanner(documentId: ID!, status: PublicationStatus = PUBLISHED, data: BannerInput!): Banner
+  deleteBanner(documentId: ID!): DeleteMutationResponse
+  updateBannerPromocional(status: PublicationStatus = PUBLISHED, data: BannerPromocionalInput!): BannerPromocional
+  deleteBannerPromocional: DeleteMutationResponse
+  createCalificacion(status: PublicationStatus = PUBLISHED, data: CalificacionInput!): Calificacion
+  updateCalificacion(documentId: ID!, status: PublicationStatus = PUBLISHED, data: CalificacionInput!): Calificacion
+  deleteCalificacion(documentId: ID!): DeleteMutationResponse
+  createCategory(
+    status: PublicationStatus = PUBLISHED
+    data: CategoryInput!
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): Category
+  updateCategory(
+    documentId: ID!
+    status: PublicationStatus = PUBLISHED
+    data: CategoryInput!
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): Category
+  deleteCategory(
+    documentId: ID!
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): DeleteMutationResponse
+  createCliente(status: PublicationStatus = PUBLISHED, data: ClienteInput!): Cliente
+  updateCliente(documentId: ID!, status: PublicationStatus = PUBLISHED, data: ClienteInput!): Cliente
+  deleteCliente(documentId: ID!): DeleteMutationResponse
+  createComerce(status: PublicationStatus = PUBLISHED, data: ComerceInput!): Comerce
+  updateComerce(documentId: ID!, status: PublicationStatus = PUBLISHED, data: ComerceInput!): Comerce
+  deleteComerce(documentId: ID!): DeleteMutationResponse
+  createCoupon(status: PublicationStatus = PUBLISHED, data: CouponInput!): Coupon
+  updateCoupon(documentId: ID!, status: PublicationStatus = PUBLISHED, data: CouponInput!): Coupon
+  deleteCoupon(documentId: ID!): DeleteMutationResponse
+  createDescuento(status: PublicationStatus = PUBLISHED, data: DescuentoInput!): Descuento
+  updateDescuento(documentId: ID!, status: PublicationStatus = PUBLISHED, data: DescuentoInput!): Descuento
+  deleteDescuento(documentId: ID!): DeleteMutationResponse
+  createDireccionEnvio(status: PublicationStatus = PUBLISHED, data: DireccionEnvioInput!): DireccionEnvio
+  updateDireccionEnvio(documentId: ID!, status: PublicationStatus = PUBLISHED, data: DireccionEnvioInput!): DireccionEnvio
+  deleteDireccionEnvio(documentId: ID!): DeleteMutationResponse
+  createGrupoAttributo(status: PublicationStatus = PUBLISHED, data: GrupoAttributoInput!): GrupoAttributo
+  updateGrupoAttributo(documentId: ID!, status: PublicationStatus = PUBLISHED, data: GrupoAttributoInput!): GrupoAttributo
+  deleteGrupoAttributo(documentId: ID!): DeleteMutationResponse
+  updateHero(status: PublicationStatus = PUBLISHED, data: HeroInput!): Hero
+  deleteHero: DeleteMutationResponse
+  createHeroHome(status: PublicationStatus = PUBLISHED, data: HeroHomeInput!): HeroHome
+  updateHeroHome(documentId: ID!, status: PublicationStatus = PUBLISHED, data: HeroHomeInput!): HeroHome
+  deleteHeroHome(documentId: ID!): DeleteMutationResponse
+  updateHomePagen(status: PublicationStatus = PUBLISHED, data: HomePagenInput!): HomePagen
+  deleteHomePagen: DeleteMutationResponse
+  createLugar(status: PublicationStatus = PUBLISHED, data: LugarInput!): Lugar
+  updateLugar(documentId: ID!, status: PublicationStatus = PUBLISHED, data: LugarInput!): Lugar
+  deleteLugar(documentId: ID!): DeleteMutationResponse
+  createOrder(status: PublicationStatus = PUBLISHED, data: OrderInput!): Order
+  updateOrder(documentId: ID!, status: PublicationStatus = PUBLISHED, data: OrderInput!): Order
+  deleteOrder(documentId: ID!): DeleteMutationResponse
+  createOrderHistory(status: PublicationStatus = PUBLISHED, data: OrderHistoryInput!): OrderHistory
+  updateOrderHistory(documentId: ID!, status: PublicationStatus = PUBLISHED, data: OrderHistoryInput!): OrderHistory
+  deleteOrderHistory(documentId: ID!): DeleteMutationResponse
+  createOrderItem(status: PublicationStatus = PUBLISHED, data: OrderItemInput!): OrderItem
+  updateOrderItem(documentId: ID!, status: PublicationStatus = PUBLISHED, data: OrderItemInput!): OrderItem
+  deleteOrderItem(documentId: ID!): DeleteMutationResponse
+  updatePage404(status: PublicationStatus = PUBLISHED, data: Page404Input!): Page404
+  deletePage404: DeleteMutationResponse
+  createPaymentMethod(status: PublicationStatus = PUBLISHED, data: PaymentMethodInput!): PaymentMethod
+  updatePaymentMethod(documentId: ID!, status: PublicationStatus = PUBLISHED, data: PaymentMethodInput!): PaymentMethod
+  deletePaymentMethod(documentId: ID!): DeleteMutationResponse
+  createProduct(
+    status: PublicationStatus = PUBLISHED
+    data: ProductInput!
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): Product
+  updateProduct(
+    documentId: ID!
+    status: PublicationStatus = PUBLISHED
+    data: ProductInput!
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): Product
+  deleteProduct(
+    documentId: ID!
+
+    """The locale to use for the query"""
+    locale: I18NLocaleCode
+  ): DeleteMutationResponse
+  createReserva(status: PublicationStatus = PUBLISHED, data: ReservaInput!): Reserva
+  updateReserva(documentId: ID!, status: PublicationStatus = PUBLISHED, data: ReservaInput!): Reserva
+  deleteReserva(documentId: ID!): DeleteMutationResponse
+  createServicio(status: PublicationStatus = PUBLISHED, data: ServicioInput!): Servicio
+  updateServicio(documentId: ID!, status: PublicationStatus = PUBLISHED, data: ServicioInput!): Servicio
+  deleteServicio(documentId: ID!): DeleteMutationResponse
+  createShippingMethod(status: PublicationStatus = PUBLISHED, data: ShippingMethodInput!): ShippingMethod
+  updateShippingMethod(documentId: ID!, status: PublicationStatus = PUBLISHED, data: ShippingMethodInput!): ShippingMethod
+  deleteShippingMethod(documentId: ID!): DeleteMutationResponse
+  createTax(status: PublicationStatus = PUBLISHED, data: TaxInput!): Tax
+  updateTax(documentId: ID!, status: PublicationStatus = PUBLISHED, data: TaxInput!): Tax
+  deleteTax(documentId: ID!): DeleteMutationResponse
+  createTipoDeProducto(status: PublicationStatus = PUBLISHED, data: TipoDeProductoInput!): TipoDeProducto
+  updateTipoDeProducto(documentId: ID!, status: PublicationStatus = PUBLISHED, data: TipoDeProductoInput!): TipoDeProducto
+  deleteTipoDeProducto(documentId: ID!): DeleteMutationResponse
+  createVariant(status: PublicationStatus = PUBLISHED, data: VariantInput!): Variant
+  updateVariant(documentId: ID!, status: PublicationStatus = PUBLISHED, data: VariantInput!): Variant
+  deleteVariant(documentId: ID!): DeleteMutationResponse
+  updateUploadFile(id: ID!, info: FileInfoInput): UploadFile!
+  deleteUploadFile(id: ID!): UploadFile
+
+  """Create a new role"""
+  createUsersPermissionsRole(data: UsersPermissionsRoleInput!): UsersPermissionsCreateRolePayload
+
+  """Update an existing role"""
+  updateUsersPermissionsRole(id: ID!, data: UsersPermissionsRoleInput!): UsersPermissionsUpdateRolePayload
+
+  """Delete an existing role"""
+  deleteUsersPermissionsRole(id: ID!): UsersPermissionsDeleteRolePayload
+
+  """Create a new user"""
+  createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
+
+  """Update an existing user"""
+  updateUsersPermissionsUser(id: ID!, data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
+
+  """Delete an existing user"""
+  deleteUsersPermissionsUser(id: ID!): UsersPermissionsUserEntityResponse!
+  login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
+
+  """Register a user"""
+  register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
+
+  """Request a reset password token"""
+  forgotPassword(email: String!): UsersPermissionsPasswordPayload
+
+  """
+  Reset user password. Confirm with a code (resetToken from forgotPassword)
+  """
+  resetPassword(password: String!, passwordConfirmation: String!, code: String!): UsersPermissionsLoginPayload
+
+  """Change user password. Confirm with the current password."""
+  changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+
+  """Confirm an email users email address"""
+  emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+}

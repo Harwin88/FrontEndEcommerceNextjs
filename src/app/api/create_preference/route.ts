@@ -1,75 +1,139 @@
-import { NextResponse } from "next/server";
+import { logTunnelConfig } from '@/config/tunnel';
 import { MercadoPagoConfig, Preference } from 'mercadopago';
-
-
+import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { dataForm, items, successUrl, failureUrl, pendingUrl, notificationUrl } = await req.json();
+    const body = await req.json();
 
-    // Validar que el access token está definido
-    const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
-    if (!accessToken) {
-      throw new Error("El token de acceso de Mercado Pago no está configurado.");
+    console.log('=== CREATE PREFERENCE DEBUG ===');
+    console.log('Body recibido:', JSON.stringify(body, null, 2));
+
+    // ✅ VALIDACIÓN SIMPLE: Solo verificar que existan items
+    if (!body.items || !Array.isArray(body.items) || body.items.length === 0) {
+      return NextResponse.json(
+        { error: 'Se requiere al menos un item para crear la preferencia' },
+        { status: 400 }
+      );
     }
-    console.log("paymen data:", dataForm);
-    // Inicializar la configuración de Mercado Pago
-    const client_one = new MercadoPagoConfig({ accessToken: accessToken });
 
-//const preference = new Preference(client_one);
-//    const client = new MercadoPagoConfig({ accessToken });
-    const preference = new Preference(client_one);
+    const {
+      dataForm,
+      items,
+      successUrl,
+      failureUrl,
+      pendingUrl,
+      notificationUrl,
+    } = body;
 
-    // Crear la preferencia de pago
-    const preferenceData = await preference.create({
-      body: {
-        items: items.map((item: any) => ({
-          id: item.title,
-          title: item.title,
-          description: item.description || "Item description",
-          picture_url: item.picture_url || "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-          category_id: item.category_id || "art",
-          quantity: item.quantity,
-          unit_price: Number(item.price),
-        })),
-        payer: {
-          name: dataForm.firstName,
-          surname: dataForm.lastName,
-          email: dataForm.email,
-          identification: {
-            type: dataForm.documentType, // Cédula de ciudadanía para Colombia
-            number: dataForm.documentNumber,
-          },
-          phone: {
-            area_code: "57",
-            number: dataForm.phone,
-          },
-          address: {
-            street_name: dataForm.address,
-            zip_code: "110110",
-          },
-        },
-        back_urls: {
-          success: successUrl,
-          failure: failureUrl,
-          pending: pendingUrl,
-        },
-        auto_return: "approved",
-        payment_methods: {
-          excluded_payment_methods: [], // Permitir todos los métodos
-          excluded_payment_types: [],   // No excluir tipos de pago
-          installments: 12, // Permitir hasta 12 cuotas
-        },
-        notification_url: notificationUrl,
-        statement_descriptor: "MINEGOCIO",
-        external_reference: "Reference_1234",
-        expires: false, // Deshabilita expiración automática
-      },
+    // ✅ VERIFICAR MERCADOPAGO: Simplificado
+    const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+
+    if (!accessToken) {
+      console.log('⚠️ MercadoPago no configurado, usando modo de desarrollo');
+      const mockPreferenceId = `DEV-PREF-${Date.now()}`;
+      console.log('🔧 Creando preferencia simulada:', mockPreferenceId);
+
+      return NextResponse.json({
+        preference_id: mockPreferenceId,
+        mode: 'development',
+        message: 'Preferencia creada en modo de desarrollo',
+      });
+    }
+
+    console.log('💳 MercadoPago configurado, creando preferencia real');
+
+    // ✅ CONFIGURACIÓN DE TUNNEL
+    const tunnelConfig = logTunnelConfig();
+
+    // ✅ INICIALIZAR MERCADOPAGO
+    const client = new MercadoPagoConfig({ accessToken });
+    const preference = new Preference(client);
+
+    // ✅ CONSTRUIR PREFERENCIA: Versión simplificada
+    const preferenceItems = items.map((item: any) => ({
+      id: String(item.id || 'item'),
+      title: String(item.title || 'Producto'),
+      description: String(item.description || 'Producto desde tienda'),
+      quantity: Number(item.quantity) || 1,
+      unit_price: Number(item.price) || 0,
+      currency_id: 'COP',
+    }));
+
+    // ✅ URLs con fallbacks más robustos
+    const backUrls = {
+      success:
+        successUrl ||
+        tunnelConfig.successUrl ||
+        'https://qrzq2bsn-3000.use.devtunnels.ms/order-success',
+      failure:
+        failureUrl ||
+        tunnelConfig.failureUrl ||
+        'https://qrzq2bsn-3000.use.devtunnels.ms/failure',
+      pending:
+        pendingUrl ||
+        tunnelConfig.pendingUrl ||
+        'https://qrzq2bsn-3000.use.devtunnels.ms/pending',
+    };
+
+    const preferenceData: any = {
+      items: preferenceItems,
+      back_urls: backUrls,
+      notification_url:
+        notificationUrl ||
+        tunnelConfig.webhookUrl ||
+        'https://qrzq2bsn-3000.use.devtunnels.ms/api/mercadopago/webhook',
+      external_reference: `REF-${Date.now()}`,
+      expires: false,
+      // ✅ REMOVER auto_return por ahora para evitar el error
+      // auto_return: 'approved',
+    };
+
+    // ✅ AGREGAR PAYER SI EXISTE: Simplificado
+    if (dataForm && dataForm.email) {
+      preferenceData.payer = {
+        email: dataForm.email,
+        ...(dataForm.firstName && { name: dataForm.firstName }),
+        ...(dataForm.lastName && { surname: dataForm.lastName }),
+      };
+    }
+
+    // ✅ VALIDACIÓN ESPECÍFICA para MercadoPago
+    if (!preferenceData.back_urls.success) {
+      console.log('⚠️ Falta success URL, usando localhost por defecto');
+      preferenceData.back_urls.success = 'http://localhost:3000/order-success';
+    }
+
+    console.log(
+      '📋 Datos de preferencia:',
+      JSON.stringify(preferenceData, null, 2)
+    );
+
+    // ✅ CREAR PREFERENCIA
+    const result = await preference.create({ body: preferenceData });
+
+    console.log('✅ Preferencia creada exitosamente:', result.id);
+
+    return NextResponse.json({
+      preference_id: result.id,
+      init_point: result.init_point,
+      sandbox_init_point: result.sandbox_init_point,
     });
-    console.log("Sandbox URL:", preferenceData.sandbox_init_point);
-    return NextResponse.json({ preference_id: preferenceData.id });
-  } catch (error) {
-    console.error("Error creando la preferencia:", error);
-    return NextResponse.json({ error: "Error al crear la preferencia" }, { status: 500 });
+  } catch (error: any) {
+    console.error('❌ Error detallado al crear preferencia:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name,
+    });
+
+    return NextResponse.json(
+      {
+        error: 'Error al crear la preferencia',
+        message: error.message,
+        details:
+          process.env.NODE_ENV === 'development' ? error.stack : undefined,
+      },
+      { status: 500 }
+    );
   }
 }
